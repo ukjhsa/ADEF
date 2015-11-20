@@ -1,7 +1,7 @@
 # ADEF
 A Software Framework for Adaptive Differential Evolution
 
-ADEF (A Software Framework for Adaptive Differential %Evolution) is a
+ADEF (A Software Framework for Adaptive Differential Evolution) is a
 framework supports a variety of adaptive differential evolution algorithms.
 
 ## Features
@@ -37,6 +37,10 @@ make
 ```
 
 or use the `cmake-gui` to set the compiler and configures.
+
+## Documentation
+
+[The API documentation](http://ukjhsa.github.io/adef/)
 
 ## License
 ADEF is under the [MIT License](LICENSE)
