@@ -28,5 +28,7 @@
 *.app
 
 # doxygen
-
 doc/html/
+
+# CMake
+build/

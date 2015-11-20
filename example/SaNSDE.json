@@ -1,0 +1,191 @@
+{
+	"System" : {
+		"classname" : "System",
+		"name" : "experiments",
+		"SystemStatistics" : {
+			"classname" : "SystemStatistics"
+		},
+		"Experiment" : [
+			{
+				"classname" : "Experiment",
+				"number_of_runs" : 3,
+				"ExperimentalStatistics" : {
+					"classname" : "ExperimentalStatistics"
+				},
+				"Repository" : {
+					"classname" : "Repository",
+					"algorithm_name" : "SaNSDE",
+					"Evolution" : {
+						"classname" : "Evolution",
+						"max_generation" : 10000
+					},
+					"Problem": {
+						"classname" : "Sphere"
+					},
+					"Statistics" : {
+						"classname" : "Statistics",
+						"item" : [
+							"parents",
+							"offspring",
+							"f",
+							"cr"
+						]
+					},
+					"Parameters" : {
+						"classname" : "Parameters"
+					},
+					"Initializer" : {
+						"classname" : "Initializer"
+					},
+					"Evaluator" : {
+						"classname" : "Evaluator"
+					},
+					"Population" : {
+						"classname" : "Population",
+						"population_size" : 50,
+						"Individual" : {
+							"classname" : "Individual"
+						}
+					},
+					"Reproduction" : {
+						"classname" : "DEReproduction"
+					},
+					"EnvironmentalSelection" : {
+						"classname" : "DEEnvironmentalSelection"
+					},
+					"Mutation" : {
+						"classname" : "DEMutation",
+						"DEVariantX" : {
+							"classname" : "DERand"
+						},
+						"DEVariantY" : {
+							"classname" : "DEVariantY",
+							"number_of_difference_vector" : 1
+						},
+						"F" : {
+							"classname" : "RealIndirectControlMechanism",
+							"ControlRange" : {
+								"classname" : "RealControlRange",
+								"lower_bound" : 0.0,
+								"upper_bound" : 1.0
+							},
+							"ControlParameter" : {
+								"classname" : "RealMultipleControlParameter",
+								"number_of_objects" : 50
+							},
+							"ControlSelection" : {
+								"classname" : "NonInfoControlSelection"
+							},
+							"ControlUpdate" : [
+							],
+							"ControlMechanism" : {
+								"classname" : "RealControlControlMechanism",
+								"ControlRange" : {
+									"classname" : "RealControlControlRange"
+								},
+								"ControlParameter" : {
+									"classname" : "RealControlMultipleControlParameter",
+									"number_of_objects" : 50
+								},
+								"ControlFunction" : {
+									"classname" : "SingleControlFunction",
+									"Function" : {
+										"classname" : "RealControlLearningPeriodFunction",
+										"learning_period" : 50,
+										"object" : {
+											"classname" : "RealControlRouletteWheelSelectionFunction",
+											"scoring_function" : {
+												"classname" : "SuccessScoringFunction"
+											},
+											"score_size" : 50,
+											"object" : [
+												{
+													"classname" : "RealNormalDisFunction",
+													"mean" : {
+														"classname" : "RealConstantFunction",
+														"object" : 0.5
+													},
+													"stddev" : {
+														"classname" : "RealConstantFunction",
+														"object" : 0.5
+													}
+												},
+												{
+													"classname" : "RealCauchyDisFunction",
+													"location" : {
+														"classname" : "RealConstantFunction",
+														"object" : 0.0
+													},
+													"scale" : {
+														"classname" : "RealConstantFunction",
+														"object" : 1.0
+													}
+												}
+											]
+										}
+									}
+								},
+								"ControlSelection" : {
+									"classname" : "RealControlBetterOffspringControlSelection"
+								},
+								"ControlUpdate" : [
+								]
+							}
+						}
+					},
+					"Crossover" : {
+						"classname" : "DECrossover",
+						"DEVariantZ" : {
+							"classname" : "DEBinomial"
+						},
+						"CR" : {
+							"classname" : "SadeCrControlMechanism",
+							"ControlRange" : {
+								"classname" : "RealControlRange",
+								"lower_bound" : 0.0,
+								"upper_bound" : 1.0
+							},
+							"ControlParameter" : {
+								"classname" : "RealMultipleControlParameter",
+								"number_of_objects" : 50
+							},
+							"ControlFunction" : {
+								"classname" : "SingleControlFunction",
+								"Function" : {
+									"classname" : "RealNormalDisFunction",
+									"mean" : {
+										"classname" : "RealLearningPeriodFunction",
+										"learning_period" : 50,
+										"object" : {
+											"classname" : "WeightedAverageFunction",
+											"scoring_function" : {
+												"classname" : "ImprovedPercentageScoringFunction"
+											},
+											"object_size" : 50,
+											"initial_value" : 0.5
+										}
+									},
+									"stddev" : {
+										"classname" : "RealConstantFunction",
+										"object" : 0.1
+									}
+								}
+							},
+							"ControlSelection" : {
+								"classname" : "RealBetterOffspringControlSelection"
+							},
+							"ControlUpdate" : [
+								{
+									"classname" : "GenerationControlUpdate"
+								}
+							]
+						}
+					},
+					"Repair" : {
+						"classname" : "ReflectiveRepair"
+					}
+				}
+			}
+		]
+	}
+}

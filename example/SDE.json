@@ -1,0 +1,160 @@
+{
+	"System" : {
+		"classname" : "System",
+		"name" : "experiments",
+		"SystemStatistics" : {
+			"classname" : "SystemStatistics"
+		},
+		"Experiment" : [
+			{
+				"classname" : "Experiment",
+				"number_of_runs" : 3,
+				"ExperimentalStatistics" : {
+					"classname" : "ExperimentalStatistics"
+				},
+				"Repository" : {
+					"classname" : "Repository",
+					"algorithm_name" : "SDE",
+					"Evolution" : {
+						"classname" : "Evolution",
+						"max_generation" : 10000
+					},
+					"Problem": {
+						"classname" : "Sphere"
+					},
+					"Statistics" : {
+						"classname" : "Statistics",
+						"item" : [
+							"parents",
+							"offspring",
+							"f",
+							"cr"
+						]
+					},
+					"Parameters" : {
+						"classname" : "Parameters"
+					},
+					"Initializer" : {
+						"classname" : "Initializer"
+					},
+					"Evaluator" : {
+						"classname" : "Evaluator"
+					},
+					"Population" : {
+						"classname" : "Population",
+						"population_size" : 50,
+						"Individual" : {
+							"classname" : "Individual"
+						}
+					},
+					"Reproduction" : {
+						"classname" : "DEReproduction"
+					},
+					"EnvironmentalSelection" : {
+						"classname" : "DEEnvironmentalSelection"
+					},
+					"Mutation" : {
+						"classname" : "DEMutation",
+						"DEVariantX" : {
+							"classname" : "DERand"
+						},
+						"DEVariantY" : {
+							"classname" : "DEVariantY",
+							"number_of_difference_vector" : 1
+						},
+						"F" : {
+							"classname" : "SdeFControlMechanism",
+							"ControlRange" : {
+								"classname" : "RealControlRange",
+								"lower_bound" : 0.0,
+								"upper_bound" : 1.0
+							},
+							"ControlParameter" : {
+								"classname" : "RealMultipleControlParameter",
+								"number_of_objects" : 50,
+								"initial_value" : {
+									"classname" : "RealNormalDisFunction",
+									"mean" : {
+										"classname" : "RealConstantFunction",
+										"object" : 0.5
+									},
+									"stddev" : {
+										"classname" : "RealConstantFunction",
+										"object" : 0.15
+									}
+								}
+							},
+							"ControlFunction" : {
+								"classname" : "MultipleControlFunction",
+								"number_of_functions" : 50,
+								"Function" : {
+									"classname" : "SdeFFunction",
+									"rand" : {
+										"classname" : "RealNormalDisFunction",
+										"mean" : {
+											"classname" : "RealConstantFunction",
+											"object" : 0.0
+										},
+										"stddev" : {
+											"classname" : "RealConstantFunction",
+											"object" : 0.5
+										}
+									},
+									"number_of_parameters" : 3
+								}
+							},
+							"ControlSelection" : {
+								"classname" : "NonInfoControlSelection"
+							},
+							"ControlUpdate" : [
+								{
+									"classname" : "SdeFControlUpdate"
+								}
+							]
+						}
+					},
+					"Crossover" : {
+						"classname" : "DECrossover",
+						"DEVariantZ" : {
+							"classname" : "DEBinomial"
+						},
+						"CR" : {
+							"classname" : "RealControlMechanism",
+							"ControlRange" : {
+								"classname" : "RealControlRange",
+								"lower_bound" : 0.0,
+								"upper_bound" : 1.0
+							},
+							"ControlParameter" : {
+								"classname" : "RealMultipleControlParameter",
+								"number_of_objects" : 50
+							},
+							"ControlFunction" : {
+								"classname" : "SingleControlFunction",
+								"Function" : {
+									"classname" : "RealNormalDisFunction",
+									"mean" : {
+										"classname" : "RealConstantFunction",
+										"object" : 0.5
+									},
+									"stddev" : {
+										"classname" : "RealConstantFunction",
+										"object" : 0.15
+									}
+								}
+							},
+							"ControlSelection" : {
+								"classname" : "NonInfoControlSelection"
+							},
+							"ControlUpdate" : [
+							]
+						}
+					},
+					"Repair" : {
+						"classname" : "ReflectiveRepair"
+					}
+				}
+			}
+		]
+	}
+}
