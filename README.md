@@ -26,15 +26,15 @@ Note that the MSVC is **NOT** supported.
 
 ## Build
 ### Windows
-1. Open cmake-gui and select the path to source code, suppose `X:/adef`.
+1. Open `cmake-gui` and select the path to source code, suppose `X:/adef`.
 1. specify the path to build, suppose `X:/adef/build`.
 1. press the button "Configure".
 1. specify the generator to "MinGW Makefiles". If the default compilers fails to find g++ (or mingw32-g++), specify them.
 1. if the configuration changed, press the button "Configure" again.
 1. press button "Generate".
-1. Open the cmd and setting up environment with GCC. (if TDM-GCC used, click the "MinGW Command Prompt".)
+1. Open the `cmd` and setting up environment with GCC. (if TDM-GCC used, click the "MinGW Command Prompt".)
 1. change the current working directory to `X:/adef/build`.
-1. `mingw32-make`
+1. type `mingw32-make`
 
 ### Unix-like
 
@@ -46,8 +46,8 @@ make
 ```
 
 ### Full Guide
-1. [CMake configuration](#CMake-configuration). Here the use of the out-of-source build.
-2. [Compile](#Compile)
+1. [CMake configuration](#cmake-configuration). Here the use of the out-of-source build.
+2. [Compile](#compile)
 
 #### CMake configuration
 There are two option to use CMake
@@ -64,28 +64,55 @@ cmake ..
 
 Explanation:
 1. create the directory for building, suppose it is named `build`.
-2. change the directory to it.
-3. configure and generate generator from the root CMakeLists.txt.
+1. change the path to it.
+1. configure and generate generator from the root CMakeLists.txt.
+
+or specify the generator like
+- type `cmake -G "MinGW Makefiles" ..` to use MinGW to build
+- type `cmake -G "CodeBlocks - MinGW Makefiles" ..` to use [Code::Bolcks](http://www.codeblocks.org/) with MinGW to build
 
 ##### cmake-gui
 1. select the path to "Where is the source code"
-2. specify the path "Where to build the binaries" to the directory `build` on the path to source code.
-3. press the button "Configure" and specify the generator and compilers.
-4. if the configuration changed, press the button "Configure" again.
-5. press the button "Generate"
+1. specify the path "Where to build the binaries" to the directory `build` on the same path of source code.
+1. press the button "Configure" and specify the generator and compilers.
+1. if the configuration changed, press the button "Configure" again.
+1. press the button "Generate"
 
 #### Compile
-use `make` or the specified generator to compile.
+use `make` or `mingw32-make` (in MinGW) or the specified generator to compile.
 
-## Setting
-There are some optional configuration:
-- BUILD_SHARED_LIBS
-- CMAKE_BUILD_TYPE
-- GENERATE_EXECUTABLE
+### Setting
+The build of adef has two step:
+1. build the library of adef.
+1. generate the executable file by linking the provided `main.cpp` and the library of adef.
+
+There are some optional configuration using CMake:
+- BUILD_SHARED_LIBS: build adef as the shared library. the default is OFF (static.)
+- CMAKE_BUILD_TYPE: the build type. the default is Release.
+- GENERATE_EXECUTABLE: generate the executable file. the default is ON.
+
+## Usage
+- If generate the executable file, then
+    - execute `adef`, it loads the configuration file `config.json` on the same path.
+    - specify the configuration file by adding arguments `<-file> <file_name>`
+        - `adef -file example/jDE.json` for the use of configuration from `example/jDE.json`
+- If only build as the library, set the path to include and library, and use it by
+
+```cpp
+#include "adef.h"
+int main(int argc, char *argv[])
+{
+    auto system = adef::init_adef(argc, argv);
+    system->run();
+}
+```
+
+See also the `src/main.cpp`.
 
 ## Documentation
 
 [The documentation](doc/documentation.md)
+
 [The API documentation](http://ukjhsa.github.io/adef/)
 
 ## License
