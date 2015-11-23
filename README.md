@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-See also the `[src/main.cpp](src/main.cpp)`.
+See also the [src/main.cpp](src/main.cpp).
 
 ## Documentation
 
