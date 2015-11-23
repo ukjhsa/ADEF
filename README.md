@@ -2,7 +2,7 @@
 ADEF (A Software Framework for Adaptive Differential Evolution) is a
 framework supports a variety of adaptive differential evolution algorithms.
 
-[Differential Evolution](https://en.wikipedia.org/wiki/Differential_evolution) (DE) is one of type of [Evolutionary algorithm](https://en.wikipedia.org/wiki/Evolutionary_algorithm). DE uses the differences of solutions to create new solutions and keeps each new solution if it is better.
+[Differential Evolution](https://en.wikipedia.org/wiki/Differential_evolution) (DE) is one of [Evolutionary algorithm](https://en.wikipedia.org/wiki/Evolutionary_algorithm). DE uses the differences of solutions to create new solutions and keeps each new solution if it is better.
 
 The DE algorithm has parameters F (scaling factor) and CR (crossover rate) and there are many researches on how to adjust. ADEF not only implements some existing mechanism of parameter control, it also presents the flexible architecture of it.
 
@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-See also the `src/main.cpp`.
+See also the `[src/main.cpp](src/main.cpp)`.
 
 ## Documentation
 
