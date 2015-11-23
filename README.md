@@ -2,6 +2,10 @@
 ADEF (A Software Framework for Adaptive Differential Evolution) is a
 framework supports a variety of adaptive differential evolution algorithms.
 
+[Differential Evolution](https://en.wikipedia.org/wiki/Differential_evolution) (DE) is one of type of [Evolutionary algorithm](https://en.wikipedia.org/wiki/Evolutionary_algorithm). DE uses the differences of solutions to create new solutions and keeps each new solution if it is better.
+
+The DE algorithm has parameters F (scaling factor) and CR (crossover rate) and there are many researches on how to adjust. ADEF not only implements some existing mechanism of parameter control, it also presents the flexible architecture of it.
+
 ## Features
 ADEF has the following features:
 - supports many adaptive DE procedure, including **DEPD**, **NSDE**, **SaDE**, **SaNSDE**, **jDE**, **ISADE**, **SDE**.
@@ -63,12 +67,13 @@ cmake ..
 ```
 
 Explanation:
+
 1. create the directory for building, suppose it is named `build`.
 1. change the path to it.
 1. configure and generate generator from the root CMakeLists.txt.
 
 or specify the generator like
-- type `cmake -G "MinGW Makefiles" ..` to use MinGW to build
+- type `cmake -G "MinGW Makefiles" ..` to use Makefiles with MinGW to build
 - type `cmake -G "CodeBlocks - MinGW Makefiles" ..` to use [Code::Bolcks](http://www.codeblocks.org/) with MinGW to build
 
 ##### cmake-gui
@@ -83,6 +88,7 @@ use `make` or `mingw32-make` (in MinGW) or the specified generator to compile.
 
 ### Setting
 The build of adef has two step:
+
 1. build the library of adef.
 1. generate the executable file by linking the provided `main.cpp` and the library of adef.
 
