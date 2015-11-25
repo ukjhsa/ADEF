@@ -8,6 +8,10 @@ The DE algorithm has parameters F (scaling factor) and CR (crossover rate) and t
 
 ## Features
 ADEF has the following features:
+- supports for DE variant *x*/*y*/*z*:
+    - *x*: *rand*
+    - *y*: positive integer such as 1
+    - *z*: *bin*
 - supports many adaptive DE procedure, including **DEPD**, **NSDE**, **SaDE**, **SaNSDE**, **jDE**, **ISADE**, **SDE**.
 - changes parameters and implementation classes dynamically through configuration file rather than recompiling.
 - provides the mechanism of the parameter control to use flexibly.
