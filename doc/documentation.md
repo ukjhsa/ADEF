@@ -93,7 +93,7 @@ The difference between `Experiment` and `Repository`:
 see http://ukjhsa.github.io/adef/df/da7/classadef_1_1_system.html, http://ukjhsa.github.io/adef/dd/d93/classadef_1_1_experiment.html, http://ukjhsa.github.io/adef/dd/d2d/classadef_1_1_repository.html
 
 ##### Usage
-- `System::run()` to execute experiments and call `Experiment::run()` inside to execute the algorithm through `Evolution::run()`.
+- `System::run()` to execute experiments and call `Experiment::run()` inside to execute the algorithm.
 - Output statistics at the end of run
     - best, worst, mean, standard deviation, and success performance. See `SystemStatistics`.
     - FEs, error, and best fitness for each `Experiment`. See `ExperimentStatistics`.
@@ -113,20 +113,60 @@ In different evolutionaray process, parameters they need is variable, so ADEF en
 
 ## EvolutionaryState
 ##### Diagram
+The following classes participate the evolutionaray process:
+- Evolution
+- Initializer
+- Evaluator
+- Reproduction
+- Mutation
+- Crossover
+- EnvironmentalSelection
+- Repair
+- Population
+- Individual
+- Problem
+- Statistics
+- Parameters
+
+see http://ukjhsa.github.io/adef/db/da9/classadef_1_1_evolutionary_state.html
 
 ##### Usage
+- If a class derived from `EvolutionaryState`, it must implements function:
+    - `init(...)` to initialize the current state from other states if needed.
 
 ##### Design issue
+- What initialization needs informations from others?
+
+For example, the initialization of the dimension of decision variables of `Individual` needs the dimension of decision space from `Problem`.
 
 ## Evolutionary flow
 ##### Diagram
+![image]()
+
+The basic flow of Evolutionary algorithm inside `Evolution::run(...)`.
 
 ##### Usage
+- Users only need to implement `Reproduction` or `EnvironmentalSelection` or their derived classes if the flow satisfied.
+- The order of `Mutation`, `Crossover` and `Repair` in `Reproduction` are flexible:
+    - in DE, their order is `Mutation`, `Crossover` then `Repair`. See `DEReproduction`.
+    - in GA, their order is `Crossover`, `Mutation` then `Repair`.
+- `Statistics` is used after:
+    - `Initializer`: statistics of the initial population.
+    - `Reproduction`: statistics of the population of parents and offsprings on each generation.
+    - `EnvironmentalSelection`: statistics of the current population on each generation.
 
 ##### Design issue
+- Why the choice of implementing different `Reproduction` and `EnvironmentalSelection` instead of implementing different `Evolution`?
+
+Implementing different `Evolution` is an alternative, but here ADEF want users written each operators likes mutation or crossover to focus on the feature of changing implementation classes dynamically. Overriding the flow only when it is necessary. `Reproduction` too.
 
 ## ControlMechanism
 ##### Diagram
+![image]()
+
+It represents the mechanism of adjusting the object.
+
+In DE, the declaration of parameters *F* and *CR* is `BaseControlMechanism`.
 
 ##### Usage
 
