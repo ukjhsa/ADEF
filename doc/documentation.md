@@ -48,7 +48,7 @@ Some helpful global function:
 
 ## Configuration
 ##### Diagram
-![image]()
+![image](adef__Configuration.png)
 
 It provides interfaces to access configuration data and has two member data:
 - `ConfigurationData`: store the configuration data.
@@ -82,7 +82,7 @@ There may not complete in the current version.
 
 ## System, Experiment, and Repository
 ##### Diagram
-![image]()
+![image](adef__System.png)
 
 `System` has many `Experiment`, and each `Experiment` has one `Repository`.
 
@@ -141,7 +141,7 @@ For example, the initialization of the dimension of decision variables of `Indiv
 
 ## Evolutionary flow
 ##### Diagram
-![image]()
+![image](evolution__flow.png)
 
 The basic flow of Evolutionary algorithm inside `Evolution::run(...)`.
 
@@ -162,7 +162,7 @@ Implementing different `Evolution` is an alternative, but here ADEF want users w
 
 ## ControlMechanism
 ##### Diagram
-![image]()
+![image](adef__ControlMechanism.png)
 
 It represents the mechanism of adjusting the object.
 
