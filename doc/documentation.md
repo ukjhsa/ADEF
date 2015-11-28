@@ -34,7 +34,7 @@ It implements the simple mechanism of [Reflection](https://en.wikipedia.org/wiki
 see http://ukjhsa.github.io/adef/de/d50/classadef_1_1_prototype_manager.html
 
 ##### Usage
-- `register_type(...)` to register classes which can change the implementation class by class name in function `adef::register_type(...)` in `adef::init_adef(...)`.
+- `register_type(...)` to register classes which can change the implementation class by class name in function `adef::register_type(...)` inside `adef::init_adef(...)`.
 - `make_type(...)` to return the cloned class for the use.
 
 Some helpful global function:
@@ -74,7 +74,7 @@ see http://ukjhsa.github.io/adef/d6/d8f/classadef_1_1_configuration.html
 ##### Design issue
 - Why `ConfigurationData` and `ConfigurationBuilder` exist, are they just JSON?
 
-For the extension of XML or other format in the future. i.e., `XmlConfigurationData` is derived from `ConfigurationData`.
+For the extension of XML or other format in the future. i.e., `XmlConfigurationData` inherits `ConfigurationData`.
 
 - The design of interface
 
@@ -93,7 +93,7 @@ The difference between `Experiment` and `Repository`:
 see http://ukjhsa.github.io/adef/df/da7/classadef_1_1_system.html, http://ukjhsa.github.io/adef/dd/d93/classadef_1_1_experiment.html, http://ukjhsa.github.io/adef/dd/d2d/classadef_1_1_repository.html
 
 ##### Usage
-- `System::run()` to execute experiments and inside call `Experiment::run()` to execute the algorithm through `Evolution::run()`.
+- `System::run()` to execute experiments and call `Experiment::run()` inside to execute the algorithm through `Evolution::run()`.
 - Output statistics at the end of run
     - best, worst, mean, standard deviation, and success performance. See `SystemStatistics`.
     - FEs, error, and best fitness for each `Experiment`. See `ExperimentStatistics`.
@@ -109,7 +109,7 @@ The experiment can have the same or different number of runs and algorithm.
 
 - Why `Repository` exists?
 
-In different evolutionaray process, parameters they need is variable, so ADEF encapsulates them into the single parameter, that is `Repository`. Therefore, operations of `Repository` are just many getters.
+In different evolutionaray process, parameters they need is variable, so ADEF encapsulates them into the single parameter `Repository`, and therefore operations of `Repository` are just getters.
 
 ## EvolutionaryState
 ##### Diagram
