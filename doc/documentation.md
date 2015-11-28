@@ -22,7 +22,7 @@ see http://ukjhsa.github.io/adef/db/d2e/classadef_1_1_prototype.html
     - classes must inherit the base class.
     - ADEF must has the feature such as Reflection. (see `PrototypeManager` below.)
 - Why `setup(...)` accept parameter `PrototypeManager`?
-    - Configuration used to configure by the configuration data is trivial.
+    - Configuration used to configure is trivial.
     - The class name used to change the implementation class is also a part of the configuration data, therefore it can be configured.
 - The use of virtual copy constructor
     - If we want to copy an individual but we just have its Prototype type, we can call `clone()` to do it.
@@ -36,12 +36,14 @@ see http://ukjhsa.github.io/adef/de/d50/classadef_1_1_prototype_manager.html
 ##### Usage
 - `register_type(...)` to register classes which can change the implementation class by class name in function `adef::register_type(...)` in `adef::init_adef(...)`.
 - `make_type(...)` to return the cloned class for the use.
+
+Some helpful global function:
 - `adef::make_and_setup_type(config, pm)` to get the class name from configuration, then do `make_type(...)` and call `setup(...)` of returning class.
 - `adef::make_and_setup_type(name, config, pm)` to get configuration of name and do `adef::make_and_setup_type(config, pm)`.
 
 ##### Design issue
 - the mechanism of Reflection
-    - because we want to change the implementation class by class name, there must has a storage that can get the instance by its name.
+    - because to change the implementation class by class name, there must has a storage that can get the instance by its name.
     - `PrototypeManager` is the storage and each class registered is derived from `Prototype`.
 
 ## Configuration
@@ -57,13 +59,12 @@ If configuration file is written in [JSON](http://www.json.org/), then it use `J
 see http://ukjhsa.github.io/adef/d6/d8f/classadef_1_1_configuration.html
 
 ##### Usage
-There are three kinds of the configuration data:
-- object : consists of members.
-    - member: name-value pair. name is string and value is value accessed by name.
-- array : consists of elements.
-    - element: value accessed through the ordered index.
-- value : can be a null, true, false, string, number (including int, unsigned int, and double), object or array.
-
+- There are three kinds of the configuration data:
+    - object : consists of members.
+        - member: name-value pair. name is string and value is value accessed by name.
+    - array : consists of elements.
+        - element: value accessed through the ordered index.
+    - value : can be a null, true, false, string, number (including int, unsigned int, and double), object or array.
 - `load_config(...)` to Load the configuration data from the file.
 - `is_xxxxx()` to check whether the configuration data belongs to `xxxxx`.
 - `get_config(name)` and `get_xxxxx_value(name)` are the use of object.
@@ -72,8 +73,11 @@ There are three kinds of the configuration data:
 
 ##### Design issue
 - Why `ConfigurationData` and `ConfigurationBuilder` exist, are they just JSON?
+
 For the extension of XML or other format in the future. i.e., `XmlConfigurationData` is derived from `ConfigurationData`.
+
 - The design of interface
+
 There may not complete in the current version.
 
 ## System, Experiment, and Repository
@@ -96,10 +100,15 @@ see http://ukjhsa.github.io/adef/df/da7/classadef_1_1_system.html, http://ukjhsa
 
 ##### Design issue
 - Why split it to `System` and `Experiment`?
+
 The system can have one or many experiments and output statistics of all experiments.
+
 - Why split it to `Experiment` and `Repository`?
+
 The experiment can have the same or different number of runs and algorithm.
+
 - Why `Repository` exists?
+
 In different evolutionaray process, parameters they need is variable, so ADEF encapsulates them into the single parameter, that is `Repository`. Therefore, operations of `Repository` are just many getters.
 
 ## EvolutionaryState
