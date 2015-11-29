@@ -166,32 +166,77 @@ Implementing different `Evolution` is an alternative, but here ADEF want users w
 
 It represents the mechanism of adjusting the object.
 
-In DE, the declaration of parameters *F* and *CR* is `BaseControlMechanism`.
-
 ##### Usage
+If there is a parameter which is declared by `ControlMechanism`, the suggested usage are:
+
+1. call `update(...)` firstly.
+2. call `generate(...)` when you want to get the new parameter.
+
+And call `select(...)` inside `EnvironmentalSelection`.
+
+In ADEF, the parameter *F* is the member data of `DEMutation` and *CR* is the member data of `DECrossover`. Both parameters are declared by `BaseControlMechanism`. They should be stored to `Parameters` to let `DEEnvironmentalSelection` have the ability to use them.
 
 ##### Design issue
+- Why parameters *F* and *CR* are declared by `BaseControlMechanism`?
+    - They are not necessary to expose the template type of `ControlMechanism` to other evolutionary states, so `DEEnvironmentalSelection` does.
+    - `dynamic_cast` to actual type only on the use of `generate(...)`,i.e., in `DEMutation` and `DECrossover`.
+- Why parameters *F* and *CR* are the member data of `DEMutation` and `DECrossover`?
+    - This issue has no absolute solution. Here they just come from mutation and crossover.
 
 ### ControlRange
 ##### Diagram
+It manages the range of the object.
 
 ##### Usage
+- `is_valid(...)` to check whether the object is in the range.
 
 ##### Design issue
+If the Object type is not arithmetic, `is_valid(...)` do nothing.
 
 ### ControlParameter
 ##### Diagram
+![image](adef__ControlParameter.png)
+
+It is the object storage.
+
+`SingleControlParameter` manages only one object while `MultipleControlParameter` manages many objects.
 
 ##### Usage
+- `save(object, index)` to store the object.
+- `load(index)` to load the object.
+- `number_of_objects()` to return the number of objects.
+
+The following operations manages the flag of already generated:
+- `is_already_generated(index)` to return the flag.
+- `reset_already_generated(index)` to reset the flag.
+
+Their usage are
+
+```
+if (is_already_generated(index))
+{
+    return old object loaded from ControlParameter
+}
+else {
+    generate new object
+    save new object to ControlParameter
+    return new object
+}
+```
 
 ##### Design issue
+- What the use does `BaseControlParameter` have?
 
-### ControlFunction
-##### Diagram
+It is not necessary to expose the template type of `ControlParameter` to all `ControlSelection` and `ControlUpdate`. For examples, `MaxFitnessControlUpdate` does not load object from it, but `SdeFControlUpdate` does.
 
-##### Usage
+- Why `is_already_generated(index)` and `reset_already_generated(index)` exist?
+    - avoid repeating the same calculation for the efficiency.
+    - let `Function` returns the same result for those are stochastic on each call likes `RandomSelectionFunction`.
 
-##### Design issue
+- What the difference between `SingleControlParameter` and `MultipleControlParameter`?
+    - one object vs. many objects.
+    - the former ignores the parameter `index` of functions.
+
 
 ### ControlSelection
 ##### Diagram
@@ -201,6 +246,13 @@ In DE, the declaration of parameters *F* and *CR* is `BaseControlMechanism`.
 ##### Design issue
 
 ### ControlUpdate
+##### Diagram
+
+##### Usage
+
+##### Design issue
+
+### ControlFunction
 ##### Diagram
 
 ##### Usage
