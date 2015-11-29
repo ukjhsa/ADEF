@@ -4,12 +4,11 @@ The documentation is written in many parts and each part follows the section **D
 The usage of configuration format of each classes list on the [API documentation](http://ukjhsa.github.io/adef/).
 
 ## Prototype
+http://ukjhsa.github.io/adef/classadef_1_1_prototype.html
 ##### Diagram
 All classes supported the following feature are derived from it:
 - change the implementation class by class name on the configuration file.
 - configure its internal states on the configuration file.
-
-see http://ukjhsa.github.io/adef/db/d2e/classadef_1_1_prototype.html
 
 ##### Usage
 - If a class derived from `Prototype`, it must implements three functions:
@@ -28,10 +27,9 @@ see http://ukjhsa.github.io/adef/db/d2e/classadef_1_1_prototype.html
     - If we want to copy an individual but we just have its Prototype type, we can call `clone()` to do it.
 
 ## PrototypeManager
+http://ukjhsa.github.io/adef/classadef_1_1_prototype_manager.html
 ##### Diagram
 It implements the simple mechanism of [Reflection](https://en.wikipedia.org/wiki/Reflection_(computer_programming)). It contains the map of class name to class instance.
-
-see http://ukjhsa.github.io/adef/de/d50/classadef_1_1_prototype_manager.html
 
 ##### Usage
 - `register_type(...)` to register classes which can change the implementation class by class name in function `adef::register_type(...)` inside `adef::init_adef(...)`.
@@ -47,16 +45,15 @@ Some helpful global function:
     - `PrototypeManager` is the storage and each class registered is derived from `Prototype`.
 
 ## Configuration
+http://ukjhsa.github.io/adef/classadef_1_1_configuration.html
 ##### Diagram
-![image](adef__Configuration.png)
+![image](adef__ConfigurationDiagram.png)
 
 It provides interfaces to access configuration data and has two member data:
 - `ConfigurationData`: store the configuration data.
 - `ConfigurationBuilder`: create `ConfigurationData`.
 
 If configuration file is written in [JSON](http://www.json.org/), then it use `JsonConfigurationBuilder` to create `JsonConfigurationData`.
-
-see http://ukjhsa.github.io/adef/d6/d8f/classadef_1_1_configuration.html
 
 ##### Usage
 - There are three kinds of the configuration data:
@@ -81,16 +78,17 @@ For the extension of XML or other format in the future. i.e., `XmlConfigurationD
 There may not complete in the current version.
 
 ## System, Experiment, and Repository
+System http://ukjhsa.github.io/adef/classadef_1_1_system.html
+Experiment http://ukjhsa.github.io/adef/classadef_1_1_experiment.html
+Repository http://ukjhsa.github.io/adef/classadef_1_1_repository.html
 ##### Diagram
-![image](adef__System.png)
+![image](adef__SystemLevelDiagram.png)
 
 `System` has many `Experiment`, and each `Experiment` has one `Repository`.
 
 The difference between `Experiment` and `Repository`:
 - `Experiment` has informations of the experiment including the number of runs and what algorithm used.
 - `Repository` contains the evolutionary state used in algorithm (see `EvolutionaryState` below.)
-
-see http://ukjhsa.github.io/adef/df/da7/classadef_1_1_system.html, http://ukjhsa.github.io/adef/dd/d93/classadef_1_1_experiment.html, http://ukjhsa.github.io/adef/dd/d2d/classadef_1_1_repository.html
 
 ##### Usage
 - `System::run()` to execute experiments and call `Experiment::run()` inside to execute the algorithm.
@@ -112,6 +110,7 @@ The experiment can have the same or different number of runs and algorithm.
 In different evolutionaray process, parameters they need is variable, so ADEF encapsulates them into the single parameter `Repository`, and therefore operations of `Repository` are just getters.
 
 ## EvolutionaryState
+http://ukjhsa.github.io/adef/classadef_1_1_evolutionary_state.html
 ##### Diagram
 The following classes participate the evolutionaray process:
 - Evolution
@@ -127,8 +126,6 @@ The following classes participate the evolutionaray process:
 - Problem
 - Statistics
 - Parameters
-
-see http://ukjhsa.github.io/adef/db/da9/classadef_1_1_evolutionary_state.html
 
 ##### Usage
 - If a class derived from `EvolutionaryState`, it must implements function:
@@ -161,8 +158,9 @@ The basic flow of Evolutionary algorithm inside `Evolution::run(...)`.
 Implementing different `Evolution` is an alternative, but here ADEF want users written each operators likes mutation or crossover to focus on the feature of changing implementation classes dynamically. Overriding the flow only when it is necessary. `Reproduction` too.
 
 ## ControlMechanism
+http://ukjhsa.github.io/adef/classadef_1_1_base_control_mechanism.html
 ##### Diagram
-![image](adef__ControlMechanism.png)
+![image](adef__ControlMechanismDiagram.png)
 
 It represents the mechanism of adjusting the object.
 
@@ -184,6 +182,7 @@ In ADEF, the parameter *F* is the member data of `DEMutation` and *CR* is the me
     - This issue has no absolute solution. Here they just come from mutation and crossover.
 
 ### ControlRange
+http://ukjhsa.github.io/adef/classadef_1_1_control_range.html
 ##### Diagram
 It manages the range of the object.
 
@@ -194,8 +193,9 @@ It manages the range of the object.
 If the Object type is not arithmetic, `is_valid(...)` do nothing.
 
 ### ControlParameter
+http://ukjhsa.github.io/adef/classadef_1_1_control_parameter.html
 ##### Diagram
-![image](adef__ControlParameter.png)
+![image](adef__ControlParameterSubsystem__ControlParameterDiagram.png)
 
 It is the object storage.
 
@@ -237,23 +237,28 @@ It is not necessary to expose the template type of `ControlParameter` to all `Co
     - one object vs. many objects.
     - the former ignores the parameter `index` of functions.
 
-
 ### ControlSelection
+http://ukjhsa.github.io/adef/classadef_1_1_control_selection.html
 ##### Diagram
+![image](adef__ControlSelectionSubsystem__ControlSelectionDiagram.png)
 
 ##### Usage
 
 ##### Design issue
 
 ### ControlUpdate
+http://ukjhsa.github.io/adef/classadef_1_1_control_update.html
 ##### Diagram
+![image](adef__ControlUpdateSubsystem__ControlUpdateDiagram.png)
 
 ##### Usage
 
 ##### Design issue
 
 ### ControlFunction
+http://ukjhsa.github.io/adef/classadef_1_1_control_function.html
 ##### Diagram
+![image](adef__ControlFunctionSubsystem__ControlFunctionDiagram.png)
 
 ##### Usage
 
