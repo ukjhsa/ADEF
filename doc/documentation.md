@@ -21,63 +21,84 @@ Table of contents:
 ## Prototype
 http://ukjhsa.github.io/adef/classadef_1_1_prototype.html
 ##### Diagram
-All classes supported the following feature are derived from it:
+All classes supported the following feature are derived from `Prototype`:
 - change the implementation class by class name on the configuration file.
 - configure its internal states on the configuration file.
 
 ##### Usage
-- If a class derived from `Prototype`, it must implements three functions:
-    - `setup(...)` to specify how to configure its internal states.
-    - public `clone()` and private `clone_impl()` to support the virtual copy constructor.
-- Classes which can change the implementation class by class name are registered to `PrototypeManager`.
+- If a class `A` derived from `Prototype`, it must implements three functions:
+    1. `setup(...)` to specify how to configure its internal states.
+    2. `clone()` and 
+    3. private function `clone_impl()` to support the virtual copy constructor.
+
+```cpp
+class A : public Prototype
+{
+public:
+    std::shared_ptr<A> clone() const
+    {
+        return std::dynamic_pointer_cast<A>(clone_impl());
+    }
+    void setup(const Configuration& config, const PrototypeManager& pm) override
+    {
+        // configure the internal states.
+    }
+private:
+    std::shared_ptr<Prototype> clone_impl() const override
+    {
+        return std::make_shared<A>(*this);
+    }
+};
+```
+
+- Classes which can change the implementation class by class name must be registered to `PrototypeManager`.
 
 ##### Design issue
 - To change the implementation class by class name
-    - classes must inherit the base class.
+    - classes must be derived from the base class.
     - ADEF must has the feature such as Reflection. (see `PrototypeManager` below.)
 - Why `setup(...)` accept parameter `PrototypeManager`?
-    - Configuration used to configure is trivial.
-    - The class name used to change the implementation class is also a part of the configuration data, therefore it can be configured.
+    - It is trivial that `Configuration` is used to configure.
+    - The class name used to change the implementation class is also a part of the configuration data, therefore it exists to configured.
 - The use of virtual copy constructor
     - If we want to copy an individual but we just have its Prototype type, we can call `clone()` to do it.
 
 ## PrototypeManager
 http://ukjhsa.github.io/adef/classadef_1_1_prototype_manager.html
 ##### Diagram
-It implements the simple mechanism of [Reflection](https://en.wikipedia.org/wiki/Reflection_(computer_programming)). It contains the map of class name to class instance.
+`PrototypeManager` contains the map of class name to class instance derived from `Prototype` to support the simple mechanism of [Reflection](https://en.wikipedia.org/wiki/Reflection_(computer_programming)).
 
 ##### Usage
 - `register_type(...)` to register classes which can change the implementation class by class name in function `adef::register_type(...)` inside `adef::init_adef(...)`.
 - `make_type(...)` to return the cloned class for the use.
 
-Some helpful global function:
+Some helpful global functions:
 - `adef::make_and_setup_type(config, pm)` to get the class name from configuration, then do `make_type(...)` and call `setup(...)` of returning class.
-- `adef::make_and_setup_type(name, config, pm)` to get configuration of name and do `adef::make_and_setup_type(config, pm)`.
+- `adef::make_and_setup_type(name, config, pm)` to get configuration of `name` then do `adef::make_and_setup_type(config, pm)`.
 
 ##### Design issue
-- the mechanism of Reflection
-    - because to change the implementation class by class name, there must has a storage that can get the instance by its name.
-    - `PrototypeManager` is the storage and each class registered is derived from `Prototype`.
+- The mechanism of Reflection
+
+In order to change the implementation class by class name, there must has a storage that can get the instance by its name.
 
 ## Configuration
 http://ukjhsa.github.io/adef/classadef_1_1_configuration.html
 ##### Diagram
 ![image](adef__ConfigurationDiagram.png)
 
-It provides interfaces to access configuration data and has two member data:
+`Configuration` has two member data:
 - `ConfigurationData`: store the configuration data.
 - `ConfigurationBuilder`: create `ConfigurationData`.
 
-If configuration file is written in [JSON](http://www.json.org/), then it use `JsonConfigurationBuilder` to create `JsonConfigurationData`.
-
 ##### Usage
+- If configuration file is written in [JSON](http://www.json.org/), then it use `JsonConfigurationBuilder` to create `JsonConfigurationData`.
 - There are three kinds of the configuration data:
     - object : consists of members.
-        - member: name-value pair. name is string and value is value accessed by name.
+        - member: name-value pair. name is `std::string` and value is value accessed by name.
     - array : consists of elements.
         - element: value accessed through the ordered index.
-    - value : can be a null, true, false, string, number (including int, unsigned int, and double), object or array.
-- `load_config(...)` to Load the configuration data from the file.
+    - value : can be a null, `true`, `false`, `std::string`, number (including `int`, `unsigned int`, and `double`), object or array.
+- `load_config(...)` to load the configuration data from the file.
 - `is_xxxxx()` to check whether the configuration data belongs to `xxxxx`.
 - `get_config(name)` and `get_xxxxx_value(name)` are the use of object.
 - `get_config(index)`, `get_array_size()`and `get_xxxxx_value(index)` are the use of array.
@@ -86,11 +107,11 @@ If configuration file is written in [JSON](http://www.json.org/), then it use `J
 ##### Design issue
 - Why `ConfigurationData` and `ConfigurationBuilder` exist, are they just JSON?
 
-For the extension of XML or other format in the future. i.e., `XmlConfigurationData` inherits `ConfigurationData`.
+For the extension of XML or other formats in the future. i.e., `XmlConfigurationData` is designed to derive from `ConfigurationData`.
 
 - The design of interface
 
-There may not complete in the current version.
+They may not complete for other formats.
 
 ## System, Experiment, and Repository
 System http://ukjhsa.github.io/adef/classadef_1_1_system.html
