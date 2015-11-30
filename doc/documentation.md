@@ -1,7 +1,7 @@
 # ADEF Documentation
-The documentation is written in many parts and each part follows the section **Diagram**, **Usage**, and **Design issue**. Diagram describes the inheritance relations or workflow. Usage demonstrates how to use operations and its meaning. Design issue explains what problems meet and how to solve.
+The documentation consists of many parts, and each part follows section  **Diagram**, **Usage**, and **Design issue**. Diagram describes the inheritance relations or workflow. Usage demonstrates how to use operations and its meaning. Design issue explains what problems it meet and why it choose this design.
 
-The usage of configuration format of each classes list on the [API documentation](http://ukjhsa.github.io/adef/).
+=
 
 Table of contents:
 - [Prototype](#prototype)
@@ -17,6 +17,8 @@ Table of contents:
     - [ControlUpdate](#controlupdate)
     - [ControlFunction](#controlfunction)
 - [Function](#function)
+
+=
 
 ## Prototype
 http://ukjhsa.github.io/adef/classadef_1_1_prototype.html
@@ -78,8 +80,7 @@ Some helpful global functions:
 
 ##### Design issue
 - The mechanism of Reflection
-
-In order to change the implementation class by class name, there must has a storage that can get the instance by its name.
+    - In order to change the implementation class by class name, there must has a storage that can get the instance by its name.
 
 ## Configuration
 http://ukjhsa.github.io/adef/classadef_1_1_configuration.html
@@ -91,6 +92,7 @@ http://ukjhsa.github.io/adef/classadef_1_1_configuration.html
 - `ConfigurationBuilder`: create `ConfigurationData`.
 
 ##### Usage
+- The content of configuration format of each classes list on the [API documentation](http://ukjhsa.github.io/adef/).
 - If configuration file is written in [JSON](http://www.json.org/), then it use `JsonConfigurationBuilder` to create `JsonConfigurationData`.
 - There are three kinds of the configuration data:
     - object : consists of members.
@@ -106,12 +108,9 @@ http://ukjhsa.github.io/adef/classadef_1_1_configuration.html
 
 ##### Design issue
 - Why `ConfigurationData` and `ConfigurationBuilder` exist, are they just JSON?
-
-For the extension of XML or other formats in the future. i.e., `XmlConfigurationData` is designed to derive from `ConfigurationData`.
-
+    - For the extension of XML or other formats in the future. i.e., `XmlConfigurationData` is designed to derive from `ConfigurationData`.
 - The design of interface
-
-They may not complete for other formats.
+    - They may not complete for other formats.
 
 ## System, Experiment, and Repository
 System http://ukjhsa.github.io/adef/classadef_1_1_system.html
@@ -160,16 +159,11 @@ Repository http://ukjhsa.github.io/adef/classadef_1_1_repository.html
 
 ##### Design issue
 - What is the difference between `System` and `Experiment`?
-
-The system can have one or many experiments and output statistics of all experiments.
-
+    - The system can have one or many experiments and output statistics of all experiments.
 - What is the difference between `Experiment` and `Repository`?
-
-`Experiment` has informations that includes the number of runs and what algorithm, stored in `Repository`, to be used.
-
+    - `Experiment` has informations that includes the number of runs and what algorithm, stored in `Repository`, to be used.
 - Why there need `Repository` to contain informations of the algorithm?
-
-Because the parameters of function is variable in different evolutionary process, ADEF encapsulates them into the single parameter `Repository` so that we can extract interface to use. Therefore operations of `Repository` are just getters.
+    - Because the parameters of function is variable in different evolutionary process, ADEF encapsulates them into the single parameter `Repository` so that we can extract interface to use. Therefore operations of `Repository` are just getters.
 
 ## EvolutionaryState
 http://ukjhsa.github.io/adef/classadef_1_1_evolutionary_state.html
@@ -206,8 +200,7 @@ public:
 
 ##### Design issue
 - What initialization needs informations from others?
-
-For example, the initialization of the dimension of decision variables of `Individual` needs the dimension of decision space from `Problem`.
+    - For example, the initialization of the dimension of decision variables of `Individual` needs the dimension of decision space from `Problem`.
 
 ## Evolutionary flow
 ##### Diagram
@@ -227,8 +220,7 @@ The basic flow of Evolutionary algorithm inside `Evolution::evolve(...)`.
 
 ##### Design issue
 - Why the choice of implementing different `Reproduction` and `EnvironmentalSelection` instead of implementing different `Evolution` on the Evolutionary flow?
-
-Implementing different `Evolution` is an alternative, but here ADEF want users written each operators likes mutation or crossover to focus on the feature of changing implementation classes dynamically. Overriding the flow only when it is necessary. And `Reproduction` too.
+    - Implementing different `Evolution` is an alternative, but here ADEF want users written each operators likes mutation or crossover to focus on the feature of changing implementation classes dynamically. Overriding the flow only when it is necessary. And `Reproduction` too.
 
 ## ControlMechanism
 http://ukjhsa.github.io/adef/classadef_1_1_base_control_mechanism.html
@@ -242,7 +234,7 @@ http://ukjhsa.github.io/adef/classadef_1_1_base_control_mechanism.html
 - `ControlUpdate`: the operation of how to update by the current state.
 - `ControlFunction`: the function storage.
 
-`ControlMechanism` is derived from `BaseControlMechanism`, the base abstract class, and has Subclasses:
+`ControlMechanism` is derived from `BaseControlMechanism`, the base abstract class, and has subclasses:
 - `SadeCrControlMechanism`: used by parameter CR in the SaDE algorithm.
 - `SdeFControlMechanism`: used by parameter F in the SDE algorithm.
 - `IndirectControlMechanism`: used by parameter F in the both NSDE and SaNSDE algorithm.
@@ -256,35 +248,35 @@ If there is a parameter which is declared by `ControlMechanism`, the suggested u
 And call `select(...)` after `Reproduction` or inside `EnvironmentalSelection`. (see Design issue of this section)
 
 The parameter *F* and *CR* in DE:
-The parameter *F* is the member data of `DEMutation` and *CR* is the member data of `DECrossover`. Both parameters are declared by `BaseControlMechanism`. They should be stored to `Parameters` to let `DEEnvironmentalSelection` have the ability to use them.
+- The parameter *F* is the member data of `DEMutation` and *CR* is the member data of `DECrossover`. Both parameters are declared by `BaseControlMechanism`. They should be stored to `Parameters` to let `DEEnvironmentalSelection` have the ability to use them.
 
 ##### Design issue
 - Why parameters *F* and *CR* are declared by `BaseControlMechanism`?
     - They are not necessary to expose the template type of `ControlMechanism` to other evolutionary states, so `DEEnvironmentalSelection` does.
     - `dynamic_cast` to actual type only on the use of `generate(...)`,i.e., in `DEMutation` and `DECrossover`.
 - Why the use of calling `select(...)` inside `EnvironmentalSelection`?
-
-`select(...)` uses the relation between parent and offspring so it must be called after `Reproduction` which reproduces complete offspring.
-
+    - `select(...)` uses the relation between parent and offspring so it must be called after `Reproduction` which reproduces complete offspring.
 - Why parameters *F* and *CR* are the member data of `DEMutation` and `DECrossover`?
     - This issue has no absolute solution. ADEF takes the reason they just come from mutation and crossover.
 
 ### ControlRange
 http://ukjhsa.github.io/adef/classadef_1_1_control_range.html
 ##### Diagram
-`ControlRange` has template specialization for the Object type
-- arithmetic type
-    - has member data the lower bound and upper bound of the valid object
-- non-arithmetic type
-    - has nothing
+`ControlRange` has two template version for Object type
+
+1. arithmetic type.
+    - it has member data:
+        - the lower bound of the object
+        - the upper bound of the object
+2. non-arithmetic type.
+    - see http://ukjhsa.github.io/adef/classadef_1_1_control_range_3_01_t_00_01std_1_1enable__if__t_3_9std_1_1is__arithmetic_3_01_t_01_4_1_1value_01_4_01_4.html
 
 ##### Usage
 - `is_valid(...)` to check whether the object is in the range. If the Object type is not arithmetic, it do nothing.
 
 ##### Design issue
 - The template specialization for non-arithmetic type
-
-In current version, the type is `std::shared_ptr<RealFunction>` and it has no concept of valid range.
+    - In current version, the type is `std::shared_ptr<RealFunction>` and it has no concept of valid range.
 
 ### ControlParameter
 http://ukjhsa.github.io/adef/classadef_1_1_control_parameter.html
@@ -304,9 +296,9 @@ The following operations manages the flag of already generated:
 - `is_already_generated(index)` to return the flag.
 - `reset_already_generated(index)` to reset the flag.
 
-Their usage are
+Their usage are in `ControlMechanism::generate(...)`
 
-```
+```cpp
 if (is_already_generated(index))
 {
     return old object loaded from ControlParameter
@@ -320,13 +312,10 @@ else {
 
 ##### Design issue
 - What the use does `BaseControlParameter` have?
-
-It is not necessary to expose the template type of `ControlParameter` to all `ControlSelection` and `ControlUpdate`. For examples, `MaxFitnessControlUpdate` does not load object from it, but `SdeFControlUpdate` does.
-
+    - It is not necessary to expose the template type of `ControlParameter` to all `ControlSelection` and `ControlUpdate`. For examples, `MaxFitnessControlUpdate` does not load object from it, but `SdeFControlUpdate` does.
 - Why `is_already_generated(index)` and `reset_already_generated(index)` exist?
     - avoid repeating the same calculation for the efficiency.
     - let `Function` returns the same result for those are stochastic on each call likes `RandomSelectionFunction`.
-
 - What the difference between `SingleControlParameter` and `MultipleControlParameter`?
     - one object vs. many objects.
     - the former ignores the parameter `index` of functions.
@@ -336,7 +325,12 @@ http://ukjhsa.github.io/adef/classadef_1_1_control_selection.html
 ##### Diagram
 ![image](adef__ControlSelectionSubsystem__ControlSelectionDiagram.png)
 
+`ControlSelection` has subclasses:
+- `NonInfoControlSelection`: do nothing.
+- `BetterOffspringControlSelection`: record current parameter to `Function` if the current offspring is better than parent.
+
 ##### Usage
+Call `ControlSelection::select(...)` inside `ControlMechanism::select(...)`.
 
 ##### Design issue
 
@@ -346,6 +340,7 @@ http://ukjhsa.github.io/adef/classadef_1_1_control_update.html
 ![image](adef__ControlUpdateSubsystem__ControlUpdateDiagram.png)
 
 ##### Usage
+Call every `ControlUpdate::update(...)` inside `ControlMechanism::update(...)`.
 
 ##### Design issue
 
