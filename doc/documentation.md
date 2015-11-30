@@ -242,40 +242,49 @@ http://ukjhsa.github.io/adef/classadef_1_1_base_control_mechanism.html
 - `ControlUpdate`: the operation of how to update by the current state.
 - `ControlFunction`: the function storage.
 
+`ControlMechanism` is derived from `BaseControlMechanism`, the base abstract class, and has Subclasses:
+- `SadeCrControlMechanism`: used by parameter CR in the SaDE algorithm.
+- `SdeFControlMechanism`: used by parameter F in the SDE algorithm.
+- `IndirectControlMechanism`: used by parameter F in the both NSDE and SaNSDE algorithm.
+
 ##### Usage
 If there is a parameter which is declared by `ControlMechanism`, the suggested usage are:
 
 1. call `update(...)` firstly.
 2. call `generate(...)` when you want to get the new parameter.
 
-And call `select(...)` inside `EnvironmentalSelection`. (see Design issue of this section)
+And call `select(...)` after `Reproduction` or inside `EnvironmentalSelection`. (see Design issue of this section)
 
-The parameter *F* in DE:
-In ADEF, the parameter *F* is the member data of `DEMutation` and *CR* is the member data of `DECrossover`. Both parameters are declared by `BaseControlMechanism`. They should be stored to `Parameters` to let `DEEnvironmentalSelection` have the ability to use them.
-
-The parameter *CR* in DE:
+The parameter *F* and *CR* in DE:
+The parameter *F* is the member data of `DEMutation` and *CR* is the member data of `DECrossover`. Both parameters are declared by `BaseControlMechanism`. They should be stored to `Parameters` to let `DEEnvironmentalSelection` have the ability to use them.
 
 ##### Design issue
 - Why parameters *F* and *CR* are declared by `BaseControlMechanism`?
     - They are not necessary to expose the template type of `ControlMechanism` to other evolutionary states, so `DEEnvironmentalSelection` does.
     - `dynamic_cast` to actual type only on the use of `generate(...)`,i.e., in `DEMutation` and `DECrossover`.
-- Why the call of `select(...)` inside `EnvironmentalSelection`?
+- Why the use of calling `select(...)` inside `EnvironmentalSelection`?
 
-
+`select(...)` uses the relation between parent and offspring so it must be called after `Reproduction` which reproduces complete offspring.
 
 - Why parameters *F* and *CR* are the member data of `DEMutation` and `DECrossover`?
-    - This issue has no absolute solution. Here they just come from mutation and crossover.
+    - This issue has no absolute solution. ADEF takes the reason they just come from mutation and crossover.
 
 ### ControlRange
 http://ukjhsa.github.io/adef/classadef_1_1_control_range.html
 ##### Diagram
-It manages the range of the object.
+`ControlRange` has template specialization for the Object type
+- arithmetic type
+    - has member data the lower bound and upper bound of the valid object
+- non-arithmetic type
+    - has nothing
 
 ##### Usage
-- `is_valid(...)` to check whether the object is in the range.
+- `is_valid(...)` to check whether the object is in the range. If the Object type is not arithmetic, it do nothing.
 
 ##### Design issue
-If the Object type is not arithmetic, `is_valid(...)` do nothing.
+- The template specialization for non-arithmetic type
+
+In current version, the type is `std::shared_ptr<RealFunction>` and it has no concept of valid range.
 
 ### ControlParameter
 http://ukjhsa.github.io/adef/classadef_1_1_control_parameter.html
