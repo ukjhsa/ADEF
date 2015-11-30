@@ -86,7 +86,7 @@ http://ukjhsa.github.io/adef/classadef_1_1_configuration.html
 ##### Diagram
 ![image](adef__ConfigurationDiagram.png)
 
-`Configuration` has two member data:
+`Configuration` has member data:
 - `ConfigurationData`: store the configuration data.
 - `ConfigurationBuilder`: create `ConfigurationData`.
 
@@ -115,35 +115,61 @@ They may not complete for other formats.
 
 ## System, Experiment, and Repository
 System http://ukjhsa.github.io/adef/classadef_1_1_system.html
+
 Experiment http://ukjhsa.github.io/adef/classadef_1_1_experiment.html
+
 Repository http://ukjhsa.github.io/adef/classadef_1_1_repository.html
 ##### Diagram
 ![image](adef__SystemLevelDiagram.png)
 
-`System` has many `Experiment`, and each `Experiment` has one `Repository`.
+`System` has member data:
+- The name of the current execution.
+- `SystemStatistics`: the statistics of total experiments.
+- `Experiment`
 
-The difference between `Experiment` and `Repository`:
-- `Experiment` has informations of the experiment including the number of runs and what algorithm used.
-- `Repository` contains the evolutionary state used in algorithm (see `EvolutionaryState` below.)
+`Experiment` has member data:
+- The name of the experiment.
+- The number of runs.
+- `ExperimentalStatistics`: the statistics of total runs.
+- `Repository`
+
+`Repository` has member data:
+- The name of the current algorithm.
+- `Evolution`: the evolutionary flow. (see Evolutionary flow below)
+- `Problem`: the problem to be solved.
+- `Statistics`: the statistics of total generations in a run.
+- `Parameters`: the parameters storage.
+- `Initializer`: The initializer to initialize population.
+- `Evaluator`: The evaluator to evaluate the objectives of individuals.
+- `Population`
+    - population: the parents of each generation and the population survived to the next generation.
+    - offpsring: the offspring of each generation.
+- `Reproduction`: The process of reproduction.
+- `EnvironmentalSelection`: The process of environmental selection.
+- `Mutation`: The process of mutation.
+- `Crossover`: The process of crossover.
+- `Repair`: The process of repairing invalid individuals.
+
+`System` has many `Experiment`, each `Experiment` has one `Repository`, and `Repository` has total evolutionary states. (see EvolutionaryState below)
 
 ##### Usage
-- `System::run()` to execute experiments and call `Experiment::run()` inside to execute the algorithm.
+- Users call `System::run()` to execute and it uses `Experiment::run()` inside to start evolution according to `Evolution::evolve(...)`.
 - Output statistics at the end of run
     - best, worst, mean, standard deviation, and success performance. See `SystemStatistics`.
-    - FEs, error, and best fitness for each `Experiment`. See `ExperimentStatistics`.
+    - FEs, error, and best fitness on each experiment. See `ExperimentalStatistics`.
 
 ##### Design issue
-- Why split it to `System` and `Experiment`?
+- What is the difference between `System` and `Experiment`?
 
 The system can have one or many experiments and output statistics of all experiments.
 
-- Why split it to `Experiment` and `Repository`?
+- What is the difference between `Experiment` and `Repository`?
 
-The experiment can have the same or different number of runs and algorithm.
+`Experiment` has informations that includes the number of runs and what algorithm, stored in `Repository`, to be used.
 
-- Why `Repository` exists?
+- Why there need `Repository` to contain informations of the algorithm?
 
-In different evolutionaray process, parameters they need is variable, so ADEF encapsulates them into the single parameter `Repository`, and therefore operations of `Repository` are just getters.
+Because the parameters of function is variable in different evolutionary process, ADEF encapsulates them into the single parameter `Repository` so that we can extract interface to use. Therefore operations of `Repository` are just getters.
 
 ## EvolutionaryState
 http://ukjhsa.github.io/adef/classadef_1_1_evolutionary_state.html
@@ -164,8 +190,19 @@ The following classes participate the evolutionaray process:
 - Parameters
 
 ##### Usage
-- If a class derived from `EvolutionaryState`, it must implements function:
+- If a class `A` derived from `EvolutionaryState`, it must implements function:
     - `init(...)` to initialize the current state from other states if needed.
+
+```cpp
+class A : public EvolutionaryState
+{
+public:
+    void init(std::shared_ptr<Repository> repos) override
+    {
+        // initialize the internal states from other states if needed.
+    }
+};
+```
 
 ##### Design issue
 - What initialization needs informations from others?
@@ -176,29 +213,34 @@ For example, the initialization of the dimension of decision variables of `Indiv
 ##### Diagram
 ![image](evolution__flow.png)
 
-The basic flow of Evolutionary algorithm inside `Evolution::run(...)`.
+The basic flow of Evolutionary algorithm inside `Evolution::evolve(...)`.
 
 ##### Usage
 - Users only need to implement `Reproduction` or `EnvironmentalSelection` or their derived classes if the flow satisfied.
-- The order of `Mutation`, `Crossover` and `Repair` in `Reproduction` are flexible:
+- The order of `Mutation`, `Crossover` and `Repair` in `Reproduction` are flexible
     - in DE, their order is `Mutation`, `Crossover` then `Repair`. See `DEReproduction`.
-    - in GA, their order is `Crossover`, `Mutation` then `Repair`.
-- `Statistics` is used after:
+    - in GA, their order maybe is `Crossover`, `Mutation` then `Repair`.
+- `Statistics` is used after the following position:
     - `Initializer`: statistics of the initial population.
     - `Reproduction`: statistics of the population of parents and offsprings on each generation.
     - `EnvironmentalSelection`: statistics of the current population on each generation.
 
 ##### Design issue
-- Why the choice of implementing different `Reproduction` and `EnvironmentalSelection` instead of implementing different `Evolution`?
+- Why the choice of implementing different `Reproduction` and `EnvironmentalSelection` instead of implementing different `Evolution` on the Evolutionary flow?
 
-Implementing different `Evolution` is an alternative, but here ADEF want users written each operators likes mutation or crossover to focus on the feature of changing implementation classes dynamically. Overriding the flow only when it is necessary. `Reproduction` too.
+Implementing different `Evolution` is an alternative, but here ADEF want users written each operators likes mutation or crossover to focus on the feature of changing implementation classes dynamically. Overriding the flow only when it is necessary. And `Reproduction` too.
 
 ## ControlMechanism
 http://ukjhsa.github.io/adef/classadef_1_1_base_control_mechanism.html
 ##### Diagram
 ![image](adef__ControlMechanismDiagram.png)
 
-It represents the mechanism of adjusting the object.
+`ControlMechanism` has member data
+- `ControlRange`: the range of the object.
+- `ControlParameter`: the object storage.
+- `ControlSelection`: the operation of how to update by the relation between parent and offspring.
+- `ControlUpdate`: the operation of how to update by the current state.
+- `ControlFunction`: the function storage.
 
 ##### Usage
 If there is a parameter which is declared by `ControlMechanism`, the suggested usage are:
@@ -206,14 +248,21 @@ If there is a parameter which is declared by `ControlMechanism`, the suggested u
 1. call `update(...)` firstly.
 2. call `generate(...)` when you want to get the new parameter.
 
-And call `select(...)` inside `EnvironmentalSelection`.
+And call `select(...)` inside `EnvironmentalSelection`. (see Design issue of this section)
 
+The parameter *F* in DE:
 In ADEF, the parameter *F* is the member data of `DEMutation` and *CR* is the member data of `DECrossover`. Both parameters are declared by `BaseControlMechanism`. They should be stored to `Parameters` to let `DEEnvironmentalSelection` have the ability to use them.
+
+The parameter *CR* in DE:
 
 ##### Design issue
 - Why parameters *F* and *CR* are declared by `BaseControlMechanism`?
     - They are not necessary to expose the template type of `ControlMechanism` to other evolutionary states, so `DEEnvironmentalSelection` does.
     - `dynamic_cast` to actual type only on the use of `generate(...)`,i.e., in `DEMutation` and `DECrossover`.
+- Why the call of `select(...)` inside `EnvironmentalSelection`?
+
+
+
 - Why parameters *F* and *CR* are the member data of `DEMutation` and `DECrossover`?
     - This issue has no absolute solution. Here they just come from mutation and crossover.
 
