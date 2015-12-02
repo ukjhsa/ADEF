@@ -1,5 +1,5 @@
 # ADEF Documentation
-The documentation consists of many parts, and each part follows section  **Diagram**, **Usage**, and **Design issue**. Diagram describes the inheritance relations or workflow. Usage demonstrates how to use operations and its meaning. Design issue explains what problems it meet and why it choose this design.
+The documentation consists of many parts, and each part follows section **Description**, **Diagram**, **Usage**, and **Design issue**. Description explains the meaning of entire hierarchy. Diagram illuminates the inheritance relations or workflow. Usage demonstrates how to use its operations and gives examples. Design issue describes what problems meet and the reason to use.
 
 =
 
@@ -22,16 +22,22 @@ Table of contents:
 
 ## Prototype
 http://ukjhsa.github.io/adef/classadef_1_1_prototype.html
-##### Diagram
+##### Description
 All classes supported the following feature are derived from `Prototype`:
 - change the implementation class by class name on the configuration file.
 - configure its internal states on the configuration file.
 
+See also `PrototypeManager`.
+
+##### Diagram
+See the api documentation.
+
 ##### Usage
-- If a class `A` derived from `Prototype`, it must implements three functions:
-    1. `setup(...)` to specify how to configure its internal states.
-    2. `clone()` and 
-    3. private function `clone_impl()` to support the virtual copy constructor.
+If a class `A` derived from `Prototype`, it must implements three functions:
+
+1. `setup(...)` to specify how to configure its internal states.
+2. `clone()` and 
+3. private function `clone_impl()` to support the virtual copy constructor.
 
 ```cpp
 class A : public Prototype
@@ -53,25 +59,42 @@ private:
 };
 ```
 
-- Classes which can change the implementation class by class name must be registered to `PrototypeManager`.
+Classes which can change the implementation class by class name must be registered to `PrototypeManager`. (see usage of `PrototypeManager`)
 
 ##### Design issue
-- To change the implementation class by class name
-    - classes must be derived from the base class.
-    - ADEF must has the feature such as Reflection. (see `PrototypeManager` below.)
-- Why `setup(...)` accept parameter `PrototypeManager`?
-    - It is trivial that `Configuration` is used to configure.
-    - The class name used to change the implementation class is also a part of the configuration data, therefore it exists to configured.
-- The use of virtual copy constructor
-    - If we want to copy an individual but we just have its Prototype type, we can call `clone()` to do it.
+To change the implementation class by class name
+- classes must be derived from the common base class.
+- ADEF must has the support of Reflection. (see `PrototypeManager`)
+
+Why `setup(...)` accept parameter `PrototypeManager`?
+- It is trivial that `Configuration` is used to configure.
+- The class name used to change the implementation class is also a part of the configuration data, therefore it exists to configured.
+
+The use of virtual copy constructor
+- If we want to copy an individual but we just have its `Prototype` type, we can call `clone()` to do it.
 
 ## PrototypeManager
 http://ukjhsa.github.io/adef/classadef_1_1_prototype_manager.html
+##### Description
+`PrototypeManager` implements the simple mechanism of [Reflection](https://en.wikipedia.org/wiki/Reflection_(computer_programming)). It takes the pair of class name as key and class instance as value.
+
 ##### Diagram
-`PrototypeManager` contains the map of class name to class instance derived from `Prototype` to support the simple mechanism of [Reflection](https://en.wikipedia.org/wiki/Reflection_(computer_programming)).
+It contains member data of the map of class name to class instance derived from `Prototype`.
 
 ##### Usage
-- `register_type(...)` to register classes which can change the implementation class by class name in function `adef::register_type(...)` inside `adef::init_adef(...)`.
+How to register the class `A`?
+- `A` have to derive from `Prototype`.
+- The use of `register_type(...)` in function `adef::register_type(...)` inside `adef::init_adef(...)`.
+
+suppose the name to register is `A_name` and the instance to register is the call of default constructor, then
+
+```cpp
+pm.register_type("A_name", std::make_shared<A>());
+```
+
+see also the usage of `std::make_shared` if you want to use the custom constructor.
+
+How to register the class `A`?
 - `make_type(...)` to return the cloned class for the use.
 
 Some helpful global functions:
@@ -84,6 +107,7 @@ Some helpful global functions:
 
 ## Configuration
 http://ukjhsa.github.io/adef/classadef_1_1_configuration.html
+##### Description
 ##### Diagram
 ![image](adef__ConfigurationDiagram.png)
 
@@ -118,6 +142,7 @@ System http://ukjhsa.github.io/adef/classadef_1_1_system.html
 Experiment http://ukjhsa.github.io/adef/classadef_1_1_experiment.html
 
 Repository http://ukjhsa.github.io/adef/classadef_1_1_repository.html
+##### Description
 ##### Diagram
 ![image](adef__SystemLevelDiagram.png)
 
@@ -167,6 +192,7 @@ Repository http://ukjhsa.github.io/adef/classadef_1_1_repository.html
 
 ## EvolutionaryState
 http://ukjhsa.github.io/adef/classadef_1_1_evolutionary_state.html
+##### Description
 ##### Diagram
 The following classes participate the evolutionaray process:
 - Evolution
@@ -203,6 +229,7 @@ public:
     - For example, the initialization of the dimension of decision variables of `Individual` needs the dimension of decision space from `Problem`.
 
 ## Evolutionary flow
+##### Description
 ##### Diagram
 ![image](evolution__flow.png)
 
@@ -223,6 +250,7 @@ The basic flow of Evolutionary algorithm inside `Evolution::evolve(...)`.
     - Implementing different `Evolution` is an alternative, but here ADEF want users written each operators likes mutation or crossover to focus on the feature of changing implementation classes dynamically. Overriding the flow only when it is necessary. And `Reproduction` too.
 
 ## ControlMechanism
+##### Description
 http://ukjhsa.github.io/adef/classadef_1_1_base_control_mechanism.html
 ##### Diagram
 ![image](adef__ControlMechanismDiagram.png)
