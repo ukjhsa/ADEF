@@ -85,14 +85,11 @@ It contains member data of the map of class name to class instance derived from 
 How to register the class `A`?
 - `A` have to derive from `Prototype`.
 - The use of `register_type(...)` in function `adef::register_type(...)` inside `adef::init_adef(...)`.
-
-suppose the name to register is `A_name` and the instance to register is the call of default constructor, then
+    - Suppose the name to register is `A_name` and the instance to register is the call of default constructor. See the documentation of `std::make_shared` if you want to use the custom constructor.
 
 ```cpp
 pm.register_type("A_name", std::make_shared<A>());
 ```
-
-see also the usage of `std::make_shared` if you want to use the custom constructor.
 
 How to register the class `A`?
 - `make_type(...)` to return the cloned class for the use.
