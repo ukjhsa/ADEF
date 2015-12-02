@@ -30,7 +30,7 @@ All classes supported the following feature are derived from `Prototype`:
 See also `PrototypeManager`.
 
 ##### Diagram
-See the api documentation.
+See the API documentation.
 
 ##### Usage
 If a class `A` derived from `Prototype`, it must implements three functions:
@@ -91,36 +91,42 @@ How to register the class `A`?
 pm.register_type("A_name", std::make_shared<A>());
 ```
 
-How to register the class `A`?
-- `make_type(...)` to return the cloned class for the use.
+How to return the cloned class `A`?
+- The use of `make_type(...)` by name, for example, `A_name`.
 
 Some helpful global functions:
 - `adef::make_and_setup_type(config, pm)` to get the class name from configuration, then do `make_type(...)` and call `setup(...)` of returning class.
 - `adef::make_and_setup_type(name, config, pm)` to get configuration of `name` then do `adef::make_and_setup_type(config, pm)`.
 
 ##### Design issue
-- The mechanism of Reflection
-    - In order to change the implementation class by class name, there must has a storage that can get the instance by its name.
+The mechanism of Reflection
+- In order to change the implementation class by class name, there must has a storage that can get the instance by its name.
 
 ## Configuration
 http://ukjhsa.github.io/adef/classadef_1_1_configuration.html
 ##### Description
-##### Diagram
-![image](adef__ConfigurationDiagram.png)
+`Configuration` provides interfaces to access the configuration data.
 
-`Configuration` has member data:
-- `ConfigurationData`: store the configuration data.
-- `ConfigurationBuilder`: create `ConfigurationData`.
+There are three kinds of the configuration data:
+- object : consists of members.
+    - member: name-value pair. name is `std::string` and value is value accessed by name.
+- array : consists of elements.
+    - element: value accessed through the ordered index.
+- value : can be a null, `true`, `false`, `std::string`, number (including `int`, `unsigned int`, and `double`), object or array.
+
+##### Diagram
+![configuration](adef__ConfigurationDiagram.png)
+
+It has member data:
+- `ConfigurationData`: base class to store the configuration data.
+- `ConfigurationBuilder`: base class to create `ConfigurationData`.
+
+If the configuration file is written in [JSON](http://www.json.org/), then it use `JsonConfigurationBuilder` to create `JsonConfigurationData` in function `load_config(...)`.
 
 ##### Usage
-- The content of configuration format of each classes list on the [API documentation](http://ukjhsa.github.io/adef/).
-- If configuration file is written in [JSON](http://www.json.org/), then it use `JsonConfigurationBuilder` to create `JsonConfigurationData`.
-- There are three kinds of the configuration data:
-    - object : consists of members.
-        - member: name-value pair. name is `std::string` and value is value accessed by name.
-    - array : consists of elements.
-        - element: value accessed through the ordered index.
-    - value : can be a null, `true`, `false`, `std::string`, number (including `int`, `unsigned int`, and `double`), object or array.
+The format of configuration of each class is listed on the [API documentation](http://ukjhsa.github.io/adef/).
+
+Operations:
 - `load_config(...)` to load the configuration data from the file.
 - `is_xxxxx()` to check whether the configuration data belongs to `xxxxx`.
 - `get_config(name)` and `get_xxxxx_value(name)` are the use of object.
@@ -128,10 +134,11 @@ http://ukjhsa.github.io/adef/classadef_1_1_configuration.html
 - `get_xxxxx_value()` and `get_value<xxxxx>()` are the use of value.
 
 ##### Design issue
-- Why `ConfigurationData` and `ConfigurationBuilder` exist, are they just JSON?
-    - For the extension of XML or other formats in the future. i.e., `XmlConfigurationData` is designed to derive from `ConfigurationData`.
-- The design of interface
-    - They may not complete for other formats.
+Why the base class `ConfigurationData` and `ConfigurationBuilder` exist, are they just JSON?
+- For the extension of XML or other formats in the future. i.e., `XmlConfigurationData` is designed to derive from `ConfigurationData` and created by `XmlConfigurationBuilder`.
+
+The design of interface
+- They may not complete for other formats.
 
 ## System, Experiment, and Repository
 System http://ukjhsa.github.io/adef/classadef_1_1_system.html
@@ -139,7 +146,10 @@ System http://ukjhsa.github.io/adef/classadef_1_1_system.html
 Experiment http://ukjhsa.github.io/adef/classadef_1_1_experiment.html
 
 Repository http://ukjhsa.github.io/adef/classadef_1_1_repository.html
+
 ##### Description
+The outside architecture of ADEF is `System`.
+
 ##### Diagram
 ![image](adef__SystemLevelDiagram.png)
 
