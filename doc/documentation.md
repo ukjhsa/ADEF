@@ -150,7 +150,7 @@ Repository http://ukjhsa.github.io/adef/classadef_1_1_repository.html
 ##### Description
 `System` is the architectural facade of ADEF and it provides a simple interface `System::run()` to use.
 
-Each execution has a variety of experiments, and each experiment contains the number of runs and informations of the algorithm.
+Each execution has a variety of experiments, and each experiment contains the number of runs and informations of the algorithm. That is, `System` has many `Experiment`, each `Experiment` has one `Repository`, and `Repository` has total evolutionary states. (see `EvolutionaryState`)
 
 ##### Diagram
 ![image](adef__SystemLevelDiagram.png)
@@ -159,31 +159,26 @@ Each execution has a variety of experiments, and each experiment contains the nu
 - The name of the current execution.
 - `SystemStatistics`: the statistics of total experiments.
 - `Experiment`: the experiment.
-
-`Experiment` has member data:
-- The name of the experiment.
-- The number of runs.
-- `ExperimentalStatistics`: the statistics of total runs.
-- `Repository`: informations of the algorithm.
-
-`Repository` has member data:
-- The name of the current algorithm.
-- `Evolution`: the evolutionary flow. (see Evolutionary flow)
-- `Problem`: the problem to be solved.
-- `Statistics`: the statistics of total generations in a run.
-- `Parameters`: the parameters storage.
-- `Initializer`: The initializer to initialize population.
-- `Evaluator`: The evaluator to evaluate the objectives of individuals.
-- `Population`
-    - population: the parents of each generation and the population survived to the next generation.
-    - offpsring: the offspring of each generation.
-- `Reproduction`: The process of reproduction.
-- `EnvironmentalSelection`: The process of environmental selection.
-- `Mutation`: The process of mutation.
-- `Crossover`: The process of crossover.
-- `Repair`: The process of repairing invalid individuals.
-
-`System` has many `Experiment`, each `Experiment` has one `Repository`, and `Repository` has total evolutionary states. (see `EvolutionaryState`)
+    - The name of the experiment.
+    - The number of runs.
+    - `ExperimentalStatistics`: the statistics of total runs.
+    - `Repository`: informations of the algorithm.
+        - The name of the current algorithm.
+        - `Evolution`: the evolutionary flow. (see Evolutionary flow)
+        - `Problem`: the problem to be solved.
+        - `Statistics`: the statistics of total generations in a run.
+        - `Parameters`: the parameters storage.
+        - `Initializer`: to initialize population.
+        - `Evaluator`: to evaluate the objectives of individuals.
+        - `Population`
+            - population: the parents of each generation and the population survived to the next generation.
+            - offpsring: the offspring of each generation.
+        - `Individual`: contains decision variables, objective values, and fitness value.
+        - `Reproduction`: The process of reproduction.
+        - `EnvironmentalSelection`: The process of environmental selection.
+        - `Mutation`: The process of mutation.
+        - `Crossover`: The process of crossover.
+        - `Repair`: The process of repairing invalid individuals.
 
 ##### Usage
 Users call `System::run()` to execute and it uses `Experiment::run()` inside to start the evolution according to `Evolution::evolve(...)`.
@@ -208,20 +203,7 @@ http://ukjhsa.github.io/adef/classadef_1_1_evolutionary_state.html
 ##### Description
 Classes that participate the evolutionaray process are derived from `EvolutionaryState`.
 
-The following classes participate the evolutionaray process:
-- `Evolution`
-- `Initializer`
-- `Evaluator`
-- `Reproduction`
-- `Mutation`
-- `Crossover`
-- `EnvironmentalSelection`
-- `Repair`
-- `Population`
-- `Individual`
-- `Problem`
-- `Statistics`
-- `Parameters`
+As above mentioned, these evolutionary states accept `Repository` as a parameter of their function (of superclass at least.)
 
 ##### Diagram
 See the API documentation.
