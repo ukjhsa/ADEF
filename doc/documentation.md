@@ -148,7 +148,9 @@ Experiment http://ukjhsa.github.io/adef/classadef_1_1_experiment.html
 Repository http://ukjhsa.github.io/adef/classadef_1_1_repository.html
 
 ##### Description
-The outside architecture of ADEF is `System`.
+`System` is the architectural facade of ADEF and it provides a simple interface `System::run()` to use.
+
+Each execution has a variety of experiments, and each experiment contains the number of runs and informations of the algorithm.
 
 ##### Diagram
 ![image](adef__SystemLevelDiagram.png)
@@ -156,17 +158,17 @@ The outside architecture of ADEF is `System`.
 `System` has member data:
 - The name of the current execution.
 - `SystemStatistics`: the statistics of total experiments.
-- `Experiment`
+- `Experiment`: the experiment.
 
 `Experiment` has member data:
 - The name of the experiment.
 - The number of runs.
 - `ExperimentalStatistics`: the statistics of total runs.
-- `Repository`
+- `Repository`: informations of the algorithm.
 
 `Repository` has member data:
 - The name of the current algorithm.
-- `Evolution`: the evolutionary flow. (see Evolutionary flow below)
+- `Evolution`: the evolutionary flow. (see Evolutionary flow)
 - `Problem`: the problem to be solved.
 - `Statistics`: the statistics of total generations in a run.
 - `Parameters`: the parameters storage.
@@ -181,44 +183,52 @@ The outside architecture of ADEF is `System`.
 - `Crossover`: The process of crossover.
 - `Repair`: The process of repairing invalid individuals.
 
-`System` has many `Experiment`, each `Experiment` has one `Repository`, and `Repository` has total evolutionary states. (see EvolutionaryState below)
+`System` has many `Experiment`, each `Experiment` has one `Repository`, and `Repository` has total evolutionary states. (see `EvolutionaryState`)
 
 ##### Usage
-- Users call `System::run()` to execute and it uses `Experiment::run()` inside to start evolution according to `Evolution::evolve(...)`.
-- Output statistics at the end of run
-    - best, worst, mean, standard deviation, and success performance. See `SystemStatistics`.
-    - FEs, error, and best fitness on each experiment. See `ExperimentalStatistics`.
+Users call `System::run()` to execute and it uses `Experiment::run()` inside to start the evolution according to `Evolution::evolve(...)`.
+
+The statistics
+- best, worst, mean, standard deviation, and success performance. See `SystemStatistics`.
+- FEs, error, and best fitness on each experiment. See `ExperimentalStatistics`.
+- fitness so far, and items on each run. See `Statistics`.
 
 ##### Design issue
-- What is the difference between `System` and `Experiment`?
-    - The system can have one or many experiments and output statistics of all experiments.
-- What is the difference between `Experiment` and `Repository`?
-    - `Experiment` has informations that includes the number of runs and what algorithm, stored in `Repository`, to be used.
-- Why there need `Repository` to contain informations of the algorithm?
-    - Because the parameters of function is variable in different evolutionary process, ADEF encapsulates them into the single parameter `Repository` so that we can extract interface to use. Therefore operations of `Repository` are just getters.
+What is the difference between `System` and `Experiment`?
+- The system can have one or many experiments and output statistics of all experiments.
+
+What is the difference between `Experiment` and `Repository`?
+- `Experiment` has informations that includes the number of runs and what algorithm, stored in `Repository`, to be used.
+
+Why there need `Repository` to contain informations of the algorithm?
+- Because the parameters of function is variable in different evolutionary process, ADEF encapsulates them into the single parameter `Repository` so that we can extract superclass/interface to use. Therefore operations of `Repository` are just getters.
 
 ## EvolutionaryState
 http://ukjhsa.github.io/adef/classadef_1_1_evolutionary_state.html
 ##### Description
-##### Diagram
+Classes that participate the evolutionaray process are derived from `EvolutionaryState`.
+
 The following classes participate the evolutionaray process:
-- Evolution
-- Initializer
-- Evaluator
-- Reproduction
-- Mutation
-- Crossover
-- EnvironmentalSelection
-- Repair
-- Population
-- Individual
-- Problem
-- Statistics
-- Parameters
+- `Evolution`
+- `Initializer`
+- `Evaluator`
+- `Reproduction`
+- `Mutation`
+- `Crossover`
+- `EnvironmentalSelection`
+- `Repair`
+- `Population`
+- `Individual`
+- `Problem`
+- `Statistics`
+- `Parameters`
+
+##### Diagram
+See the API documentation.
 
 ##### Usage
-- If a class `A` derived from `EvolutionaryState`, it must implements function:
-    - `init(...)` to initialize the current state from other states if needed.
+If a class `A` derived from `EvolutionaryState`, it must implements function:
+- `init(...)` to initialize the current state from other states if needed.
 
 ```cpp
 class A : public EvolutionaryState
@@ -232,33 +242,34 @@ public:
 ```
 
 ##### Design issue
-- What initialization needs informations from others?
-    - For example, the initialization of the dimension of decision variables of `Individual` needs the dimension of decision space from `Problem`.
+What initialization needs informations from others?
+- For example, the initialization of the dimension of decision variables of `Individual` needs the dimension of decision space from `Problem`.
 
 ## Evolutionary flow
 ##### Description
+The flow of Evolutionary algorithm implemented by `Evolution::evolve(...)`.
+
 ##### Diagram
 ![image](evolution__flow.png)
 
-The basic flow of Evolutionary algorithm inside `Evolution::evolve(...)`.
-
 ##### Usage
+The use of flow
 - Users only need to implement `Reproduction` or `EnvironmentalSelection` or their derived classes if the flow satisfied.
 - The order of `Mutation`, `Crossover` and `Repair` in `Reproduction` are flexible
     - in DE, their order is `Mutation`, `Crossover` then `Repair`. See `DEReproduction`.
-    - in GA, their order maybe is `Crossover`, `Mutation` then `Repair`.
+    - in GA, their order is maybe `Crossover`, `Mutation` then `Repair`.
 - `Statistics` is used after the following position:
     - `Initializer`: statistics of the initial population.
     - `Reproduction`: statistics of the population of parents and offsprings on each generation.
     - `EnvironmentalSelection`: statistics of the current population on each generation.
 
 ##### Design issue
-- Why the choice of implementing different `Reproduction` and `EnvironmentalSelection` instead of implementing different `Evolution` on the Evolutionary flow?
-    - Implementing different `Evolution` is an alternative, but here ADEF want users written each operators likes mutation or crossover to focus on the feature of changing implementation classes dynamically. Overriding the flow only when it is necessary. And `Reproduction` too.
+Why the choice of implementing different `Reproduction` and `EnvironmentalSelection` instead of implementing different `Evolution` on the flow?
+- Implementing different `Evolution` is an alternative, but here ADEF want users write each operators likes mutation or crossover to focus on the feature of changing implementation classes dynamically. Overriding the flow only when it is necessary, and `Reproduction` too.
 
 ## ControlMechanism
-##### Description
 http://ukjhsa.github.io/adef/classadef_1_1_base_control_mechanism.html
+##### Description
 ##### Diagram
 ![image](adef__ControlMechanismDiagram.png)
 
