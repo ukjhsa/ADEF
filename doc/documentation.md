@@ -273,19 +273,58 @@ If there is a parameter which is declared by `ControlMechanism`, the suggested u
 1. call `update(...)` firstly.
 2. call `generate(...)` when you want to get the new parameter.
 
-And call `select(...)` after `Reproduction` or inside `EnvironmentalSelection`. (see Design issue of this section)
+And call `select(...)` after `Reproduction` or inside `EnvironmentalSelection`. (see Design issue of this section for the reason)
+
+```cpp
+void DECrossover::crossover(std::shared_ptr<Repository> repos) const
+{
+    // dynamic_cast to double type
+    auto cr = std::dynamic_pointer_cast<ControlMechanism<double>>(cr_);
+
+    for each individual in population {
+
+        // update firstly
+        cr->update(repos);
+        // then generate the new CR value
+        auto crossover_rate = cr->generate(repos);
+
+        do crossover.
+        
+        // it can NOT call cr->select(repos) because offspring is incomplete
+        // see DEEnvironmentalSelection::select(repos)
+    }
+}
+```
 
 The parameter *F* and *CR* in DE:
-- The parameter *F* is the member data of `DEMutation` and *CR* is the member data of `DECrossover`. Both parameters are declared by `BaseControlMechanism`. They should be stored to `Parameters` to let `DEEnvironmentalSelection` have the ability to use them.
+- The parameter *F* is the member data of `DEMutation` and *CR* is the member data of `DECrossover`.
+- Both parameters are declared by `BaseControlMechanism`.
+- They should be stored to `Parameters` to let `DEEnvironmentalSelection` have the ability to use them.
+
+```cpp
+class DECrossover : public Crossover
+{
+    // skip other attributes and operations
+private:
+    std::shared_ptr<BaseControlMechanism> cr_;
+};
+
+void DECrossover::init(std::shared_ptr<Repository> repos)
+{
+    repos->parameters()->store("cr", cr_);
+}
+```
 
 ##### Design issue
-- Why parameters *F* and *CR* are declared by `BaseControlMechanism`?
-    - They are not necessary to expose the template type of `ControlMechanism` to other evolutionary states, so `DEEnvironmentalSelection` does.
-    - `dynamic_cast` to actual type only on the use of `generate(...)`,i.e., in `DEMutation` and `DECrossover`.
-- Why the use of calling `select(...)` inside `EnvironmentalSelection`?
-    - `select(...)` uses the relation between parent and offspring so it must be called after `Reproduction` which reproduces complete offspring.
-- Why parameters *F* and *CR* are the member data of `DEMutation` and `DECrossover`?
-    - This issue has no absolute solution. ADEF takes the reason they just come from mutation and crossover.
+Why the use of calling `select(...)` inside `EnvironmentalSelection`?
+- `select(...)` uses the relation between parent and offspring so it must be called after `Reproduction` which reproduces complete offspring.
+
+Why parameters *F* and *CR* are declared by `BaseControlMechanism`?
+- They are not necessary to expose the template type of `ControlMechanism` to other evolutionary states, so `DEEnvironmentalSelection` does.
+- `dynamic_cast` to actual type only on the use of `generate(...)`,i.e., in `DEMutation` and `DECrossover`.
+
+By issues above, why parameters *F* and *CR* are the member data of `DEMutation` and `DECrossover`?
+- This issue has no absolute solution. ADEF takes the reason they just come from mutation and crossover.
 
 ### ControlRange
 http://ukjhsa.github.io/adef/classadef_1_1_control_range.html
