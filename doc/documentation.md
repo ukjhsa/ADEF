@@ -563,6 +563,9 @@ return object
 ```
 
 ##### Design issue
+Why the use of `SingleControlFunction` when the adjustment doesn't need additional informations?
+- It means there are no information to adjust, that is the adjustment doesn't be effected by others, so the usage of `SingleControlFunction` or `MultipleControlFunction` are fine, and the choice of `SingleControlFunction` uses less memory.
+
 Why the parameter `index` exist in its operations?
 - There is one `ControlMechanism` used by many individuals, so it have to separate which individual uses from population.
 
