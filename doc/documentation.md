@@ -526,25 +526,46 @@ Why `update(repos, base_parameter, base_function)` accept these parameters?
 ### ControlFunction
 http://ukjhsa.github.io/adef/classadef_1_1_control_function.html
 ##### Description
-`ControlFunction` is the storage of `Function`.
+`ControlFunction` is the storage of `Function` that adjusts the object.
 
-According to the adjustment of the object on each individual, it has two implementation classes
-- the adjustment is dependent to other individuals.
+According to the adjustment of the object, it has the following usage
+- the adjustment doesn't need additional informations.
     - use `SingleControlFunction`.
-- the adjustment are independent to each individual.
+- the adjustment needs informations that is dependent to other individuals.
+    - use `SingleControlFunction`.
+- the adjustment needs informations that is independent to each individual.
     - use `MultipleControlFunction`.
-
-`SingleControlFunction` also can be used on an exceptional situation that the adjustment has no additional informations.
 
 ##### Diagram
 ![image](adef__ControlFunctionSubsystem__ControlFunctionDiagram.png)
 
+The subclasses manages one or many `BaseFunction`.
+
 ##### Usage
+Operations
+- `at(index)` to return the function.
+
+The parameter `index` is ignored by `SingleControlFunction` because it has only one function.
+
+They are used in `ControlMechanism::generate(...)`
+
+```cpp
+function = ControlFunction::at(index)
+object = generate the newer object from function
+save object to ControlParameter
+return object
+```
 
 ##### Design issue
+Why the parameter `index` exist in its operations?
+- There is one `ControlMechanism` used by many individuals, so it have to separate which individual uses from population.
 
 ## Function
 ##### Description
+`Function` represents the method to adjust the object.
+
+The way to adjust the object can be seen as the formula with many inputs and one output.
+
 ##### Diagram
 
 ##### Usage
