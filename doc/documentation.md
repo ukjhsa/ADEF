@@ -656,13 +656,13 @@ It is used in `ControlMechanism::update(...)`
 
 ##### Design issue
 What the use does `BaseFunction` have?
-- It is not necessary to expose the template type, mainly `generate()` and `record(...)`, to others if they just use `update()`.
+- It is not necessary to expose the template type, mainly `generate()`, to others if they just use `update()`.
 
 Why `Function` has the ability to support Composite, doesn't use `CompositeFunction`?
 - This is also an alternative. If it is used, users have to check whether the function is Composite, through additional interface such as `is_composite()`, to access the component for the use of passing inputs.
 
 Why `record(...)` needs these parameters?
-- `params` is `Any` because `Function` not only aceept in Object type but other type, e.g. `LearningPeriodFunction`'s Object type is dependent to component `object` but it also accpet parameter of `unsigned int` type into the other component `generation`.
+- `params` is `Any` because `Function` not only aceept in Object type but other type, e.g. `LearningPeriodFunction`'s Object type is dependent to component `object` but it also accpet parameter of `unsigned int` type into the component `generation`.
 - `params` is `std::vector` because it is possible to accept many inputs.
 - `name` is used to specify what component to pass. If it is empty, inputs is accepted by this function.
 - `parent` and `offspring` are used in `ControlSelection`.
