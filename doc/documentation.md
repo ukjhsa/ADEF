@@ -526,6 +526,16 @@ Why `update(repos, base_parameter, base_function)` accept these parameters?
 ### ControlFunction
 http://ukjhsa.github.io/adef/classadef_1_1_control_function.html
 ##### Description
+`ControlFunction` is the storage of `Function`.
+
+According to the adjustment of the object on each individual, it has two implementation classes
+- the adjustment is dependent to other individuals.
+    - use `SingleControlFunction`.
+- the adjustment are independent to each individual.
+    - use `MultipleControlFunction`.
+
+`SingleControlFunction` also can be used on an exceptional situation that the adjustment has no additional informations.
+
 ##### Diagram
 ![image](adef__ControlFunctionSubsystem__ControlFunctionDiagram.png)
 
