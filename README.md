@@ -6,8 +6,6 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Issues](https://img.shields.io/github/issues/ukjhsa/adef.svg)](https://github.com/ukjhsa/adef/issues)
 
-=
-
 ADEF (A Software Framework for Adaptive Differential Evolution) is a
 framework supports a variety of adaptive differential evolution algorithms.
 
@@ -82,6 +80,7 @@ make
 or specify the generator such as
 - type `cmake -G "MinGW Makefiles" ..` to use Makefiles with MinGW compiler.
 - type `cmake -G "CodeBlocks - MinGW Makefiles" ..` to use [Code::Bolcks](http://www.codeblocks.org/) with MinGW compiler.
+
 then compile from the generator.
 
 ### Configuration of CMake
