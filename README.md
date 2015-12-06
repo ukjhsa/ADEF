@@ -8,14 +8,15 @@ The DE algorithm has parameters F (scaling factor) and CR (crossover rate) and t
 
 ## Features
 ADEF has the following features:
-- supports for DE variant *x*/*y*/*z*:
-    - *x*: *rand*
-    - *y*: positive integer such as 1
-    - *z*: *bin*
-- supports many adaptive DE procedure, including **DEPD**, **NSDE**, **SaDE**, **SaNSDE**, **jDE**, **ISADE**, **SDE**.
-- changes parameters and implementation classes dynamically through configuration file rather than recompiling.
-- provides the mechanism of the parameter control to use flexibly.
-- outputs the statistics of experimental result automatically.
+- DE and a variety of adaptive DE procedures
+    - DE variant *x*/*y*/*z*:
+        - *x*: *rand*
+        - *y*: positive integer
+        - *z*: *bin*
+    - adaptive DE procedure, including **DEPD**, **NSDE**, **SaDE**, **SaNSDE**, **jDE**, **ISADE**, **SDE**.
+- the mechanism of the parameter control to use.
+- parameters and implementation classes changed dynamically by the configuration file rather than recompiling.
+- the statistics of experimental result automatically.
 
 ## Requirements
 - [CMake](https://cmake.org/) 3.1 or the newer.
@@ -32,19 +33,27 @@ Tested environments:
 
 Note that the MSVC is **NOT** supported.
 
-## Build
-### Windows
-1. Open `cmake-gui` and select the path to source code, suppose `X:/adef`.
-1. specify the path to build, suppose `X:/adef/build`.
+## Compiling
+### Use the gui tool `cmake-gui` and terminal (recommended to Windows user)
+1. Open `cmake-gui` and select the path of "Where is the source code" to source code, suppose `X:/adef`.
+1. specify the path of "Where to build the binaries" to build, suppose `X:/adef/build`.
 1. press the button "Configure".
-1. specify the generator to "MinGW Makefiles". If the default compilers fails to find g++ (or mingw32-g++), specify them.
+1. select the generator. If the default compilers fails to find, specify them.
+    - "MinGW Makefiles" for Windows user. The compiler should be mingw32-g++.
 1. if the configuration changed, press the button "Configure" again.
 1. press button "Generate".
-1. Open the `cmd` and setting up environment with GCC. (if TDM-GCC used, click the "MinGW Command Prompt".)
+- or the specified generator to compile.
+1. Open the terminal which has setting up environment with GCC.
+    - use the "MinGW Command Prompt" if TDM-GCC installed for Windows user.
 1. change the current working directory to `X:/adef/build`.
-1. type `mingw32-make`
+1. type `make` or `mingw32-make` (for MinGW user).
 
-### Unix-like
+### Use the terminal
+
+1. create the directory for building, suppose it is named `build`.
+1. change the current working directory to it.
+1. configure and generate generator from the root CMakeLists.txt.
+1. compile it.
 
 ```sh
 mkdir build
@@ -52,52 +61,18 @@ cd build
 cmake ..
 make
 ```
-
-### Full Guide
-1. [CMake configuration](#cmake-configuration). Here the use of the out-of-source build.
-2. [Compile](#compile)
-
-#### CMake configuration
-There are two option to use CMake
-- use the [command-line tools](#command-line).
-- use the gui tool [cmake-gui](#cmake-gui).
-
-##### command-line
-
-```sh
-mkdir build
-cd build
-cmake ..
-```
-
-Explanation:
-
-1. create the directory for building, suppose it is named `build`.
-1. change the path to it.
-1. configure and generate generator from the root CMakeLists.txt.
-
-or specify the generator like
-- type `cmake -G "MinGW Makefiles" ..` to use Makefiles with MinGW to build
-- type `cmake -G "CodeBlocks - MinGW Makefiles" ..` to use [Code::Bolcks](http://www.codeblocks.org/) with MinGW to build
-
-##### cmake-gui
-1. select the path to "Where is the source code"
-1. specify the path "Where to build the binaries" to the directory `build` on the same path of source code.
-1. press the button "Configure" and specify the generator and compilers.
-1. if the configuration changed, press the button "Configure" again.
-1. press the button "Generate"
-
-#### Compile
-use `make` or `mingw32-make` (in MinGW) or the specified generator to compile.
+or specify the generator such as
+- type `cmake -G "MinGW Makefiles" ..` to use Makefiles with MinGW to build.
+- type `cmake -G "CodeBlocks - MinGW Makefiles" ..` to use [Code::Bolcks](http://www.codeblocks.org/) with MinGW to build.
 
 ### Setting
-The build of adef has two step:
+The build of ADEF has two step:
 
-1. build the library of adef.
-1. generate the executable file by linking the provided `main.cpp` and the library of adef.
+1. build the library of ADEF.
+1. generate the executable file by linking the provided `main.cpp` and the library of ADEF.
 
 There are some optional configuration using CMake:
-- BUILD_SHARED_LIBS: build adef as the shared library. the default is OFF (static.)
+- BUILD_SHARED_LIBS: build ADEF as the shared library. the default is OFF (static.)
 - CMAKE_BUILD_TYPE: the build type. the default is Release.
 - GENERATE_EXECUTABLE: generate the executable file. the default is ON.
 
