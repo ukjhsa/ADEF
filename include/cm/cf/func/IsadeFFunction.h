@@ -58,8 +58,6 @@ IsadeCrFunction has extra configurations:
              Function.
 .
 See setup() for the details.
-
-@todo IsadeFFunction is similar to IsadeCrFunction
 */
 class IsadeFFunction : public Function<double>
 {

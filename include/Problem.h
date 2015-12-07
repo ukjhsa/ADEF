@@ -48,8 +48,6 @@ Problem has extra configurations:
     - value: @c double
 .
 See setup() for the details.
-
-@todo ProblemKind has not been used.
 */
 class Problem : public Prototype, public EvolutionaryState
 {

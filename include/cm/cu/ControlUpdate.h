@@ -23,9 +23,6 @@ ControlUpdate has no extra configurations.@n
 See setup() for the details.
 
 @sa ControlMechanism
-
-@todo There are redundant process, e.g. calculate the maximum fitness value,
-to each individuals.
 */
 class ControlUpdate : public Prototype
 {

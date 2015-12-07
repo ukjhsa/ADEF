@@ -37,19 +37,6 @@ System has extra configurations:
 See setup() for the details.
 
 @sa see Experiment and Repository for the contents.
-
-@todo configuration for pseudo-random number.@n
-The current mechanism:
-- generator: srand(), std::mt19937 for distributions
-- seed: current time for srand(), 1 for std::mt19937, rand() for Function renew
-- value: std::mt19937 for distributions, rand() for others
-.
-It must be considered under some situation:
-- generator: engines must be used by distributions,
-             but others can be used by rand() or distributions
-- seed: specific number or current time or random number
-- All of them are different or same, or some are different others same.
-.
 */
 class System : public Prototype
 {

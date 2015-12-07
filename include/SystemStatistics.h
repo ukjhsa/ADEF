@@ -30,9 +30,6 @@ by formula
 - success performance = (the mean of FEs for successful runs) *
 (the number of the total runs) / (the number of the successful runs)
 .
-
-@todo The order of name of algorithm and problem in output file
-may be configured. (Now they are sorted by name.)
 */
 class SystemStatistics : public Prototype
 {

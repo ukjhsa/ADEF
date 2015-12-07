@@ -29,8 +29,6 @@ generate(), select(), and update().
 @par The configuration
 SdeFControlMechanism has no extra configurations.@n
 See setup() for the details.
-
-@todo The method to repair invalid object rather than create new class.
 */
 class SdeFControlMechanism : public ControlMechanism<double>
 {
