@@ -12,19 +12,29 @@ framework supports a variety of adaptive differential evolution algorithms.
 
 [Differential Evolution](https://en.wikipedia.org/wiki/Differential_evolution) (DE) is one of [Evolutionary algorithm](https://en.wikipedia.org/wiki/Evolutionary_algorithm). DE uses the differences of solutions to create new solutions and keeps each new solution if it is better.
 
-The DE algorithm has parameters F (scaling factor) and CR (crossover rate) and there are many researches on how to adjust. ADEF not only implements some existing mechanism of parameter control, it also presents the flexible architecture of it.
+The DE algorithm has parameters F (scaling factor) and CR (crossover rate) and there are many researches on how to adjust. ADEF not only implements some existing mechanism of parameter control, it also presents the extensible architecture.
 
 ## Features
 ADEF has the following features:
-- DE and a variety of adaptive DE procedures
-    - DE variant *x*/*y*/*z*:
+- the procedure of adaptive DE
+- an extensible mechanism of the parameter control.
+- the usage of configuration by the file rather than recompiling, including parameters and implementation classes.
+- the statistics of experimental result, such as the number of successful run, success performance, and etc.
+
+Algorithms
+- DE
+    - variant *x*/*y*/*z*:
         - *x*: *rand*
         - *y*: positive integer
         - *z*: *bin*
-    - adaptive DE procedure, including **DEPD**, **NSDE**, **SaDE**, **SaNSDE**, **jDE**, **ISADE**, **SDE**.
-- the mechanism of the parameter control to use.
-- parameters and implementation classes changed dynamically by the configuration file rather than recompiling.
-- the statistics of experimental result automatically.
+- procedure of adaptive DE
+    - **DEPD**, **NSDE**, **SaDE**, **SaNSDE**, **jDE**, **ISADE**, **SDE**
+
+Problems
+- [Classical problems](include/problem/basic)
+
+Variable Representations
+- real encoding
 
 ## Requirements
 - [CMake](https://cmake.org/) 3.1 or the newer.
