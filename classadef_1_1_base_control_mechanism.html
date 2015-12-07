@@ -122,6 +122,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4f26239c83e23852ad1bd86a65dfdcf9"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classadef_1_1_base_control_mechanism.html">BaseControlMechanism</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classadef_1_1_base_control_mechanism.html#a4f26239c83e23852ad1bd86a65dfdcf9">clone</a> () const </td></tr>
 <tr class="memdesc:a4f26239c83e23852ad1bd86a65dfdcf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clone the current class.  <a href="#a4f26239c83e23852ad1bd86a65dfdcf9">More...</a><br /></td></tr>
 <tr class="separator:a4f26239c83e23852ad1bd86a65dfdcf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f8a87e23320ae0d6fa13440fce3e4f0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classadef_1_1_base_control_mechanism.html#a1f8a87e23320ae0d6fa13440fce3e4f0">select</a> (std::shared_ptr&lt; <a class="el" href="classadef_1_1_repository.html">Repository</a> &gt; repos)=0</td></tr>
+<tr class="memdesc:a1f8a87e23320ae0d6fa13440fce3e4f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update internal states by the relation between parent and offspring.  <a href="#a1f8a87e23320ae0d6fa13440fce3e4f0">More...</a><br /></td></tr>
+<tr class="separator:a1f8a87e23320ae0d6fa13440fce3e4f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75f460dc982794ed30810c4ff6bd1b69"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classadef_1_1_base_control_mechanism.html#a75f460dc982794ed30810c4ff6bd1b69">update</a> (std::shared_ptr&lt; <a class="el" href="classadef_1_1_repository.html">Repository</a> &gt; repos)=0</td></tr>
+<tr class="memdesc:a75f460dc982794ed30810c4ff6bd1b69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the internal states by the current state.  <a href="#a75f460dc982794ed30810c4ff6bd1b69">More...</a><br /></td></tr>
+<tr class="separator:a75f460dc982794ed30810c4ff6bd1b69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classadef_1_1_prototype"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classadef_1_1_prototype')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classadef_1_1_prototype.html">adef::Prototype</a></td></tr>
 <tr class="memitem:a9268141081497ccd8cce75ea49d7fc5b inherit pub_methods_classadef_1_1_prototype"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classadef_1_1_prototype.html#a9268141081497ccd8cce75ea49d7fc5b">~Prototype</a> ()=default</td></tr>
 <tr class="separator:a9268141081497ccd8cce75ea49d7fc5b inherit pub_methods_classadef_1_1_prototype"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,10 +191,66 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a1f8a87e23320ae0d6fa13440fce3e4f0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void adef::BaseControlMechanism::select </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classadef_1_1_repository.html">Repository</a> &gt;&#160;</td>
+          <td class="paramname"><em>repos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update internal states by the relation between parent and offspring. </p>
+
+<p>Implemented in <a class="el" href="classadef_1_1_control_mechanism.html#adf3c8fd30fc1cf5306af1f4f9b19b7df">adef::ControlMechanism&lt; T &gt;</a>, <a class="el" href="classadef_1_1_control_mechanism.html#adf3c8fd30fc1cf5306af1f4f9b19b7df">adef::ControlMechanism&lt; double &gt;</a>, <a class="el" href="classadef_1_1_indirect_control_mechanism.html#a8e58057b6c2027a4bd979b778039ec15">adef::IndirectControlMechanism&lt; T &gt;</a>, and <a class="el" href="classadef_1_1_sade_cr_control_mechanism.html#a453f5aaf68f969a78f75427881577779">adef::SadeCrControlMechanism</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a75f460dc982794ed30810c4ff6bd1b69"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void adef::BaseControlMechanism::update </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classadef_1_1_repository.html">Repository</a> &gt;&#160;</td>
+          <td class="paramname"><em>repos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Update the internal states by the current state. </p>
+
+<p>Implemented in <a class="el" href="classadef_1_1_control_mechanism.html#a4b7951cd09a8d7df31ea8c880995744a">adef::ControlMechanism&lt; T &gt;</a>, <a class="el" href="classadef_1_1_control_mechanism.html#a4b7951cd09a8d7df31ea8c880995744a">adef::ControlMechanism&lt; double &gt;</a>, <a class="el" href="classadef_1_1_indirect_control_mechanism.html#aa729f1684d4dc011ba83cc5ca0a8cfb7">adef::IndirectControlMechanism&lt; T &gt;</a>, and <a class="el" href="classadef_1_1_sade_cr_control_mechanism.html#a3914ef9a68139ee6abd7af097e748147">adef::SadeCrControlMechanism</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 29 2015 20:47:48 for ADEF by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 8 2015 00:01:19 for ADEF by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

@@ -99,58 +99,58 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Configuration;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>PrototypeManager;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classadef_1_1_system.html">   54</a></span>&#160;<span class="keyword">class </span><a class="code" href="classadef_1_1_system.html">System</a> : <span class="keyword">public</span> <a class="code" href="classadef_1_1_prototype.html">Prototype</a></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;{</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="classadef_1_1_system.html#ac394e552443c9a65070bd49fbb1e8015">System</a>();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="classadef_1_1_system.html#ac394e552443c9a65070bd49fbb1e8015">System</a>(<span class="keyword">const</span> <a class="code" href="classadef_1_1_system.html">System</a>&amp; rhs);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classadef_1_1_system.html#a778d52ceeb48139692b9c4b3d1843d88">~System</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="classadef_1_1_system.html">System</a>&amp; <a class="code" href="classadef_1_1_system.html#a6847d134f1e4e44fa6f0d0fd4a426e99">operator=</a>(<span class="keyword">const</span> <a class="code" href="classadef_1_1_system.html">System</a>&amp; rhs) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classadef_1_1_system.html#aa41e574316e5e8e06b7229b7bfa232e2">   67</a></span>&#160;    std::shared_ptr&lt;System&gt; <a class="code" href="classadef_1_1_system.html#aa41e574316e5e8e06b7229b7bfa232e2">clone</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">return</span> std::dynamic_pointer_cast&lt;<a class="code" href="classadef_1_1_system.html">System</a>&gt;(clone_impl());</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classadef_1_1_system.html#a9a50d12f37b68200545c54b9dd057653">setup</a>(<span class="keyword">const</span> <a class="code" href="classadef_1_1_configuration.html">Configuration</a>&amp; config,</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                       <span class="keyword">const</span> <a class="code" href="classadef_1_1_prototype_manager.html">PrototypeManager</a>&amp; pm) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classadef_1_1_system.html#ac6c5734d8ec1ee7a8551e73187804bd0">run</a>();</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classadef_1_1_system.html">   41</a></span>&#160;<span class="keyword">class </span><a class="code" href="classadef_1_1_system.html">System</a> : <span class="keyword">public</span> <a class="code" href="classadef_1_1_prototype.html">Prototype</a></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="classadef_1_1_system.html#ac394e552443c9a65070bd49fbb1e8015">System</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="classadef_1_1_system.html#ac394e552443c9a65070bd49fbb1e8015">System</a>(<span class="keyword">const</span> <a class="code" href="classadef_1_1_system.html">System</a>&amp; rhs);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="classadef_1_1_system.html#a778d52ceeb48139692b9c4b3d1843d88">~System</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="classadef_1_1_system.html">System</a>&amp; <a class="code" href="classadef_1_1_system.html#a6847d134f1e4e44fa6f0d0fd4a426e99">operator=</a>(<span class="keyword">const</span> <a class="code" href="classadef_1_1_system.html">System</a>&amp; rhs) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classadef_1_1_system.html#aa41e574316e5e8e06b7229b7bfa232e2">   54</a></span>&#160;    std::shared_ptr&lt;System&gt; <a class="code" href="classadef_1_1_system.html#aa41e574316e5e8e06b7229b7bfa232e2">clone</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">return</span> std::dynamic_pointer_cast&lt;<a class="code" href="classadef_1_1_system.html">System</a>&gt;(clone_impl());</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classadef_1_1_system.html#a9a50d12f37b68200545c54b9dd057653">setup</a>(<span class="keyword">const</span> <a class="code" href="classadef_1_1_configuration.html">Configuration</a>&amp; config,</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                       <span class="keyword">const</span> <a class="code" href="classadef_1_1_prototype_manager.html">PrototypeManager</a>&amp; pm) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classadef_1_1_system.html#ac6c5734d8ec1ee7a8551e73187804bd0">run</a>();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="classadef_1_1_system.html#a8148fc2c00d7d130b4346f3b5953bc6a">   95</a></span>&#160;    std::string <a class="code" href="classadef_1_1_system.html#a8148fc2c00d7d130b4346f3b5953bc6a">name_</a>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classadef_1_1_system.html#a16a989b1ad4152a2df4e96ebb069155f">   99</a></span>&#160;    std::shared_ptr&lt;SystemStatistics&gt; <a class="code" href="classadef_1_1_system.html#a16a989b1ad4152a2df4e96ebb069155f">statistics_</a>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="classadef_1_1_system.html#aaae71bc9d67f90d3f68b3291cba79594">  103</a></span>&#160;    std::vector&lt;std::shared_ptr&lt;Experiment&gt;&gt; <a class="code" href="classadef_1_1_system.html#aaae71bc9d67f90d3f68b3291cba79594">experiments_</a>;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="classadef_1_1_system.html#a8148fc2c00d7d130b4346f3b5953bc6a">  108</a></span>&#160;    std::string <a class="code" href="classadef_1_1_system.html#a8148fc2c00d7d130b4346f3b5953bc6a">name_</a>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="classadef_1_1_system.html#a16a989b1ad4152a2df4e96ebb069155f">  112</a></span>&#160;    std::shared_ptr&lt;SystemStatistics&gt; <a class="code" href="classadef_1_1_system.html#a16a989b1ad4152a2df4e96ebb069155f">statistics_</a>;</div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classadef_1_1_system.html#aaae71bc9d67f90d3f68b3291cba79594">  116</a></span>&#160;    std::vector&lt;std::shared_ptr&lt;Experiment&gt;&gt; <a class="code" href="classadef_1_1_system.html#aaae71bc9d67f90d3f68b3291cba79594">experiments_</a>;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;Prototype&gt; clone_impl()<span class="keyword"> const override</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">return</span> std::make_shared&lt;System&gt;(*this);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    }</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;};</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#endif // SYSTEM_H</span></div>
-<div class="ttc" id="classadef_1_1_system_html_a8148fc2c00d7d130b4346f3b5953bc6a"><div class="ttname"><a href="classadef_1_1_system.html#a8148fc2c00d7d130b4346f3b5953bc6a">adef::System::name_</a></div><div class="ttdeci">std::string name_</div><div class="ttdoc">The prefix of the file name of output data. </div><div class="ttdef"><b>Definition:</b> System.h:108</div></div>
-<div class="ttc" id="classadef_1_1_system_html"><div class="ttname"><a href="classadef_1_1_system.html">adef::System</a></div><div class="ttdoc">System is the top class to clients. </div><div class="ttdef"><b>Definition:</b> System.h:54</div></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;Prototype&gt; clone_impl()<span class="keyword"> const override</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">return</span> std::make_shared&lt;System&gt;(*this);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;};</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">#endif // SYSTEM_H</span></div>
+<div class="ttc" id="classadef_1_1_system_html_a8148fc2c00d7d130b4346f3b5953bc6a"><div class="ttname"><a href="classadef_1_1_system.html#a8148fc2c00d7d130b4346f3b5953bc6a">adef::System::name_</a></div><div class="ttdeci">std::string name_</div><div class="ttdoc">The prefix of the file name of output data. </div><div class="ttdef"><b>Definition:</b> System.h:95</div></div>
+<div class="ttc" id="classadef_1_1_system_html"><div class="ttname"><a href="classadef_1_1_system.html">adef::System</a></div><div class="ttdoc">System is the top class to clients. </div><div class="ttdef"><b>Definition:</b> System.h:41</div></div>
 <div class="ttc" id="classadef_1_1_prototype_manager_html"><div class="ttname"><a href="classadef_1_1_prototype_manager.html">adef::PrototypeManager</a></div><div class="ttdoc">PrototypeManager implements the simple mechanism of C++ reflection. </div><div class="ttdef"><b>Definition:</b> PrototypeManager.h:21</div></div>
 <div class="ttc" id="classadef_1_1_system_html_a9a50d12f37b68200545c54b9dd057653"><div class="ttname"><a href="classadef_1_1_system.html#a9a50d12f37b68200545c54b9dd057653">adef::System::setup</a></div><div class="ttdeci">virtual void setup(const Configuration &amp;config, const PrototypeManager &amp;pm) override</div><div class="ttdoc">Set up the internal states. </div><div class="ttdef"><b>Definition:</b> System.cpp:28</div></div>
 <div class="ttc" id="classadef_1_1_system_html_ac6c5734d8ec1ee7a8551e73187804bd0"><div class="ttname"><a href="classadef_1_1_system.html#ac6c5734d8ec1ee7a8551e73187804bd0">adef::System::run</a></div><div class="ttdeci">virtual void run()</div><div class="ttdoc">Execute experiments. </div><div class="ttdef"><b>Definition:</b> System.cpp:43</div></div>
 <div class="ttc" id="classadef_1_1_system_html_ac394e552443c9a65070bd49fbb1e8015"><div class="ttname"><a href="classadef_1_1_system.html#ac394e552443c9a65070bd49fbb1e8015">adef::System::System</a></div><div class="ttdeci">System()</div><div class="ttdef"><b>Definition:</b> System.cpp:12</div></div>
-<div class="ttc" id="classadef_1_1_system_html_aa41e574316e5e8e06b7229b7bfa232e2"><div class="ttname"><a href="classadef_1_1_system.html#aa41e574316e5e8e06b7229b7bfa232e2">adef::System::clone</a></div><div class="ttdeci">std::shared_ptr&lt; System &gt; clone() const </div><div class="ttdoc">Clone the current class. </div><div class="ttdef"><b>Definition:</b> System.h:67</div></div>
+<div class="ttc" id="classadef_1_1_system_html_aa41e574316e5e8e06b7229b7bfa232e2"><div class="ttname"><a href="classadef_1_1_system.html#aa41e574316e5e8e06b7229b7bfa232e2">adef::System::clone</a></div><div class="ttdeci">std::shared_ptr&lt; System &gt; clone() const </div><div class="ttdoc">Clone the current class. </div><div class="ttdef"><b>Definition:</b> System.h:54</div></div>
 <div class="ttc" id="classadef_1_1_configuration_html"><div class="ttname"><a href="classadef_1_1_configuration.html">adef::Configuration</a></div><div class="ttdoc">Configuration provides interfaces to access configuration data. </div><div class="ttdef"><b>Definition:</b> Configuration.h:34</div></div>
 <div class="ttc" id="namespaceadef_html"><div class="ttname"><a href="namespaceadef.html">adef</a></div><div class="ttdoc">namespace for ADEF </div><div class="ttdef"><b>Definition:</b> adef.cpp:38</div></div>
 <div class="ttc" id="classadef_1_1_prototype_html"><div class="ttname"><a href="classadef_1_1_prototype.html">adef::Prototype</a></div><div class="ttdoc">Prototype is the abstract base class of those can change the implementation class dynamically and can...</div><div class="ttdef"><b>Definition:</b> Prototype.h:29</div></div>
-<div class="ttc" id="classadef_1_1_system_html_aaae71bc9d67f90d3f68b3291cba79594"><div class="ttname"><a href="classadef_1_1_system.html#aaae71bc9d67f90d3f68b3291cba79594">adef::System::experiments_</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; Experiment &gt; &gt; experiments_</div><div class="ttdoc">The total experiments. </div><div class="ttdef"><b>Definition:</b> System.h:116</div></div>
-<div class="ttc" id="classadef_1_1_system_html_a16a989b1ad4152a2df4e96ebb069155f"><div class="ttname"><a href="classadef_1_1_system.html#a16a989b1ad4152a2df4e96ebb069155f">adef::System::statistics_</a></div><div class="ttdeci">std::shared_ptr&lt; SystemStatistics &gt; statistics_</div><div class="ttdoc">The statistics on the system level. </div><div class="ttdef"><b>Definition:</b> System.h:112</div></div>
+<div class="ttc" id="classadef_1_1_system_html_aaae71bc9d67f90d3f68b3291cba79594"><div class="ttname"><a href="classadef_1_1_system.html#aaae71bc9d67f90d3f68b3291cba79594">adef::System::experiments_</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; Experiment &gt; &gt; experiments_</div><div class="ttdoc">The total experiments. </div><div class="ttdef"><b>Definition:</b> System.h:103</div></div>
+<div class="ttc" id="classadef_1_1_system_html_a16a989b1ad4152a2df4e96ebb069155f"><div class="ttname"><a href="classadef_1_1_system.html#a16a989b1ad4152a2df4e96ebb069155f">adef::System::statistics_</a></div><div class="ttdeci">std::shared_ptr&lt; SystemStatistics &gt; statistics_</div><div class="ttdoc">The statistics on the system level. </div><div class="ttdef"><b>Definition:</b> System.h:99</div></div>
 <div class="ttc" id="classadef_1_1_system_html_a778d52ceeb48139692b9c4b3d1843d88"><div class="ttname"><a href="classadef_1_1_system.html#a778d52ceeb48139692b9c4b3d1843d88">adef::System::~System</a></div><div class="ttdeci">virtual ~System()=default</div></div>
 <div class="ttc" id="classadef_1_1_system_html_a6847d134f1e4e44fa6f0d0fd4a426e99"><div class="ttname"><a href="classadef_1_1_system.html#a6847d134f1e4e44fa6f0d0fd4a426e99">adef::System::operator=</a></div><div class="ttdeci">System &amp; operator=(const System &amp;rhs)=delete</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 29 2015 20:47:48 for ADEF by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 8 2015 00:01:19 for ADEF by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>

@@ -10,7 +10,7 @@ var indexSectionsWithContent =
   7: "cfmop",
   8: "a",
   9: "t",
-  10: "ast"
+  10: "as"
 };
 
 var indexSectionNames =

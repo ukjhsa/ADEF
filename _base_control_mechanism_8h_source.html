@@ -103,23 +103,28 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">return</span> std::dynamic_pointer_cast&lt;<a class="code" href="classadef_1_1_base_control_mechanism.html">BaseControlMechanism</a>&gt;(clone_impl());</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    }</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;Prototype&gt; clone_impl() <span class="keyword">const override</span> = 0;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#endif // BASE_CONTROL_MECHANISM_H</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classadef_1_1_base_control_mechanism.html#a1f8a87e23320ae0d6fa13440fce3e4f0">select</a>(std::shared_ptr&lt;Repository&gt; repos) = 0;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classadef_1_1_base_control_mechanism.html#a75f460dc982794ed30810c4ff6bd1b69">update</a>(std::shared_ptr&lt;Repository&gt; repos) = 0;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;Prototype&gt; clone_impl() <span class="keyword">const override</span> = 0;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif // BASE_CONTROL_MECHANISM_H</span></div>
+<div class="ttc" id="classadef_1_1_base_control_mechanism_html_a1f8a87e23320ae0d6fa13440fce3e4f0"><div class="ttname"><a href="classadef_1_1_base_control_mechanism.html#a1f8a87e23320ae0d6fa13440fce3e4f0">adef::BaseControlMechanism::select</a></div><div class="ttdeci">virtual void select(std::shared_ptr&lt; Repository &gt; repos)=0</div><div class="ttdoc">Update internal states by the relation between parent and offspring. </div></div>
 <div class="ttc" id="classadef_1_1_base_control_mechanism_html_a4433777609ec7474ab967a3e71ec9b03"><div class="ttname"><a href="classadef_1_1_base_control_mechanism.html#a4433777609ec7474ab967a3e71ec9b03">adef::BaseControlMechanism::~BaseControlMechanism</a></div><div class="ttdeci">virtual ~BaseControlMechanism()=default</div></div>
 <div class="ttc" id="namespaceadef_html"><div class="ttname"><a href="namespaceadef.html">adef</a></div><div class="ttdoc">namespace for ADEF </div><div class="ttdef"><b>Definition:</b> adef.cpp:38</div></div>
 <div class="ttc" id="classadef_1_1_base_control_mechanism_html"><div class="ttname"><a href="classadef_1_1_base_control_mechanism.html">adef::BaseControlMechanism</a></div><div class="ttdoc">BaseControlMechanism defines interfaces of all ControlMechanism. </div><div class="ttdef"><b>Definition:</b> BaseControlMechanism.h:12</div></div>
+<div class="ttc" id="classadef_1_1_base_control_mechanism_html_a75f460dc982794ed30810c4ff6bd1b69"><div class="ttname"><a href="classadef_1_1_base_control_mechanism.html#a75f460dc982794ed30810c4ff6bd1b69">adef::BaseControlMechanism::update</a></div><div class="ttdeci">virtual void update(std::shared_ptr&lt; Repository &gt; repos)=0</div><div class="ttdoc">Update the internal states by the current state. </div></div>
 <div class="ttc" id="classadef_1_1_prototype_html"><div class="ttname"><a href="classadef_1_1_prototype.html">adef::Prototype</a></div><div class="ttdoc">Prototype is the abstract base class of those can change the implementation class dynamically and can...</div><div class="ttdef"><b>Definition:</b> Prototype.h:29</div></div>
 <div class="ttc" id="classadef_1_1_base_control_mechanism_html_a4f26239c83e23852ad1bd86a65dfdcf9"><div class="ttname"><a href="classadef_1_1_base_control_mechanism.html#a4f26239c83e23852ad1bd86a65dfdcf9">adef::BaseControlMechanism::clone</a></div><div class="ttdeci">std::shared_ptr&lt; BaseControlMechanism &gt; clone() const </div><div class="ttdoc">Clone the current class. </div><div class="ttdef"><b>Definition:</b> BaseControlMechanism.h:22</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 29 2015 20:47:47 for ADEF by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 8 2015 00:01:18 for ADEF by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.10
 </small></address>
