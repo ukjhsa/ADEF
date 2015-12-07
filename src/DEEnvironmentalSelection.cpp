@@ -8,7 +8,7 @@
 #include "Population.h"
 #include "Individual.h"
 #include "Parameters.h"
-#include "cm/ControlMechanism.h"
+#include "cm/BaseControlMechanism.h"
 
 namespace adef {
 
@@ -24,10 +24,8 @@ void DEEnvironmentalSelection::init(std::shared_ptr<Repository> repos)
 void DEEnvironmentalSelection::select(std::shared_ptr<Repository> repos) const
 {
     // Call select of parameter f and cr for all individuals
-    auto f = std::dynamic_pointer_cast<ControlMechanism<double>>(
-        repos->parameters()->take_out<std::shared_ptr<BaseControlMechanism>>("f"));
-    auto cr = std::dynamic_pointer_cast<ControlMechanism<double>>(
-        repos->parameters()->take_out<std::shared_ptr<BaseControlMechanism>>("cr"));
+    auto f = repos->parameters()->take_out<std::shared_ptr<BaseControlMechanism>>("f");
+    auto cr = repos->parameters()->take_out<std::shared_ptr<BaseControlMechanism>>("cr");
 
     auto parent = repos->population();
     auto children = repos->offspring();

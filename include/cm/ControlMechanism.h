@@ -177,7 +177,7 @@ its configuration should be
 /**
 @brief Update internal states by the relation between parent and offspring.
 */
-    virtual void select(std::shared_ptr<Repository> repos)
+    virtual void select(std::shared_ptr<Repository> repos) override
     {
         auto index = repos->parameters()->take_out<std::size_t>("target_index");
         selection_->select(repos, parameter_, function_->at(index));
@@ -185,7 +185,7 @@ its configuration should be
 /**
 @brief Update the internal states by the current state.
 */
-    virtual void update(std::shared_ptr<Repository> repos)
+    virtual void update(std::shared_ptr<Repository> repos) override
     {
         auto index = repos->parameters()->take_out<std::size_t>("target_index");
         for (auto& update : updates_) {

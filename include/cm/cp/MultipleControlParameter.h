@@ -27,9 +27,6 @@ MultipleControlParameter has extra configurations:
              Function.
 .
 See setup() for the details.
-
-@todo provides the method to set the number of objects (includes the flag of
-already generated) rather than through setup().
 */
 template<typename T, typename Enable = void>
 class MultipleControlParameter : public ControlParameter<T>

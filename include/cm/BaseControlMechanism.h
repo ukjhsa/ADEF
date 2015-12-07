@@ -24,6 +24,15 @@ public:
         return std::dynamic_pointer_cast<BaseControlMechanism>(clone_impl());
     }
 
+/**
+@brief Update internal states by the relation between parent and offspring.
+*/
+    virtual void select(std::shared_ptr<Repository> repos) = 0;
+/**
+@brief Update the internal states by the current state.
+*/
+    virtual void update(std::shared_ptr<Repository> repos) = 0;
+
 private:
 
     virtual std::shared_ptr<Prototype> clone_impl() const override = 0;
