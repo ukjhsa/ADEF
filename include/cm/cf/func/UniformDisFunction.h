@@ -60,10 +60,10 @@ public:
 /**
 @brief The default constructor with seed value 1.
 
-The default value of the lower bound is 0.0, upper bound is 1.0.
+The default value of the lower bound is 0, upper bound is 1.
 */
     UniformDisFunction() :
-        generator_(1), lower_bound_(0.0), upper_bound_(1.0)
+        generator_(1), lower_bound_(0), upper_bound_(1)
     {
     }
 /**
@@ -71,7 +71,7 @@ The default value of the lower bound is 0.0, upper bound is 1.0.
 @param seed The seed value of the pseudo-random number generator.
 */
     UniformDisFunction(unsigned int seed) :
-        generator_(seed), lower_bound_(0.0), upper_bound_(1.0)
+        generator_(seed), lower_bound_(0), upper_bound_(1)
     {
     }
 /**
@@ -129,24 +129,13 @@ its configuration should be
         upper_bound->set_function_name("upper_bound");
         Function<T>::add_function(upper_bound);
 
-        lower_bound_ = 0.0;
-        upper_bound_ = 1.0;
+        lower_bound_ = 0;
+        upper_bound_ = 1;
     }
 
     Object generate() override
     {
-        if(std::is_integral<T>::value) {
-            std::uniform_int_distribution<> uniform(lower_bound_, upper_bound_);
-            return uniform(generator_);
-        }
-        else if(std::is_floating_point<T>::value) {
-            std::uniform_real_distribution<> uniform(lower_bound_, upper_bound_);
-            return uniform(generator_);
-        }
-        else {
-            throw std::domain_error("template ObjectType is neither a floating \
-                                    point type nor an integral type");
-        }
+        return generate_impl<>();
     }
 
     void update() override
@@ -177,6 +166,22 @@ private:
     Object upper_bound_;
 
 private:
+
+    template<typename U = Object>
+    U generate_impl(
+        std::enable_if_t<std::is_integral<U>::value>* = nullptr)
+    {
+        std::uniform_int_distribution<> uniform(lower_bound_, upper_bound_);
+        return uniform(generator_);
+    }
+
+    template<typename U = Object>
+    U generate_impl(
+        std::enable_if_t<std::is_floating_point<U>::value>* = nullptr)
+    {
+        std::uniform_real_distribution<> uniform(lower_bound_, upper_bound_);
+        return uniform(generator_);
+    }
 
     std::shared_ptr<Prototype> clone_impl() const override
     {

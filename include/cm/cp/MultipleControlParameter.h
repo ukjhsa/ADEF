@@ -108,12 +108,7 @@ its configuration should be
         auto init_config = config.get_config("initial_value");
         // initial value is arithmetic
         if (init_config.is_number()) {
-            if (init_config.is_number_integer()) {
-                objects_.assign(size, init_config.get_int_value());
-            }
-            if (init_config.is_number_floating_point()) {
-                objects_.assign(size, init_config.get_double_value());
-            }
+            objects_.assign(size, init_config.get_value<Object>());
         }
         // initial value is generated from Function
         else if (init_config.is_object()) {
