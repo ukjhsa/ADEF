@@ -43,13 +43,12 @@ Variable Representations
 Tested environments:
 - Windows
     - [TDM-GCC](http://tdm-gcc.tdragon.net/) 32-bit 5.1.0
+    - MSVC 2015 Update 1 (19.0.23506)
 - Ubuntu
     - g++ 5.2.1
     - clang++ 3.5
 - Mac OS X
     - clang++ 3.5
-
-Note that the MSVC is **NOT** supported.
 
 ## Build
 ### Use the gui tool `cmake-gui` (recommended to Windows user)
