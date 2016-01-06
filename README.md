@@ -1,10 +1,11 @@
 # ADEF
 
+[![Build](https://travis-ci.org/ukjhsa/adef.svg?branch=develop)](https://travis-ci.org/ukjhsa/adef)
 [![API Documentation](https://img.shields.io/badge/API doc-doxygen-blue.svg)](http://ukjhsa.github.io/adef)
 [![Documentation](https://img.shields.io/badge/doc-Markdown-blue.svg)](doc/documentation.md)
-[![Releases](https://img.shields.io/github/release/ukjhsa/adef.svg)](https://github.com/ukjhsa/adef/releases)
+[![Releases](https://img.shields.io/github/release/qubyte/rubidium.svg)](https://github.com/ukjhsa/adef/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Issues](https://img.shields.io/github/issues/ukjhsa/adef.svg)](https://github.com/ukjhsa/adef/issues)
+[![Issues](https://img.shields.io/github/issues/badges/shields.svg)](https://github.com/ukjhsa/adef/issues)
 
 ## Description
 ADEF (A Software Framework for Adaptive Differential Evolution) is a
@@ -46,7 +47,7 @@ Tested environments:
     - MSVC 2015 Update 1 (19.0.23506)
 - Ubuntu
     - g++ 5.2.1
-    - clang++ 3.5
+    - clang++ 3.6.2
 - Mac OS X
     - clang++ 3.5
 
