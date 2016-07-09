@@ -143,6 +143,15 @@ int main(int argc, char *argv[])
 
 See also the [src/main.cpp](src/main.cpp).
 
+## Output
+
+For every single run of DE (e.g. jDE) to solve a certain function (e.g. Sphere), output the following data into five separate files:
+- jDE_Sphere_run1_best_fitness.csv: best fitness value
+- jDE_Sphere_run1_F.csv: F values used in mutation
+- jDE_Sphere_run1_CR.csv: CR values used in crossover
+- jDE_Sphere_run1_Parents.csv: fitness values of parents (target vectors)
+- jDE_Sphere_run1_Children.csv: fitness values of offspring (trial vectors)
+
 ## Documentation
 
 [The documentation](doc/documentation.md)
