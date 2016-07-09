@@ -114,23 +114,23 @@ Generate the executable file. Default is ON. If set to OFF, then it only build t
 ```
 
 ## Usage
-### Generate the executable file
-Suppose the executable file named `adef`
-#### default configuration file
-It use the default configuration file `config.json` on the same path of the executable file.
+### Executable file
+If you don't change option of GENERATE_EXECUTABLE (i.e., default) and suppose the executable file named `adef`
+#### Default configuration file
 ```
 ./adef
 ```
+to use the configuration file `config.json` on the same path of the executable file.
 
 #### Custom configuration file
 Specify the configuration file by adding arguments `<-file> <file_name>`.
 ```
 ./adef -file example/jDE.json
 ```
-to use configuration from file of path `example/jDE.json`.
+to use configuration file on the path `example/jDE.json`.
 
-### Build the library
-set the include path and library path then use it by
+### Library file
+If you set GENERATE_EXECUTABLE to OFF, you must set the include and library path manually and specify the main code, for example,
 
 ```cpp
 #include "adef.h"
