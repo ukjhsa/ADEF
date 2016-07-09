@@ -52,30 +52,7 @@ Tested environments:
     - clang++ 3.5
 
 ## Build
-### Use the gui tool `cmake-gui` (recommended to Windows user)
-1. open `cmake-gui` and select the path of "Where is the source code" to source code, suppose `X:/adef`.
-1. specify the path of "Where to build the binaries" to build, suppose `X:/adef/build`.
-1. press the button "Configure".
-1. select the generator. If the default compilers fails to find, specify them.
-    - "MinGW Makefiles" for Windows user. The compiler should be mingw32-g++.
-    - "Unix Makefiles" for Unix user.
-    - "CodeBlocks - MinGW Makefiles" if you want to use [Code::Bolcks](http://www.codeblocks.org/) with MinGW compiler.
-1. if the configuration changed, press the button "Configure" again.
-1. press button "Generate".
-1. compile from the generator
-    - "MinGW Makefiles"
-        1. open the `cmd` and set up environment with MinGW. (use the "MinGW Command Prompt" if TDM-GCC installed.)
-        1. change the current working directory to `X:/adef/build`.
-        1. type `mingw32-make`.
-    - "Unix Makefiles"
-        1. open the terminal and change the current working directory to `X:/adef/build`.
-        1. type `make`
-    - "CodeBlocks - MinGW Makefiles"
-        1. open `adef.cbp` by Code::Bolcks and build.
-    - or other specified generator to build.
-
 ### Use the terminal
-
 1. create the directory for building, suppose it is named `build`.
 1. change the current working directory to it.
 1. configure and generate generator from the root CMakeLists.txt.
@@ -88,29 +65,72 @@ cmake ..
 make
 ```
 
-or specify the generator such as
+you can specify the generator such as
 - type `cmake -G "MinGW Makefiles" ..` to use Makefiles with MinGW compiler.
 - type `cmake -G "CodeBlocks - MinGW Makefiles" ..` to use [Code::Bolcks](http://www.codeblocks.org/) with MinGW compiler.
 
 then compile from the generator.
 
-### Configuration of CMake
-The build of ADEF has two choices:
-- build the library of ADEF.
-- build the executable file by linking the provided `main.cpp` and the library of ADEF.
+### Use the gui tool `cmake-gui`
+1. open `cmake-gui` and specify "Where is the source code" to the path of source code, suppose `X:/adef`.
+1. specify the path of "Where to build the binaries" to build, suppose `X:/adef/build`.
+1. click the button "Configure".
+1. select the generator. If the default compilers fails to find, specify them.
+    - "MinGW Makefiles" for Windows user. The compiler should be mingw32-g++.
+    - "Unix Makefiles" for Unix user.
+    - "CodeBlocks - MinGW Makefiles" if you want to use [Code::Bolcks](http://www.codeblocks.org/) with MinGW compiler to build.
+1. if you change CMake options, click the button "Configure" again.
+1. click button "Generate".
+1. compile from the generator
+    - "MinGW Makefiles"
+        1. open the `cmd` and set up environment with MinGW. (use the "MinGW Command Prompt" if TDM-GCC installed.)
+        1. change the current working directory to `X:/adef/build`.
+        1. type `mingw32-make`.
+    - "Unix Makefiles"
+        1. open the terminal and change the current working directory to `X:/adef/build`.
+        1. type `make`
+    - "CodeBlocks - MinGW Makefiles"
+        1. open `adef.cbp` by Code::Bolcks and click build.
+    - or other specified generator to build.
 
-There are some optional configuration using CMake:
-- BUILD_SHARED_LIBS: build ADEF as the shared library. default is OFF (i.e., static)
-- CMAKE_BUILD_TYPE: the build type. default is Release.
-- GENERATE_EXECUTABLE: generate the executable file. default is ON. If it set to OFF, then it only build the library.
+
+### CMake Options
+#### BUILD_SHARED_LIBS
+Build ADEF as the shared library. Default is OFF (i.e., static)
+```
+-DBUILD_SHARED_LIBS=OFF
+```
+
+#### CMAKE_BUILD_TYPE
+The build type. Default is Release.
+```
+-DCMAKE_BUILD_TYPE="Release"
+```
+
+#### GENERATE_EXECUTABLE
+Generate the executable file. Default is ON. If set to OFF, then it only build the library.
+```
+-DGENERATE_EXECUTABLE=ON
+```
 
 ## Usage
-If generate the executable file, then
-- execute it and it use the default configuration file named `config.json` on the same path.
-- specify the configuration file by adding arguments `<-file> <file_name>`.
-    - `adef -file example/jDE.json` to use configuration from file `example/jDE.json`.
+### Executable file
+If you don't change option of GENERATE_EXECUTABLE (i.e., default) and suppose the executable file named `adef`
+#### Default configuration file
+```
+./adef
+```
+to use the configuration file `config.json` on the same path of the executable file.
 
-If build as the library, set the include path and library path then use it by
+#### Custom configuration file
+Specify the configuration file by adding arguments `<-file> <file_name>`.
+```
+./adef -file example/jDE.json
+```
+to use configuration file on the path `example/jDE.json`.
+
+### Library file
+If you set GENERATE_EXECUTABLE to OFF, you must set the include and library path manually and specify the main code, for example,
 
 ```cpp
 #include "adef.h"
