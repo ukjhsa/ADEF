@@ -3,9 +3,9 @@
 [![Build](https://travis-ci.org/ukjhsa/adef.svg?branch=develop)](https://travis-ci.org/ukjhsa/adef)
 [![API Documentation](https://img.shields.io/badge/docs-doxygen-blue.svg)](http://ukjhsa.github.io/adef)
 [![Documentation](https://img.shields.io/badge/doc-Markdown-blue.svg)](doc/documentation.md)
-[![Releases](https://img.shields.io/github/release/ukjhsa/json.svg)](https://github.com/ukjhsa/adef/releases)
+[![Releases](https://img.shields.io/github/release/ukjhsa/adef.svg)](https://github.com/ukjhsa/adef/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Issues](https://img.shields.io/github/issues/ukjhsa/json.svg)](https://github.com/ukjhsa/adef/issues)
+[![Issues](https://img.shields.io/github/issues/ukjhsa/adef.svg)](https://github.com/ukjhsa/adef/issues)
 
 ## Description
 ADEF (A Software Framework for Adaptive Differential Evolution) is a
