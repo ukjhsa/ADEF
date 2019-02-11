@@ -8,6 +8,10 @@
 		"Experiment" : [
 			{
 				"classname" : "Experiment",
+				"Random" : {
+					"classname" : "Random",
+					"seed" : 0
+				},
 				"number_of_runs" : 3,
 				"ExperimentalStatistics" : {
 					"classname" : "ExperimentalStatistics"

@@ -24,12 +24,14 @@ set(adef_source adef.cpp
                 Population.cpp
                 Problem.cpp
                 PrototypeManager.cpp
+                Random.cpp
                 ReflectiveRepair.cpp
                 Repair.cpp
                 Repository.cpp
                 Statistics.cpp
                 System.cpp
                 SystemStatistics.cpp
+                problem/basic/QuarticFunctionWithNoise.cpp
    )
 
 # the type of library base on BUILD_SHARED_LIBS

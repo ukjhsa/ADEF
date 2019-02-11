@@ -11,6 +11,7 @@
 #include "SystemStatistics.h"
 #include "Experiment.h"
 #include "ExperimentalStatistics.h"
+#include "Random.h"
 #include "Repository.h"
 
 #include "Evolution.h"
@@ -44,6 +45,7 @@ void register_type(PrototypeManager& pm)
     pm.register_type("Experiment", std::make_shared<Experiment>());
     pm.register_type("ExperimentalStatistics",
                      std::make_shared<ExperimentalStatistics>());
+    pm.register_type("Random", std::make_shared<Random>());
     pm.register_type("Repository", std::make_shared<Repository>());
 
     pm.register_type("Evolution", std::make_shared<Evolution>());

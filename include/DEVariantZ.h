@@ -7,6 +7,7 @@
 namespace adef {
 
 class Individual;
+class Repository;
 
 /**
 @brief DEVariantZ is the abstract base class of representing
@@ -44,6 +45,11 @@ If @em Class is derived from DEVariantZ, its configuration should be
 */
     virtual void setup(const Configuration& config,
                        const PrototypeManager& pm) override = 0;
+/**
+@brief Initialize.
+@param repos The Repository to get initialization informations.
+*/
+    virtual void init(std::shared_ptr<Repository> repos) = 0;
 /**
 @brief Produce a child from parents.
 @param mutant_vector The mutated vector.

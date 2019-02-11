@@ -11,6 +11,7 @@
 #include "Individual.h"
 #include "Population.h"
 #include "Statistics.h"
+#include "Random.h"
 
 namespace adef {
 
@@ -32,6 +33,8 @@ void DEMutation::setup(const Configuration& config,
 void DEMutation::init(std::shared_ptr<Repository> repos)
 {
     repos->parameters()->store("f", f_);
+
+    random_ = repos->random();
 }
 
 void DEMutation::mutate(std::shared_ptr<Repository> repos) const
@@ -98,7 +101,7 @@ std::vector<std::size_t> DEMutation::exclusive_random_number_generator(
 
         std::size_t rnd = 0;
         for (std::size_t counter = 0; counter < used_numbers.size(); ) {
-            rnd = rand() % (max_range-min_range) + min_range;
+            rnd = random_->random() % (max_range - min_range) + min_range;
             for (auto used : used_numbers) {
                 if (rnd == used) {
                     counter = 0;

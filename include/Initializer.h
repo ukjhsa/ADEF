@@ -10,6 +10,7 @@ namespace adef {
 class Configuration;
 class PrototypeManager;
 class Repository;
+class Random;
 class Problem;
 class Population;
 class Individual;
@@ -65,6 +66,10 @@ Initializer's configuration should be
     virtual void initialization_function(
                                  std::shared_ptr<const Problem> problem,
                                  std::shared_ptr<Individual> individual) const;
+
+protected:
+
+    std::shared_ptr<Random> random_;
 
 private:
 

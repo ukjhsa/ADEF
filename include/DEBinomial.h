@@ -8,7 +8,9 @@ namespace adef {
 
 class Configuration;
 class PrototypeManager;
+class Repository;
 class Individual;
+class Random;
 
 /**
 @brief DEBinomial is the variant of binomial crossover in
@@ -45,10 +47,16 @@ DEBinomial's configuration should be
     void setup(const Configuration& config,
                const PrototypeManager& pm) override;
 
+    void init(std::shared_ptr<Repository> repos) override;
+
     std::shared_ptr<Individual> crossover(
                                 std::shared_ptr<const Individual> mutant_vector,
                                 std::shared_ptr<const Individual> target_vector,
                                 double crossover_rate) const override;
+
+protected:
+
+    std::shared_ptr<Random> random_;
 
 private:
 

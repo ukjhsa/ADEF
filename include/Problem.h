@@ -14,6 +14,7 @@ class Configuration;
 class PrototypeManager;
 class Repository;
 class Individual;
+class Random;
 
 /**
 @brief Problem is the abstract base class of all problems to solve.
@@ -196,6 +197,8 @@ protected:
     };
 
 protected:
+
+    std::shared_ptr<Random> random_;
 
 /// The name of the problem.
     std::string name_;

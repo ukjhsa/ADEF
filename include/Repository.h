@@ -21,6 +21,7 @@ class EnvironmentalSelection;
 class Mutation;
 class Crossover;
 class Repair;
+class Random;
 
 /**
 @brief Repository contains informations of the algorithm.
@@ -152,11 +153,14 @@ its configuration should be
 /**
 @brief Initialize the internal states.
 */
-    virtual void init();
+    virtual void init(std::shared_ptr<Random> random);
 
 
 /// Return the name of the algorithm.
     const std::string& algorithm_name() const { return algorithm_name_; }
+
+    std::shared_ptr<Random> random() { return random_; }
+    std::shared_ptr<const Random> random() const { return random_; }
 
 /**
 @name evolutionary states access
@@ -202,6 +206,9 @@ protected:
 
 /// The name of the algorithm.
     std::string algorithm_name_;
+/// The random mechanism.
+    std::shared_ptr<Random> random_;
+
 /// The evolution flow of evolutionary algorithm.
     std::shared_ptr<Evolution> evolution_;
 /// The test problem.

@@ -27,6 +27,7 @@ void DECrossover::setup(const Configuration& config, const PrototypeManager& pm)
 
 void DECrossover::init(std::shared_ptr<Repository> repos)
 {
+    variant_z_->init(repos);
     repos->parameters()->store("cr", cr_);
 }
 
