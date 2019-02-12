@@ -11,6 +11,7 @@
 #include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
+#include "Random.h"
 #include "Individual.h"
 
 namespace adef {
@@ -145,7 +146,7 @@ its configuration should be
 
     Object generate() override
     {
-        std::mt19937 gen(std::rand());
+        std::mt19937 gen(random_->random());
         std::uniform_real_distribution<> uniform;
         auto random = uniform(gen);
         if (random < tau_ && current_ < average_) {

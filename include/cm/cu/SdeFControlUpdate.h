@@ -2,6 +2,7 @@
 #define SDE_F_CONTROL_UPDATE_H
 
 #include <memory>
+#include <vector>
 #include <string>
 #include <stdexcept>
 #include "ControlUpdate.h"
@@ -11,6 +12,7 @@
 #include "cm/cp/ControlParameter.h"
 #include "cm/cf/func/Function.h"
 #include "Population.h"
+#include "Random.h"
 
 namespace adef {
 
@@ -66,7 +68,8 @@ its configuration should be
         auto indices = exclusive_random_generator(temp,
                                                   number_param,
                                                   0,
-                                                  repos->population()->population_size());
+                                                  repos->population()->population_size(),
+                                                  random_->random());
 
         std::vector<Any> record;
         for (auto& index : indices) {
@@ -86,12 +89,13 @@ private:
                                        std::vector<std::size_t>& used_numbers,
                                        unsigned int number_of_result,
                                        unsigned int min_range,
-                                       unsigned int max_range) const
+                                       unsigned int max_range,
+                                       std::shared_ptr<Random> random) const
     {
         std::vector<std::size_t> result(number_of_result);
         for (auto& res : result) {
 
-            std::size_t rnd = rand() % (max_range-min_range) + min_range;
+            std::size_t rnd = random->random() % (max_range - min_range) + min_range;
             for (std::size_t counter = 0; counter < used_numbers.size(); ) {
                 for (auto used : used_numbers) {
                     if (rnd == used) {
@@ -100,7 +104,7 @@ private:
                     }
                     ++counter;
                 }
-                rnd = rand() % (max_range-min_range) + min_range;
+                rnd = random->random() % (max_range - min_range) + min_range;
             }
             res = rnd;
             used_numbers.push_back(rnd);

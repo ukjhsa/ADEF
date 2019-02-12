@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include "Prototype.h"
+#include "Repository.h"
+#include "Random.h"
 #include "Any.h"
 
 namespace adef {
@@ -43,6 +45,14 @@ public:
     std::shared_ptr<BaseFunction> clone() const
     {
         return std::dynamic_pointer_cast<BaseFunction>(clone_impl());
+    }
+/**
+@brief Initialize this state from other states.
+@param repos The Repository to get initialization informations.
+*/
+    virtual void init(std::shared_ptr<Repository> repos)
+    {
+        random_ = repos->random();
     }
 
 /**
@@ -125,6 +135,8 @@ protected:
     std::string name_;
 /// The list of contained Function.
     BaseFunctionPtrList functions_;
+
+    std::shared_ptr<Random> random_;
 
 private:
 

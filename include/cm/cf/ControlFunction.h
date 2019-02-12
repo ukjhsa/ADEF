@@ -50,6 +50,11 @@ If @em Class is derived from ControlFunction, its configuration should be
     virtual void setup(const Configuration& config,
                        const PrototypeManager& pm) override = 0;
 /**
+@brief Initialize this state from other states.
+@param repos The Repository to get initialization informations.
+*/
+    virtual void init(std::shared_ptr<Repository> repos) = 0;
+/**
 @brief Return the function at position @em index.
 @param index The index of function to return.
 */

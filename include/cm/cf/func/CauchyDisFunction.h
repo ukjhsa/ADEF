@@ -10,6 +10,7 @@
 #include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
+#include "Random.h"
 #include "Individual.h"
 
 namespace adef {
@@ -79,7 +80,7 @@ The default value of location is 0, scale is 1.
 */
     CauchyDisFunction(const CauchyDisFunction& rhs) :
         Function<T>(rhs),
-        generator_(std::rand()),
+        generator_(random_->random()),
         location_(rhs.location_), scale_(rhs.scale_)
     {
     }

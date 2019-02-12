@@ -9,6 +9,7 @@
 #include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
+#include "Random.h"
 #include "Individual.h"
 
 namespace adef {
@@ -79,7 +80,7 @@ The default value of the lower bound is 0, upper bound is 1.
 */
     UniformDisFunction(const UniformDisFunction& rhs) :
         Function<T>(rhs),
-        generator_(std::rand()),
+        generator_(random_->random()),
         lower_bound_(rhs.lower_bound_), upper_bound_(rhs.upper_bound_)
     {
     }

@@ -152,7 +152,14 @@ its configuration should be
             updates_.push_back(update);
         }
     }
-
+/**
+@brief Initialize this state from other states.
+@param repos The Repository to get initialization informations.
+*/
+    void init(std::shared_ptr<Repository> repos)
+    {
+        function_->init(repos);
+    }
 /**
 @brief Generate the new object by the given mechanism.
 */

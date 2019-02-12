@@ -7,6 +7,7 @@
 #include "ControlFunction.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
+#include "Repository.h"
 #include "func/BaseFunction.h"
 
 namespace adef {
@@ -77,6 +78,14 @@ its configuration should be
         auto function = make_and_setup_type<BaseFunction>("Function", config, pm);
         for(decltype(size) idx = 0; idx < size; ++idx) {
             functions_.push_back(function->clone());
+        }
+    }
+
+    void init(std::shared_ptr<Repository> repos) override
+    {
+        for (std::size_t idx = 0; idx < functions_.size(); ++idx)
+        {
+            functions_[idx]->init(repos);
         }
     }
 

@@ -10,6 +10,7 @@
 #include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
+#include "Random.h"
 #include "Individual.h"
 
 namespace adef {
@@ -72,7 +73,7 @@ public:
 */
     RandomSelectionFunction(const RandomSelectionFunction& rhs) :
         Function<T>(rhs),
-        generator_(std::rand()), objects_(rhs.objects_)
+        generator_(random_->random()), objects_(rhs.objects_)
     {
     }
 

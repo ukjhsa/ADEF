@@ -10,6 +10,7 @@
 #include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
+#include "Random.h"
 #include "Individual.h"
 
 namespace adef {
@@ -75,7 +76,7 @@ The default value of mean is 0, standard deviation is 1.
 */
     NormalDisFunction(const NormalDisFunction& rhs) :
         Function<T>(rhs),
-        generator_(std::rand()),
+        generator_(random_->random()),
         mean_(rhs.mean_), stddev_(rhs.stddev_)
     {
     }

@@ -6,6 +6,7 @@
 #include "ControlFunction.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
+#include "Repository.h"
 #include "func/BaseFunction.h"
 
 namespace adef {
@@ -62,6 +63,11 @@ its configuration should be
     void setup(const Configuration& config, const PrototypeManager& pm) override
     {
         function_ = make_and_setup_type<BaseFunction>("Function", config, pm);
+    }
+
+    void init(std::shared_ptr<Repository> repos) override
+    {
+        function_->init(repos);
     }
 /**
 @copydoc ControlFunction::at()

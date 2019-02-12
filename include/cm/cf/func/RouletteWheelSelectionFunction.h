@@ -14,6 +14,7 @@
 #include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
+#include "Random.h"
 #include "Individual.h"
 
 namespace adef {
@@ -80,7 +81,7 @@ The default value of the maximum of score size is 0.
 */
     RouletteWheelSelectionFunction(const RouletteWheelSelectionFunction& rhs) :
         ScoredFunction<T>(rhs),
-        generator_(std::rand()),
+        generator_(random_->random()),
         score_size_(rhs.score_size_),
         valued_objects_(rhs.valued_objects_)
     {
