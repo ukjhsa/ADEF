@@ -1,6 +1,7 @@
 #ifndef SDE_F_CONTROL_MECHANISM_H
 #define SDE_F_CONTROL_MECHANISM_H
 
+#include <memory>
 #include <cstddef>
 #include <cmath>
 #include "ControlMechanism.h"
@@ -12,6 +13,8 @@
 #include "cf/func/Function.h"
 
 namespace adef {
+
+class Repository;
 
 /**
 @brief SdeFControlMechanism adjusts the object according to
@@ -47,24 +50,7 @@ public:
         return std::dynamic_pointer_cast<SdeFControlMechanism>(clone_impl());
     }
 
-    Object generate(std::shared_ptr<Repository> repos) override
-    {
-        auto index = repos->parameters()->take_out<std::size_t>("target_index");
-
-        if (parameter_->is_already_generated(index))
-        {
-            return parameter_->load(index);
-        }
-        else {
-            auto func = std::dynamic_pointer_cast<Function<Object>>(function_->at(index));
-            auto object = func->generate();
-            if (!range_->is_valid(object)) {
-                object = std::abs(object - std::trunc(object));
-            }
-            parameter_->save(object, index);
-            return object;
-        }
-    }
+    Object generate(std::shared_ptr<Repository> repos) override;
 
 private:
 

@@ -3,36 +3,78 @@ cmake_minimum_required(VERSION 3.1)
 # build library of ADEF
 
 # add source file
-set(adef_source adef.cpp
-                BoundedRepair.cpp
-                Configuration.cpp
-                DEBinomial.cpp
-                DECrossover.cpp
-                DEEnvironmentalSelection.cpp
-                DEMutation.cpp
-                DERand.cpp
-                DEReproduction.cpp
-                DEVariantY.cpp
-                Evaluator.cpp
-                Evolution.cpp
-                Experiment.cpp
-                ExperimentalStatistics.cpp
-                Individual.cpp
-                Initializer.cpp
-                JsonConfigurationBuilder.cpp
-                Parameters.cpp
-                Population.cpp
-                Problem.cpp
-                PrototypeManager.cpp
-                Random.cpp
-                ReflectiveRepair.cpp
-                Repair.cpp
-                Repository.cpp
-                Statistics.cpp
-                System.cpp
-                SystemStatistics.cpp
-                problem/basic/QuarticFunctionWithNoise.cpp
-   )
+set(func_src cm/cf/func/BaseFunction.cpp
+             cm/cf/func/DepdFFunction.cpp
+             cm/cf/func/IsadeCrFunction.cpp
+             cm/cf/func/IsadeFFunction.cpp
+             cm/cf/func/JdeCrFunction.cpp
+             cm/cf/func/JdeFFunction.cpp
+             cm/cf/func/SdeFFunction.cpp
+             cm/cf/func/WeightedAverageFunction.cpp
+             cm/cf/func/sf/ImprovedPercentageScoringFunction.cpp
+             cm/cf/func/sf/SuccessScoringFunction.cpp
+)
+
+set(cf_src cm/cf/MultipleControlFunction.cpp
+           cm/cf/SingleControlFunction.cpp
+)
+
+set(cs_src cm/cs/NonInfoControlSelection.cpp
+)
+
+set(cu_src cm/cu/AverageFitnessControlUpdate.cpp
+           cm/cu/CurrentFitnessControlUpdate.cpp
+           cm/cu/GenerationControlUpdate.cpp
+           cm/cu/MaxFitnessControlUpdate.cpp
+           cm/cu/MinFitnessControlUpdate.cpp
+           cm/cu/SdeFControlUpdate.cpp
+)
+
+set(cm_src cm/SadeCrControlMechanism.cpp
+           cm/SdeFControlMechanism.cpp
+)
+
+set(problem_src problem/basic/QuarticFunctionWithNoise.cpp
+)
+
+set(root_src adef.cpp
+             BoundedRepair.cpp
+             Configuration.cpp
+             DEBinomial.cpp
+             DECrossover.cpp
+             DEEnvironmentalSelection.cpp
+             DEMutation.cpp
+             DERand.cpp
+             DEReproduction.cpp
+             DEVariantY.cpp
+             Evaluator.cpp
+             Evolution.cpp
+             Experiment.cpp
+             ExperimentalStatistics.cpp
+             Individual.cpp
+             Initializer.cpp
+             JsonConfigurationBuilder.cpp
+             Parameters.cpp
+             Population.cpp
+             Problem.cpp
+             PrototypeManager.cpp
+             Random.cpp
+             ReflectiveRepair.cpp
+             Repair.cpp
+             Repository.cpp
+             Statistics.cpp
+             System.cpp
+             SystemStatistics.cpp
+)
+
+set(adef_source ${func_src}
+                ${cf_src}
+                ${cs_src}
+                ${cu_src}
+                ${cm_src}
+                ${problem_src}
+                ${root_src}
+)
 
 # the type of library base on BUILD_SHARED_LIBS
 add_library(libadef ${adef_source})

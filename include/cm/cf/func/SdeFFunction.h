@@ -5,13 +5,13 @@
 #include <vector>
 #include <string>
 #include "Function.h"
-#include "cm/ControlledObject.h"
 #include "Any.h"
-#include "Configuration.h"
-#include "PrototypeManager.h"
-#include "Individual.h"
 
 namespace adef {
+
+class Configuration;
+class PrototypeManager;
+class Individual;
 
 /**
 @brief JdeFFunction generates numbers according to
@@ -90,57 +90,21 @@ its configuration should be
 @endcode
 .
 */
-    void setup(const Configuration& config, const PrototypeManager& pm) override
-    {
-        auto rand_config = config.get_config("rand");
-        auto rand = make_and_setup_type<BaseFunction>(rand_config, pm);
-        rand->set_function_name("rand");
-        add_function(rand);
+    void setup(const Configuration& config, const PrototypeManager& pm) override;
 
-        parameters_.resize(config.get_uint_value("number_of_parameters"));
-    }
-
-    Object generate() override
-    {
-        Object diff = 0;
-        auto size = parameters_.size();
-        for (decltype(size) idx = 1; idx < size; idx+=2) {
-            diff += parameters_.at(idx) - parameters_.at(idx+1);
-        }
-        return parameters_.at(0) + get_function("rand")->generate() * diff;
-    }
+    Object generate() override;
 
     bool record(const std::vector<Any>& params,
-                const std::string& name = "") override
-    {
-        if (params.size() == parameters_.size()) {
-            for (decltype(params.size()) idx = 0; idx < params.size(); ++idx) {
-                parameters_.at(idx) = any_cast<Object>(params.at(idx));
-            }
-        }
-        else {
-            throw std::logic_error("SdeFFunction accept wrong parameters.");
-        }
-        return true;
-    }
+                const std::string& name = "") override;
 
     bool record(const std::vector<Any>& params,
                 std::shared_ptr<const Individual> parent,
                 std::shared_ptr<const Individual> offspring,
-                const std::string& name = "") override
-    {
-        return record(params, name);
-    }
+                const std::string& name = "") override;
 
-    void update() override
-    {
-        get_function("rand")->update();
-    }
+    void update() override;
 
-    unsigned int number_of_parameters() const override
-    {
-        return parameters_.size();
-    }
+    unsigned int number_of_parameters() const override;
 
 private:
 

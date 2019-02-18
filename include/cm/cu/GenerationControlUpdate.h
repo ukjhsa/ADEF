@@ -2,17 +2,15 @@
 #define GENERATION_CONTROL_UPDATE_H
 
 #include <memory>
-#include <string>
-#include <stdexcept>
 #include "ControlUpdate.h"
-#include "Configuration.h"
-#include "PrototypeManager.h"
-#include "Repository.h"
-#include "cm/cp/BaseControlParameter.h"
-#include "cm/cf/func/BaseFunction.h"
-#include "Parameters.h"
 
 namespace adef {
+
+class Configuration;
+class PrototypeManager;
+class Repository;
+class BaseControlParameter;
+class BaseFunction;
 
 /**
 @brief GenerationControlUpdate updates internal states by
@@ -55,23 +53,11 @@ its configuration should be
 @endcode
 .
 */
-    void setup(const Configuration& config, const PrototypeManager& pm) override
-    {
-    }
+    void setup(const Configuration& config, const PrototypeManager& pm) override;
 
     void update(std::shared_ptr<Repository> repos,
                 std::shared_ptr<BaseControlParameter> parameter,
-                std::shared_ptr<BaseFunction> function) const override
-    {
-        std::string name = "generation";
-        auto generation = repos->parameters()->take_out<unsigned int>(name);
-        auto succ = function->record({generation}, name);
-        if (!succ) {
-            throw std::runtime_error(
-                 "No functions accept parameters \"" + name + "\" "
-                 "in the \"" + function->function_name() + "\"");
-        }
-    }
+                std::shared_ptr<BaseFunction> function) const override;
 
 private:
 

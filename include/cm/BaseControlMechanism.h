@@ -6,6 +6,8 @@
 
 namespace adef {
 
+class Repository;
+
 /**
 @brief BaseControlMechanism defines interfaces of all ControlMechanism.
 */

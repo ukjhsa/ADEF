@@ -2,15 +2,15 @@
 #define MULTIPLE_CONTROL_FUNCTION_H
 
 #include <memory>
-#include <cstddef>
 #include <vector>
 #include "ControlFunction.h"
-#include "Configuration.h"
-#include "PrototypeManager.h"
-#include "Repository.h"
-#include "func/BaseFunction.h"
 
 namespace adef {
+
+class Configuration;
+class PrototypeManager;
+class Repository;
+class BaseFunction;
 
 /**
 @brief MultipleControlFunction manages multiple functions.
@@ -31,15 +31,7 @@ class MultipleControlFunction : public ControlFunction
 public:
 
     MultipleControlFunction() = default;
-    MultipleControlFunction(const MultipleControlFunction& rhs) :
-        ControlFunction(rhs)
-    {
-        functions_.reserve(rhs.functions_.size());
-        for (auto&& func : rhs.functions_) {
-            if (func) { functions_.push_back(func->clone()); }
-            else { functions_.push_back(nullptr); }
-        }
-    }
+    MultipleControlFunction(const MultipleControlFunction& rhs);
 
 /**
 @brief Clone the current class.
@@ -70,29 +62,11 @@ its configuration should be
 @endcode
 .
 */
-    void setup(const Configuration& config, const PrototypeManager& pm) override
-    {
-        auto size = config.get_uint_value("number_of_functions");
-        functions_.reserve(size);
+    void setup(const Configuration& config, const PrototypeManager& pm) override;
 
-        auto function = make_and_setup_type<BaseFunction>("Function", config, pm);
-        for(decltype(size) idx = 0; idx < size; ++idx) {
-            functions_.push_back(function->clone());
-        }
-    }
+    void init(std::shared_ptr<Repository> repos) override;
 
-    void init(std::shared_ptr<Repository> repos) override
-    {
-        for (std::size_t idx = 0; idx < functions_.size(); ++idx)
-        {
-            functions_[idx]->init(repos);
-        }
-    }
-
-    std::shared_ptr<BaseFunction> at(std::size_t index) override
-    {
-        return functions_.at(index);
-    }
+    std::shared_ptr<BaseFunction> at(std::size_t index) override;
 
 private:
 

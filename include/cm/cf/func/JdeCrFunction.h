@@ -2,17 +2,12 @@
 #define JDE_CR_FUNCTION_H
 
 #include <memory>
-#include <vector>
-#include <string>
-#include <random>
 #include "Function.h"
-#include "Any.h"
-#include "Configuration.h"
-#include "PrototypeManager.h"
-#include "Random.h"
-#include "Individual.h"
 
 namespace adef {
+
+class Configuration;
+class PrototypeManager;
 
 /**
 @brief JdeCrFunction generates numbers according to
@@ -87,49 +82,13 @@ its configuration should be
 @endcode
 .
 */
-    void setup(const Configuration& config, const PrototypeManager& pm) override
-    {
-        auto object_config = config.get_config("object");
-        auto object = make_and_setup_type<BaseFunction>(object_config, pm);
-        object->set_function_name("object");
-        add_function(object);
+    void setup(const Configuration& config, const PrototypeManager& pm) override;
 
-        auto tau_config = config.get_config("tau");
-        auto tau = make_and_setup_type<BaseFunction>(tau_config, pm);
-        tau->set_function_name("tau");
-        add_function(tau);
+    Object generate() override;
 
-        object_ = 0.9;
-        tau_ = 0.1;
-    }
+    void update() override;
 
-    Object generate() override
-    {
-        std::mt19937 gen(random_->random());
-        std::uniform_real_distribution<> uniform;
-        if (uniform(gen) < tau_) {
-            return uniform(gen);
-        }
-        else {
-            return object_;
-        }
-    }
-
-    void update() override
-    {
-        auto object = get_function("object");
-        object->update();
-        object_ = object->generate();
-
-        auto tau = get_function("tau");
-        tau->update();
-        tau_ = tau->generate();
-    }
-
-    unsigned int number_of_parameters() const override
-    {
-        return 0;
-    }
+    unsigned int number_of_parameters() const override;
 
 private:
 

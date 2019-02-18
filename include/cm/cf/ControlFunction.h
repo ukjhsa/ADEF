@@ -2,13 +2,13 @@
 #define CONTROL_FUNCTION_H
 
 #include <memory>
-#include <cstddef>
 #include "Prototype.h"
 
 namespace adef {
 
 class Configuration;
 class PrototypeManager;
+class Repository;
 class BaseFunction;
 
 /**
