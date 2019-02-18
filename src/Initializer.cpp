@@ -32,12 +32,11 @@ void Initializer::initialization_function(
                                   std::shared_ptr<const Problem> problem,
                                   std::shared_ptr<Individual> individual) const
 {
-    std::mt19937 gen(random_->random());
     for (unsigned int idx = 0; idx < problem->dimension_of_decision_space(); ++idx) {
         std::uniform_real_distribution<> uniform(
                                  problem->lower_bound_of_decision_space(idx),
                                  problem->upper_bound_of_decision_space(idx));
-        individual->variables(idx) = uniform(gen);
+        individual->variables(idx) = random_->generate(uniform);
     }
 }
 

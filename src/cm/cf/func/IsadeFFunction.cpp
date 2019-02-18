@@ -48,9 +48,8 @@ void IsadeFFunction::setup(const Configuration & config, const PrototypeManager 
 
 IsadeFFunction::Object IsadeFFunction::generate()
 {
-    std::mt19937 gen(random_->random());
     std::uniform_real_distribution<> uniform;
-    auto random = uniform(gen);
+    auto random = random_->generate(uniform);
     if (random < tau_ && current_ < average_) {
         if (std::abs(average_ - min_) < std::numeric_limits<Object>::epsilon()) {
             average_ += std::numeric_limits<Object>::epsilon();
@@ -60,7 +59,7 @@ IsadeFFunction::Object IsadeFFunction::generate()
     }
     else if (random < tau_ && current_ >= average_) {
         std::uniform_real_distribution<> uniform(0.1, 1);
-        return uniform(gen);
+        return random_->generate(uniform);
     }
     else {
         return object_;

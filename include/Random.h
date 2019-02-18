@@ -2,6 +2,7 @@
 #define RANDOM_H
 
 #include <memory>
+#include <random>
 #include "Prototype.h"
 
 namespace adef {
@@ -53,8 +54,17 @@ Random has the following configuration:
 
     int random() const;
 
+    template<typename Distribution>
+    typename Distribution::result_type generate(Distribution distribution)
+    {
+        return distribution(generator_);
+    }
+
 protected:
+
     unsigned int seed_;
+
+    std::mt19937 generator_;
 
 private:
     virtual std::shared_ptr<Prototype> clone_impl() const override

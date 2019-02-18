@@ -45,7 +45,7 @@ NormalDisFunction has extra configurations:
 .
 See setup() for the details.
 */
-template<typename T = double, typename G = std::mt19937>
+template<typename T = double>
 class NormalDisFunction : public Function<T>
 {
 public:
@@ -59,7 +59,7 @@ public:
 The default value of mean is 0, standard deviation is 1.
 */
     NormalDisFunction() :
-        generator_(1), mean_(0), stddev_(1)
+        mean_(0), stddev_(1)
     {
     }
 /**
@@ -67,7 +67,7 @@ The default value of mean is 0, standard deviation is 1.
 @param seed The seed value of the pseudo-random number generator.
 */
     NormalDisFunction(unsigned int seed) :
-        generator_(seed), mean_(0), stddev_(1)
+        mean_(0), stddev_(1)
     {
     }
 /**
@@ -75,7 +75,6 @@ The default value of mean is 0, standard deviation is 1.
 */
     NormalDisFunction(const NormalDisFunction& rhs) :
         Function<T>(rhs),
-        generator_(random_->random()),
         mean_(rhs.mean_), stddev_(rhs.stddev_)
     {
     }
@@ -132,7 +131,7 @@ its configuration should be
     Object generate() override
     {
         std::normal_distribution<Object> normal(mean_, stddev_);
-        return normal(generator_);
+        return random_->generate(normal);
     }
 
     void update() override
@@ -153,10 +152,6 @@ its configuration should be
 
 private:
 
-/// The type of the pseudo-random number generator.
-    using Generator = G;
-/// The pseudo-random number generator.
-    Generator generator_;
 /// The value of mean.
     Object mean_;
 /// The value of standard deviation.

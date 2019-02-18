@@ -48,9 +48,8 @@ void IsadeCrFunction::setup(const Configuration & config, const PrototypeManager
 
 IsadeCrFunction::Object IsadeCrFunction::generate()
 {
-    std::mt19937 gen(random_->random());
     std::uniform_real_distribution<> uniform;
-    auto random = uniform(gen);
+    auto random = random_->generate(uniform);
     if (random < tau_ && current_ < average_) {
         if (std::abs(average_ - min_) < std::numeric_limits<Object>::epsilon()) {
             average_ += std::numeric_limits<Object>::epsilon();
@@ -59,7 +58,7 @@ IsadeCrFunction::Object IsadeCrFunction::generate()
             (current_ - min_) / (average_ - min_);
     }
     else if (random < tau_ && current_ >= average_) {
-        return uniform(gen);
+        return random_->generate(uniform);
     }
     else {
         return object_;

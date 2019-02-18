@@ -32,9 +32,8 @@ void QuarticFunctionWithNoise::evaluation_function(std::shared_ptr<Individual> i
         Object temp = individual->variables(idx);
         sum += (idx + 1.0) * temp * temp * temp * temp;
     }
-    std::mt19937 gen(random_->random());
     std::uniform_real_distribution<> uniform(0.0, 1.0);
-    sum += uniform(gen);
+    sum += random_->generate(uniform);
 
     individual->objectives() = sum;
     individual->set_fitness_value(sum);

@@ -40,11 +40,10 @@ void JdeFFunction::setup(const Configuration& config, const PrototypeManager& pm
 
 JdeFFunction::Object JdeFFunction::generate()
 {
-    std::mt19937 gen(random_->random());
     std::uniform_real_distribution<> uniform;
-    if (uniform(gen) < tau_) {
+    if (random_->generate(uniform) < tau_) {
         return lower_bound_ +
-            uniform(gen) * upper_bound_;
+               random_->generate(uniform) * upper_bound_;
     }
     else {
         return object_;

@@ -43,7 +43,7 @@ ConstantFunction has extra configurations:
 .
 See setup() for the details.
 */
-template<typename T, typename G = std::mt19937>
+template<typename T>
 class RandomSelectionFunction : public Function<T>
 {
 public:
@@ -55,7 +55,7 @@ public:
 @brief The default constructor with seed value 1.
 */
     RandomSelectionFunction() :
-        generator_(1), objects_()
+        objects_()
     {
     }
 
@@ -64,7 +64,7 @@ public:
 @param seed The seed value of the pseudo-random number generator.
 */
     RandomSelectionFunction(unsigned int seed) :
-        generator_(seed), objects_()
+        objects_()
     {
     }
 
@@ -73,7 +73,7 @@ public:
 */
     RandomSelectionFunction(const RandomSelectionFunction& rhs) :
         Function<T>(rhs),
-        generator_(random_->random()), objects_(rhs.objects_)
+        objects_(rhs.objects_)
     {
     }
 
@@ -144,7 +144,7 @@ its configuration should be
     {
         static std::uniform_int_distribution<unsigned int>
             uniform(0, objects_.size() -1);
-        auto index = uniform(generator_);
+        auto index = random_->generate(uniform);
 
         return objects_.at(index).object;
     }
@@ -173,11 +173,6 @@ its configuration should be
     }
 
 private:
-
-/// The type of the pseudo-random number generator.
-    using Generator = G;
-/// The pseudo-random number generator.
-    Generator generator_;
 
 /// The type of the encapsulated object.
     using CO = ControlledObject<Object>;

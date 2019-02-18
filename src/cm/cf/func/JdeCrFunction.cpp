@@ -28,10 +28,9 @@ void JdeCrFunction::setup(const Configuration & config, const PrototypeManager &
 
 JdeCrFunction::Object JdeCrFunction::generate()
 {
-    std::mt19937 gen(random_->random());
     std::uniform_real_distribution<> uniform;
-    if (uniform(gen) < tau_) {
-        return uniform(gen);
+    if (random_->generate(uniform) < tau_) {
+        return random_->generate(uniform);
     }
     else {
         return object_;
