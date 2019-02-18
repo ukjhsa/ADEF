@@ -4,10 +4,10 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <any>
 #include <cstdlib>
 #include <random>
 #include "Function.h"
-#include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
 #include "Random.h"
@@ -149,13 +149,13 @@ its configuration should be
         return objects_.at(index).object;
     }
 
-    bool record(const std::vector<Any>& params,
+    bool record(const std::vector<std::any>& params,
                 const std::string& name = "") override
     {
         return true;
     }
 
-    bool record(const std::vector<Any>& params,
+    bool record(const std::vector<std::any>& params,
                 std::shared_ptr<const Individual> parent,
                 std::shared_ptr<const Individual> offspring,
                 const std::string& name = "") override

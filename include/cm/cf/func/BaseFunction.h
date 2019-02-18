@@ -4,8 +4,8 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <any>
 #include "Prototype.h"
-#include "Any.h"
 
 namespace adef {
 
@@ -49,7 +49,7 @@ public:
 @param name The name of the child component to be record.
 @return @c true if the record success, otherwise @c false.
 */
-    virtual bool record(const std::vector<Any>& params,
+    virtual bool record(const std::vector<std::any>& params,
                         const std::string& name = "") = 0;
 /**
 @brief Record parameter into the given formula.
@@ -59,7 +59,7 @@ public:
 @param name The name of the child component to be record.
 @return @c true if the record success, otherwise @c false.
 */
-    virtual bool record(const std::vector<Any>& params,
+    virtual bool record(const std::vector<std::any>& params,
                         std::shared_ptr<const Individual> parent,
                         std::shared_ptr<const Individual> offspring,
                         const std::string& name = "") = 0;

@@ -9,9 +9,9 @@
 #include <cmath>
 #include <limits>
 #include <stdexcept>
+#include <any>
 #include <algorithm>
 #include "ScoredFunction.h"
-#include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
 #include "Random.h"
@@ -208,19 +208,19 @@ its configuration should be
         }
     }
 
-    bool record(const std::vector<Any>& params,
+    bool record(const std::vector<std::any>& params,
                 const std::string& name = "") override
     {
         return true;
     }
 
-    bool record(const std::vector<Any>& params,
+    bool record(const std::vector<std::any>& params,
                 std::shared_ptr<const Individual> parent,
                 std::shared_ptr<const Individual> offspring,
                 const std::string& name = "") override
     {
         // only one param
-        auto param = any_cast<Object>(params.front());
+        auto param = std::any_cast<Object>(params.front());
         auto result = std::find_if(valued_objects_.begin(),
                                    valued_objects_.end(),
                                    [&param](const ValuedObject& object) {

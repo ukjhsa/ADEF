@@ -4,10 +4,10 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <any>
 #include <algorithm>
 #include "BaseFunction.h"
 #include "cm/ControlledObject.h"
-#include "Any.h"
 
 namespace adef {
 
@@ -98,7 +98,7 @@ its configuration should be
 */
     virtual Object generate() = 0;
 
-    virtual bool record(const std::vector<Any>& params,
+    virtual bool record(const std::vector<std::any>& params,
                         const std::string& name = "") override
     {
         auto func = BaseFunction::get_function(name);
@@ -108,7 +108,7 @@ its configuration should be
         }
     }
 
-    virtual bool record(const std::vector<Any>& params,
+    virtual bool record(const std::vector<std::any>& params,
                         std::shared_ptr<const Individual> parent,
                         std::shared_ptr<const Individual> offspring,
                         const std::string& name = "") override

@@ -94,7 +94,7 @@ set_target_properties(libadef PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINA
                                          RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 
 set_target_properties(libadef PROPERTIES OUTPUT_NAME adef
-                                         CXX_STANDARD 14
+                                         CXX_STANDARD 17
                                          CXX_STANDARD_REQUIRED ON)
 
 # libadef needs to include json

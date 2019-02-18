@@ -1,9 +1,9 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <any>
 #include "cm/cf/func/SdeFFunction.h"
 #include "cm/ControlledObject.h"
-#include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
 #include "Individual.h"
@@ -30,11 +30,11 @@ SdeFFunction::Object SdeFFunction::generate()
     return parameters_.at(0) + get_function("rand")->generate() * diff;
 }
 
-bool SdeFFunction::record(const std::vector<Any>& params, const std::string & name)
+bool SdeFFunction::record(const std::vector<std::any>& params, const std::string & name)
 {
     if (params.size() == parameters_.size()) {
         for (decltype(params.size()) idx = 0; idx < params.size(); ++idx) {
-            parameters_.at(idx) = any_cast<Object>(params.at(idx));
+            parameters_.at(idx) = std::any_cast<Object>(params.at(idx));
         }
     }
     else {
@@ -43,7 +43,7 @@ bool SdeFFunction::record(const std::vector<Any>& params, const std::string & na
     return true;
 }
 
-bool SdeFFunction::record(const std::vector<Any>& params, std::shared_ptr<const Individual> parent, std::shared_ptr<const Individual> offspring, const std::string & name)
+bool SdeFFunction::record(const std::vector<std::any>& params, std::shared_ptr<const Individual> parent, std::shared_ptr<const Individual> offspring, const std::string & name)
 {
     return record(params, name);
 }

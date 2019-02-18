@@ -1,8 +1,8 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <any>
 #include "cm/cf/func/WeightedAverageFunction.h"
-#include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
 #include "Individual.h"
@@ -25,17 +25,17 @@ WeightedAverageFunction::Object WeightedAverageFunction::generate()
     return weighted_average_;
 }
 
-bool WeightedAverageFunction::record(const std::vector<Any>& params, const std::string & name)
+bool WeightedAverageFunction::record(const std::vector<std::any>& params, const std::string & name)
 {
     return true;
 }
 
-bool WeightedAverageFunction::record(const std::vector<Any>& params, std::shared_ptr<const Individual> parent, std::shared_ptr<const Individual> offspring, const std::string & name)
+bool WeightedAverageFunction::record(const std::vector<std::any>& params, std::shared_ptr<const Individual> parent, std::shared_ptr<const Individual> offspring, const std::string & name)
 {
     auto& valued_object = valued_objects_.at(valued_object_counter_);
 
     // only one param
-    valued_object.object_ = CO::create(any_cast<Object>(params.front()));
+    valued_object.object_ = CO::create(std::any_cast<Object>(params.front()));
 
     valued_object.score_ =
         scoring_function_->calculate_score(parent, offspring);
