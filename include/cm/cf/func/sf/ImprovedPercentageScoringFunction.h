@@ -3,11 +3,12 @@
 
 #include <memory>
 #include "ScoringFunction.h"
-#include "Configuration.h"
-#include "PrototypeManager.h"
-#include "Individual.h"
 
 namespace adef {
+
+class Configuration;
+class PrototypeManager;
+class Individual;
 
 /**
 @brief ImprovedPercentageScoringFunction calculates the score by
@@ -45,15 +46,10 @@ its configuration should be
 @endcode
 .
 */
-    void setup(const Configuration& config, const PrototypeManager& pm) override
-    {
-    }
+    void setup(const Configuration& config, const PrototypeManager& pm) override;
 
     Score calculate_score(std::shared_ptr<const Individual> parent,
-                          std::shared_ptr<const Individual> offspring) const override
-    {
-        return parent->fitness() - offspring->fitness();
-    }
+                          std::shared_ptr<const Individual> offspring) const override;
 
 private:
 

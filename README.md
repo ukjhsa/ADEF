@@ -38,18 +38,17 @@ Variable Representations
 - real encoding
 
 ## Requirements
-- [CMake](https://cmake.org/) 3.1 or the newer.
-- C++ compiler with C++14 supported.
+- [CMake](https://cmake.org/) 3.8.2 or the newer.
+- C++ compiler with C++17 supported.
 
 Tested environments:
 - Windows
-    - [TDM-GCC](http://tdm-gcc.tdragon.net/) 32-bit 5.1.0
-    - MSVC 2015 Update 1 (19.0.23506)
+    - MSVC 2017 (19.16.27024)
 - Ubuntu
-    - g++ 5.2.1
-    - clang++ 3.6.2
+    - g++ 7.4.0
+    - clang++ 7.0.1
 - Mac OS X
-    - clang++ 3.5
+	- Xcode 10.2 beta 3
 
 ## Build
 ### Use the terminal
@@ -163,4 +162,4 @@ ADEF is under the [MIT License](LICENSE)
 
 ## third-party library
 ADEF uses the following libraryies:
-- [JSON for Modern C++](https://github.com/nlohmann/json) and its license [here](thirdparty/json/LICENSE.MIT)
+- [JSON for Modern C++](https://github.com/nlohmann/json)

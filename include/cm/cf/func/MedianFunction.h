@@ -4,9 +4,9 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <any>
 #include <algorithm>
 #include "GatherInfoFunction.h"
-#include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
 #include "cm/ControlledObject.h"
@@ -89,12 +89,12 @@ its configuration should be
         return median_;
     }
 
-    bool record(const std::vector<Any>& params,
+    bool record(const std::vector<std::any>& params,
                 const std::string& name = "") override
     {
         for (auto&& param : params) {
 
-            storage_.at(storage_counter_) = any_cast<Object>(param);
+            storage_.at(storage_counter_) = std::any_cast<Object>(param);
             storage_counter_++;
             if (storage_counter_ >= storage_size_) {
                 storage_counter_ = 0;
@@ -104,7 +104,7 @@ its configuration should be
         return true;
     }
 
-    bool record(const std::vector<Any>& params,
+    bool record(const std::vector<std::any>& params,
                 std::shared_ptr<const Individual> parent,
                 std::shared_ptr<const Individual> offspring,
                 const std::string& name = "") override

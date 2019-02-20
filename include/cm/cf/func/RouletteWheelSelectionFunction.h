@@ -9,11 +9,12 @@
 #include <cmath>
 #include <limits>
 #include <stdexcept>
+#include <any>
 #include <algorithm>
 #include "ScoredFunction.h"
-#include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
+#include "Random.h"
 #include "Individual.h"
 
 namespace adef {
@@ -47,7 +48,7 @@ RouletteWheelSelectionFunction has extra configurations:
 .
 See setup() for the details.
 */
-template<typename T, typename G = std::mt19937>
+template<typename T>
 class RouletteWheelSelectionFunction : public ScoredFunction<T>
 {
 public:
@@ -64,7 +65,7 @@ public:
 The default value of the maximum of score size is 0.
 */
     RouletteWheelSelectionFunction() :
-        generator_(1), score_size_(0)
+        score_size_(0)
     {
     }
 /**
@@ -72,7 +73,7 @@ The default value of the maximum of score size is 0.
 @param seed The seed value of the pseudo-random number generator.
 */
     RouletteWheelSelectionFunction(unsigned int seed) :
-        generator_(seed), score_size_(0)
+        score_size_(0)
     {
     }
 /**
@@ -80,7 +81,6 @@ The default value of the maximum of score size is 0.
 */
     RouletteWheelSelectionFunction(const RouletteWheelSelectionFunction& rhs) :
         ScoredFunction<T>(rhs),
-        generator_(std::rand()),
         score_size_(rhs.score_size_),
         valued_objects_(rhs.valued_objects_)
     {
@@ -185,13 +185,13 @@ its configuration should be
         if (std::abs(sum_score) < std::numeric_limits<Score>::epsilon()) {
 
             std::uniform_int_distribution<> uniform(0, valued_objects_.size() -1);
-            unsigned int index = uniform(generator_);
+            unsigned int index = BaseFunction::random_->generate(uniform);
             return valued_objects_.at(index).object_.object;
         }
         else {
 
             std::uniform_real_distribution<Score> uniform(0, sum_score);
-            Score rnd = uniform(generator_);
+            Score rnd = BaseFunction::random_->generate(uniform);
 
             Score cumulative_weight = 0;
             for (auto& valued_object : valued_objects_) {
@@ -207,19 +207,19 @@ its configuration should be
         }
     }
 
-    bool record(const std::vector<Any>& params,
+    bool record(const std::vector<std::any>& params,
                 const std::string& name = "") override
     {
         return true;
     }
 
-    bool record(const std::vector<Any>& params,
+    bool record(const std::vector<std::any>& params,
                 std::shared_ptr<const Individual> parent,
                 std::shared_ptr<const Individual> offspring,
                 const std::string& name = "") override
     {
         // only one param
-        auto param = any_cast<Object>(params.front());
+        auto param = std::any_cast<Object>(params.front());
         auto result = std::find_if(valued_objects_.begin(),
                                    valued_objects_.end(),
                                    [&param](const ValuedObject& object) {
@@ -260,11 +260,6 @@ its configuration should be
     }
 
 private:
-
-/// The type of the pseudo-random number generator.
-    using Generator = G;
-/// The pseudo-random number generator.
-    Generator generator_;
 
 /// The size of score
     unsigned int score_size_;

@@ -2,14 +2,13 @@
 #define QUARTIC_FUNCTION_WITH_NOISE_H
 
 #include <memory>
-#include <string>
-#include <random>
 #include "Problem.h"
-#include "Configuration.h"
-#include "PrototypeManager.h"
-#include "Individual.h"
 
 namespace adef {
+
+class Configuration;
+class PrototypeManager;
+class Individual;
 
 /**
 @brief QuarticFunctionWithNoise function.
@@ -64,37 +63,9 @@ its configuration should be
 @endcode
 .
 */
-    void setup(const Configuration& config, const PrototypeManager& pm) override
-    {
-        problem_kind_ = MIN;
+    void setup(const Configuration& config, const PrototypeManager& pm) override;
 
-        auto dim_ds_config = config.get_config("dimension_of_decision_space");
-        dimension_of_decision_space_ = dim_ds_config.is_null() ?
-                                        30 : dim_ds_config.get_uint_value();
-
-        boundaries_of_decision_space_.resize(dimension_of_decision_space_,
-                                             Boundary(-1.28, 1.28));
-
-        dimension_of_objective_space_ = 1;
-
-        optimal_solution_ = 0.0;
-    }
-
-    void evaluation_function(std::shared_ptr<Individual> individual) const override
-    {
-        Object sum = 0.0;
-        for (unsigned int idx = 0; idx < dimension_of_decision_space_; ++idx) {
-
-            Object temp = individual->variables(idx);
-            sum += (idx + 1.0) * temp * temp * temp * temp;
-        }
-        std::mt19937 gen(std::rand());
-        std::uniform_real_distribution<> uniform(0.0, 1.0);
-        sum += uniform(gen);
-
-        individual->objectives() = sum;
-        individual->set_fitness_value(sum);
-    }
+    void evaluation_function(std::shared_ptr<Individual> individual) const override;
 
 private:
 

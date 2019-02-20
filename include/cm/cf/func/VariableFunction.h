@@ -4,9 +4,9 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <any>
 #include "Function.h"
 #include "cm/ControlledObject.h"
-#include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
 #include "Individual.h"
@@ -115,14 +115,14 @@ its configuration should be
         return object_.object;
     }
 
-    bool record(const std::vector<Any>& params,
+    bool record(const std::vector<std::any>& params,
                 const std::string& name = "") override
     {
-        object_.object = any_cast<Object>(params.front());
+        object_.object = std::any_cast<Object>(params.front());
         return true;
     }
 
-    bool record(const std::vector<Any>& params,
+    bool record(const std::vector<std::any>& params,
                 std::shared_ptr<const Individual> parent,
                 std::shared_ptr<const Individual> offspring,
                 const std::string& name = "") override

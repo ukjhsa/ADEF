@@ -7,6 +7,7 @@
 
 namespace adef {
 
+class Random;
 class ExperimentalStatistics;
 class Repository;
 class Configuration;
@@ -88,6 +89,12 @@ After finishing all of runs, it output the statistics of entire runs.
 */
     virtual void run();
 /**
+@brief Return the random mechanism.
+*/
+    std::shared_ptr<const Random> random() const {
+        return random_;
+    }
+/**
 @brief Return the statistics.
 */
     std::shared_ptr<const ExperimentalStatistics> statistics() const {
@@ -108,6 +115,10 @@ protected:
 @brief The number of runs.
 */
     unsigned int number_of_runs_;
+/**
+@brief The random mechanism on current experiment.
+*/
+    std::shared_ptr<Random> random_;
 /**
 @brief The statistics on the experimental level.
 */

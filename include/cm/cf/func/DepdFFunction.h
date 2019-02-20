@@ -2,17 +2,12 @@
 #define DEPD_F_FUNCTION_H
 
 #include <memory>
-#include <vector>
-#include <string>
-#include <cmath>
-#include <limits>
 #include "Function.h"
-#include "Any.h"
-#include "Configuration.h"
-#include "PrototypeManager.h"
-#include "Individual.h"
 
 namespace adef {
+
+class Configuration;
+class PrototypeManager;
 
 /**
 @brief DepdFFunction generates numbers according to
@@ -94,62 +89,13 @@ its configuration should be
 @endcode
 .
 */
-    void setup(const Configuration& config, const PrototypeManager& pm) override
-    {
-        auto min_config = config.get_config("min");
-        auto min = make_and_setup_type<BaseFunction>(min_config, pm);
-        min->set_function_name("min");
-        add_function(min);
+    void setup(const Configuration& config, const PrototypeManager& pm) override;
 
-        auto max_config = config.get_config("max");
-        auto max = make_and_setup_type<BaseFunction>(max_config, pm);
-        max->set_function_name("max");
-        add_function(max);
+    Object generate() override;
 
-        auto lower_bound_config = config.get_config("lower_bound");
-        auto lower_bound = make_and_setup_type<BaseFunction>(lower_bound_config, pm);
-        lower_bound->set_function_name("lower_bound");
-        add_function(lower_bound);
+    void update() override;
 
-        min_ = 0;
-        max_ = 0;
-        lower_bound_ = 0.0;
-    }
-
-    Object generate() override
-    {
-        // avoid min_ equal to zero
-        if (std::abs(min_) < std::numeric_limits<Object>::epsilon()) {
-            min_ = std::numeric_limits<Object>::epsilon();
-        }
-
-        if (std::abs(max_/min_) < 1) {
-            return std::max(lower_bound_, 1 - std::abs(max_/min_));
-        }
-        else {
-            return std::max(lower_bound_, 1 - std::abs(min_/max_));
-        }
-    }
-
-    void update() override
-    {
-        auto min = get_function("min");
-        min->update();
-        min_ = min->generate();
-
-        auto max = get_function("max");
-        max->update();
-        max_ = max->generate();
-
-        auto lower_bound = get_function("lower_bound");
-        lower_bound->update();
-        lower_bound_ = lower_bound->generate();
-    }
-
-    unsigned int number_of_parameters() const override
-    {
-        return 0;
-    }
+    unsigned int number_of_parameters() const override;
 
 private:
 

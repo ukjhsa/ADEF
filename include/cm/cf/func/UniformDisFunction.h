@@ -6,9 +6,9 @@
 #include <string>
 #include <random>
 #include "Function.h"
-#include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
+#include "Random.h"
 #include "Individual.h"
 
 namespace adef {
@@ -47,7 +47,7 @@ UniformDisFunction has extra configurations:
 .
 See setup() for the details.
 */
-template<typename T, typename G = std::mt19937>
+template<typename T>
 class UniformDisFunction : public Function<T>
 {
     static_assert(std::is_arithmetic<T>::value,
@@ -63,7 +63,7 @@ public:
 The default value of the lower bound is 0, upper bound is 1.
 */
     UniformDisFunction() :
-        generator_(1), lower_bound_(0), upper_bound_(1)
+        lower_bound_(0), upper_bound_(1)
     {
     }
 /**
@@ -71,7 +71,7 @@ The default value of the lower bound is 0, upper bound is 1.
 @param seed The seed value of the pseudo-random number generator.
 */
     UniformDisFunction(unsigned int seed) :
-        generator_(seed), lower_bound_(0), upper_bound_(1)
+        lower_bound_(0), upper_bound_(1)
     {
     }
 /**
@@ -79,7 +79,6 @@ The default value of the lower bound is 0, upper bound is 1.
 */
     UniformDisFunction(const UniformDisFunction& rhs) :
         Function<T>(rhs),
-        generator_(std::rand()),
         lower_bound_(rhs.lower_bound_), upper_bound_(rhs.upper_bound_)
     {
     }
@@ -156,10 +155,6 @@ its configuration should be
 
 private:
 
-/// The type of the pseudo-random number generator.
-    using Generator = G;
-/// The pseudo-random number generator.
-    Generator generator_;
 /// The value of the lower bound.
     Object lower_bound_;
 /// The value of the upper bound.
@@ -172,7 +167,7 @@ private:
         std::enable_if_t<std::is_integral<U>::value>* = nullptr)
     {
         std::uniform_int_distribution<> uniform(lower_bound_, upper_bound_);
-        return uniform(generator_);
+        return BaseFunction::random_->generate(uniform);
     }
 
     template<typename U = Object>
@@ -180,7 +175,7 @@ private:
         std::enable_if_t<std::is_floating_point<U>::value>* = nullptr)
     {
         std::uniform_real_distribution<> uniform(lower_bound_, upper_bound_);
-        return uniform(generator_);
+        return BaseFunction::random_->generate(uniform);
     }
 
     std::shared_ptr<Prototype> clone_impl() const override

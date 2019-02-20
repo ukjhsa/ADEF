@@ -4,13 +4,14 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <any>
 #include "ScoredFunction.h"
-#include "Any.h"
-#include "Configuration.h"
-#include "PrototypeManager.h"
-#include "Individual.h"
 
 namespace adef {
+
+class Configuration;
+class PrototypeManager;
+class Individual;
 
 /**
 @brief WeightedAverageFunction calculates the weighted average value.
@@ -76,71 +77,20 @@ its configuration should be
 @endcode
 .
 */
-    void setup(const Configuration& config, const PrototypeManager& pm) override
-    {
-        ScoredFunction<T>::setup(config, pm);
+    void setup(const Configuration& config, const PrototypeManager& pm) override;
 
-        object_size_ = config.get_uint_value("object_size");
-        valued_objects_.resize(object_size_);
+    Object generate() override;
 
-        valued_object_counter_ = 0;
-        weighted_average_ = config.get_double_value("initial_value");
-    }
+    bool record(const std::vector<std::any>& params, const std::string& name = "") override;
 
-    Object generate() override
-    {
-        return weighted_average_;
-    }
-
-    bool record(const std::vector<Any>& params,
-                const std::string& name = "") override
-    {
-        return true;
-    }
-
-    bool record(const std::vector<Any>& params,
+    bool record(const std::vector<std::any>& params,
                 std::shared_ptr<const Individual> parent,
                 std::shared_ptr<const Individual> offspring,
-                const std::string& name = "") override
-    {
-        auto& valued_object = valued_objects_.at(valued_object_counter_);
+                const std::string& name = "") override;
 
-        // only one param
-        valued_object.object_ = CO::create(any_cast<Object>(params.front()));
+    void update() override;
 
-        valued_object.score_ =
-                scoring_function_->calculate_score(parent, offspring);
-
-        valued_object_counter_++;
-        if (valued_object_counter_ >= object_size_) {
-            valued_object_counter_ = 0;
-        }
-        return true;
-    }
-
-    void update() override
-    {
-        Score sum_score = 0;
-        for (auto&& valued_object : valued_objects_) {
-            sum_score += valued_object.score_;
-        }
-
-        if (sum_score < std::numeric_limits<Score>::epsilon()) {
-            weighted_average_ = 0;
-        }
-        else {
-            weighted_average_ = 0;
-            for (auto&& valued_object : valued_objects_) {
-                weighted_average_ += valued_object.score_ / sum_score *
-                                     valued_object.object_.object;
-            }
-        }
-    }
-
-    unsigned int number_of_parameters() const override
-    {
-        return 1;
-    }
+    unsigned int number_of_parameters() const override;
 
 private:
 

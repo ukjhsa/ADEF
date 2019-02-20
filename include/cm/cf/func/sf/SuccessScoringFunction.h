@@ -3,11 +3,12 @@
 
 #include <memory>
 #include "ScoringFunction.h"
-#include "Configuration.h"
-#include "PrototypeManager.h"
-#include "Individual.h"
 
 namespace adef {
+
+class Configuration;
+class PrototypeManager;
+class Individual;
 
 /**
 @brief SuccessScoringFunction calculates the score by
@@ -45,20 +46,10 @@ its configuration should be
 @endcode
 .
 */
-    void setup(const Configuration& config, const PrototypeManager& pm) override
-    {
-    }
+    void setup(const Configuration& config, const PrototypeManager& pm) override;
 
     Score calculate_score(std::shared_ptr<const Individual> parent,
-                          std::shared_ptr<const Individual> offspring) const override
-    {
-        if (offspring->fitness() < parent->fitness()) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    }
+        std::shared_ptr<const Individual> offspring) const override;
 
 private:
 

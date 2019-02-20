@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.8.2)
 
 project(adef CXX)
 
@@ -30,7 +30,7 @@ if(GENERATE_EXECUTABLE)
     set_target_properties(adef PROPERTIES
                           OUTPUT_NAME adef
                           RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
-                          CXX_STANDARD 14
+                          CXX_STANDARD 17
                           CXX_STANDARD_REQUIRED ON)
 
     # copy the default configuration file

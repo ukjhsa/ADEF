@@ -10,6 +10,7 @@ class Configuration;
 class PrototypeManager;
 class Repository;
 class Individual;
+class Random;
 class DEVariantX;
 class DEVariantY;
 class BaseControlMechanism;
@@ -107,6 +108,8 @@ private:
                                        unsigned int max_range) const;
 
 private:
+
+    std::shared_ptr<Random> random_;
 
 /**
 @brief The DE variant @e x.

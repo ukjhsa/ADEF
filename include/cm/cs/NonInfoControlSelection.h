@@ -3,13 +3,14 @@
 
 #include <memory>
 #include "ControlSelection.h"
-#include "Configuration.h"
-#include "PrototypeManager.h"
-#include "Repository.h"
-#include "cm/cp/BaseControlParameter.h"
-#include "cm/cf/func/BaseFunction.h"
 
 namespace adef {
+
+class Configuration;
+class PrototypeManager;
+class Repository;
+class BaseControlParameter;
+class BaseFunction;
 
 /**
 @brief NonInfoControlSelection checks nothing.
@@ -42,15 +43,11 @@ NonInfoControlSelection's configuration should be
 @endcode
 .
 */
-    void setup(const Configuration& config, const PrototypeManager& pm) override
-    {
-    }
+    void setup(const Configuration& config, const PrototypeManager& pm) override;
 
     void select(std::shared_ptr<Repository> repos,
                 std::shared_ptr<BaseControlParameter> parameter,
-                std::shared_ptr<BaseFunction> function) const override
-    {
-    }
+                std::shared_ptr<BaseFunction> function) const override;
 
 private:
 

@@ -8,6 +8,7 @@
 #include "PrototypeManager.h"
 #include "Repository.h"
 #include "Individual.h"
+#include "Random.h"
 
 namespace adef {
 
@@ -64,6 +65,7 @@ void Problem::setup(const Configuration& config, const PrototypeManager& pm)
 
 void Problem::init(std::shared_ptr<Repository> repos)
 {
+    random_ = repos->random();
 }
 
 void Problem::evaluate(std::shared_ptr<Individual> individual) const

@@ -15,6 +15,7 @@
 #include "Mutation.h"
 #include "Crossover.h"
 #include "Repair.h"
+#include "Random.h"
 
 namespace adef {
 
@@ -69,8 +70,10 @@ void Repository::setup(const Configuration& config, const PrototypeManager& pm)
     repair_ = make_and_setup_type<Repair>("Repair", config, pm);
 }
 
-void Repository::init()
+void Repository::init(std::shared_ptr<Random> random)
 {
+    random_ = random;
+
     evolution_->init(shared_from_this());
     problem_->init(shared_from_this());
     statistics_->init(shared_from_this());

@@ -2,13 +2,14 @@
 #define SINGLE_CONTROL_FUNCTION_H
 
 #include <memory>
-#include <cstddef>
 #include "ControlFunction.h"
-#include "Configuration.h"
-#include "PrototypeManager.h"
-#include "func/BaseFunction.h"
 
 namespace adef {
+
+class Configuration;
+class PrototypeManager;
+class Repository;
+class BaseFunction;
 
 /**
 @brief SingleControlFunction manages single function.
@@ -26,11 +27,7 @@ class SingleControlFunction : public ControlFunction
 public:
 
     SingleControlFunction() = default;
-    SingleControlFunction(const SingleControlFunction& rhs) :
-        ControlFunction(rhs),
-        function_(rhs.function_ ? rhs.function_->clone() : nullptr)
-    {
-    }
+    SingleControlFunction(const SingleControlFunction& rhs);
 
 /**
 @brief Clone the current class.
@@ -59,10 +56,9 @@ its configuration should be
 @endcode
 .
 */
-    void setup(const Configuration& config, const PrototypeManager& pm) override
-    {
-        function_ = make_and_setup_type<BaseFunction>("Function", config, pm);
-    }
+    void setup(const Configuration& config, const PrototypeManager& pm) override;
+
+    void init(std::shared_ptr<Repository> repos) override;
 /**
 @copydoc ControlFunction::at()
 
@@ -72,7 +68,6 @@ It ignores @em index because there is only one function.
     {
         return function_;
     }
-
 
 private:
 

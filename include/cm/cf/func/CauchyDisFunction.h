@@ -7,9 +7,9 @@
 #include <cstdlib>
 #include <random>
 #include "Function.h"
-#include "Any.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"
+#include "Random.h"
 #include "Individual.h"
 
 namespace adef {
@@ -45,7 +45,7 @@ CauchyDisFunction has extra configurations:
 .
 See setup() for the details.
 */
-template<typename T = double, typename G = std::mt19937>
+template<typename T = double>
 class CauchyDisFunction : public Function<T>
 {
 public:
@@ -61,7 +61,7 @@ public:
 The default value of location is 0, scale is 1.
 */
     CauchyDisFunction() :
-        generator_(1), location_(0), scale_(1)
+        location_(0), scale_(1)
     {
     }
 /**
@@ -71,7 +71,7 @@ The default value of location is 0, scale is 1.
 The default value of location is 0, scale is 1.
 */
     CauchyDisFunction(unsigned int seed) :
-        generator_(seed), location_(0), scale_(1)
+        location_(0), scale_(1)
     {
     }
 /**
@@ -79,7 +79,6 @@ The default value of location is 0, scale is 1.
 */
     CauchyDisFunction(const CauchyDisFunction& rhs) :
         Function<T>(rhs),
-        generator_(std::rand()),
         location_(rhs.location_), scale_(rhs.scale_)
     {
     }
@@ -136,7 +135,7 @@ its configuration should be
     Object generate() override
     {
         std::cauchy_distribution<Object> cauchy(location_, scale_);
-        return cauchy(generator_);
+        return BaseFunction::random_->generate(cauchy);
     }
 
     void update() override
@@ -156,11 +155,6 @@ its configuration should be
     }
 
 private:
-
-/// The type of the pseudo-random number generator.
-    using Generator = G;
-/// The pseudo-random number generator.
-    Generator generator_;
 
 /// The current value of location.
     Object location_;

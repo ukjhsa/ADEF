@@ -4,12 +4,14 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <any>
 #include "Prototype.h"
-#include "Any.h"
 
 namespace adef {
 
+class Repository;
 class Individual;
+class Random;
 
 /**
 @brief BaseFunction defines interfaces of all Function.
@@ -23,17 +25,8 @@ public:
 /// The type of the list of BaseFunction::BaseFunctionPtr.
     using BaseFunctionPtrList = std::vector<BaseFunctionPtr>;
 
-    BaseFunction() : name_("root"), functions_()
-    {
-    }
-    BaseFunction(const BaseFunction& rhs) : Prototype(rhs), name_(rhs.name_)
-    {
-        functions_.reserve(rhs.functions_.size());
-        for (auto&& func : rhs.functions_) {
-            if (func) { functions_.push_back(func->clone()); }
-            else { functions_.push_back(nullptr); }
-        }
-    }
+    BaseFunction();
+    BaseFunction(const BaseFunction& rhs);
     virtual ~BaseFunction() = default;
 
 /**
@@ -44,6 +37,11 @@ public:
     {
         return std::dynamic_pointer_cast<BaseFunction>(clone_impl());
     }
+/**
+@brief Initialize this state from other states.
+@param repos The Repository to get initialization informations.
+*/
+    virtual void init(std::shared_ptr<Repository> repos);
 
 /**
 @brief Record parameter into the given formula.
@@ -51,7 +49,7 @@ public:
 @param name The name of the child component to be record.
 @return @c true if the record success, otherwise @c false.
 */
-    virtual bool record(const std::vector<Any>& params,
+    virtual bool record(const std::vector<std::any>& params,
                         const std::string& name = "") = 0;
 /**
 @brief Record parameter into the given formula.
@@ -61,7 +59,7 @@ public:
 @param name The name of the child component to be record.
 @return @c true if the record success, otherwise @c false.
 */
-    virtual bool record(const std::vector<Any>& params,
+    virtual bool record(const std::vector<std::any>& params,
                         std::shared_ptr<const Individual> parent,
                         std::shared_ptr<const Individual> offspring,
                         const std::string& name = "") = 0;
@@ -86,38 +84,17 @@ Update states in order to the next call for generate().
 /**
 @brief Add a component into the current composite.
 */
-    void add_function(BaseFunctionPtr function)
-    {
-        functions_.push_back(function);
-    }
+    void add_function(BaseFunctionPtr function);
 /**
 @brief Return the component of the current composite by its name.
 @param name The name of the component.
 @return The component to get or @c nullptr if no found.
 */
-    BaseFunctionPtr get_function(const std::string& name) const
-    {
-        auto it = std::find_if(
-                    functions_.begin(),
-                    functions_.end(),
-                    [&](const BaseFunctionPtr& target) {
-                        if (target->function_name() == name) { return true; }
-                        else { return false; }
-                    });
-        if (it != functions_.end()) {
-            return *it;
-        }
-        else {
-            return nullptr;
-        }
-    }
+    BaseFunctionPtr get_function(const std::string& name) const;
 /**
 @brief Return all components of the current composite.
 */
-    BaseFunctionPtrList get_all_functions() const
-    {
-        return functions_;
-    }
+    BaseFunctionPtrList get_all_functions() const;
 
 protected:
 
@@ -125,6 +102,8 @@ protected:
     std::string name_;
 /// The list of contained Function.
     BaseFunctionPtrList functions_;
+
+    std::shared_ptr<Random> random_;
 
 private:
 
