@@ -185,13 +185,13 @@ its configuration should be
         if (std::abs(sum_score) < std::numeric_limits<Score>::epsilon()) {
 
             std::uniform_int_distribution<> uniform(0, valued_objects_.size() -1);
-            unsigned int index = random_->generate(uniform);
+            unsigned int index = BaseFunction::random_->generate(uniform);
             return valued_objects_.at(index).object_.object;
         }
         else {
 
             std::uniform_real_distribution<Score> uniform(0, sum_score);
-            Score rnd = random_->generate(uniform);
+            Score rnd = BaseFunction::random_->generate(uniform);
 
             Score cumulative_weight = 0;
             for (auto& valued_object : valued_objects_) {

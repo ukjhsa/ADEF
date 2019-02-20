@@ -135,7 +135,7 @@ its configuration should be
     Object generate() override
     {
         std::cauchy_distribution<Object> cauchy(location_, scale_);
-        return random_->generate(cauchy);
+        return BaseFunction::random_->generate(cauchy);
     }
 
     void update() override

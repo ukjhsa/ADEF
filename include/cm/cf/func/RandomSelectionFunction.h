@@ -144,7 +144,7 @@ its configuration should be
     {
         static std::uniform_int_distribution<unsigned int>
             uniform(0, objects_.size() -1);
-        auto index = random_->generate(uniform);
+        auto index = BaseFunction::random_->generate(uniform);
 
         return objects_.at(index).object;
     }

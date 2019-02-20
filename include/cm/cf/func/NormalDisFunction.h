@@ -131,7 +131,7 @@ its configuration should be
     Object generate() override
     {
         std::normal_distribution<Object> normal(mean_, stddev_);
-        return random_->generate(normal);
+        return BaseFunction::random_->generate(normal);
     }
 
     void update() override

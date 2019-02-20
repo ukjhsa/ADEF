@@ -167,7 +167,7 @@ private:
         std::enable_if_t<std::is_integral<U>::value>* = nullptr)
     {
         std::uniform_int_distribution<> uniform(lower_bound_, upper_bound_);
-        return random_->generate(uniform);
+        return BaseFunction::random_->generate(uniform);
     }
 
     template<typename U = Object>
@@ -175,7 +175,7 @@ private:
         std::enable_if_t<std::is_floating_point<U>::value>* = nullptr)
     {
         std::uniform_real_distribution<> uniform(lower_bound_, upper_bound_);
-        return random_->generate(uniform);
+        return BaseFunction::random_->generate(uniform);
     }
 
     std::shared_ptr<Prototype> clone_impl() const override
