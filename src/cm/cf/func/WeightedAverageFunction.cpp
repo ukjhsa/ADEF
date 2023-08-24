@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <any>
+#include <limits>
 #include "cm/cf/func/WeightedAverageFunction.h"
 #include "Configuration.h"
 #include "PrototypeManager.h"

@@ -1,6 +1,6 @@
 # ADEF
 
-[![Build](https://travis-ci.org/ukjhsa/adef.svg?branch=develop)](https://travis-ci.org/ukjhsa/adef)
+![Build](https://github.com/ukjhsa/adef/actions/workflows/cmake-multi-platform.yml/badge.svg?branch=develop)
 [![API Documentation](https://img.shields.io/badge/docs-doxygen-blue.svg)](http://ukjhsa.github.io/adef)
 [![Documentation](https://img.shields.io/badge/doc-Markdown-blue.svg)](doc/documentation.md)
 [![Releases](https://img.shields.io/github/release/ukjhsa/adef.svg)](https://github.com/ukjhsa/adef/releases)
